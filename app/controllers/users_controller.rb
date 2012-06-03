@@ -2,10 +2,6 @@ class UsersController < ApplicationController
 
   before_filter :signed_in_user, only: [:jobs]
   before_filter :admin_user, only: [:index]
-
-  def new
-  end
-
   
   def index
     @users = User.all
