@@ -1,0 +1,82 @@
+<%= form_for(@job, :html => { :class => "form-horizontal" } ) do |f| %>
+    <% if @job.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@job.errors.count, "error") %> prohibited this job from being saved:</h2>
+
+            <ul>
+            <% @job.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+      <fieldset>
+        <legend>Details</legend>
+
+        <div class="control-group">
+            <%= f.label :title, "Job Title", class: "control-label" %>
+            <div class="controls">
+              <%= f.text_field :title, class: "input-xlarge" %>
+            </div>
+        </div>
+
+        <div class="control-group">
+            <%= f.label :description, class: "control-label" %>
+            <div class="controls">
+              <%= f.text_area :description, :rows => 3, class: "input-xlarge" %>
+            </div>
+        </div>
+
+            <div class="control-group">
+                <%= f.label :status, class: "control-label" %>
+                <div class="controls">
+                  <%= f.select(:status, Job::STATUS) %>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <%= f.label :availability, class: "control-label" %>
+                <div class="controls">
+                  <%= f.select(:availability, Job::AVAILABILITY) %>
+                </div>
+            </div>
+
+            <div class="control-group">
+              <%= f.label :compensation, class: "control-label" %>
+              <div class="controls">
+                <%= f.text_field :compensation, class: "input-xlarge" %>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <%= f.label :start_date, class: "control-label" %>
+              <div class="controls">
+                <%= f.date_select :start_date %>
+              </div>
+            </div>
+
+            <div class="control-group">
+                <%= f.label :organization_id, "Organization", class: "control-label" %>
+                <div class="controls">
+                  <%= f.collection_select :organization_id, current_user.current_organizations, :id, :name %>
+                  <p class="help-block"> Which of your organizations is this job associated with ? </p>
+                </div>
+            </div>    
+        
+
+        <div class="control-group">
+          <%= f.label :sectors, class: "control-label" %>
+          <div class="controls">
+            <%= select_tag("sector_ids[]", options_for_select(Sector.find(:all).collect { |sec| [sec.description, sec.id] }, @job.sectors.collect { |sec| sec.id}), {:multiple=>true, :size=>6})%>
+              </div>
+        </div>
+
+
+        <div class="form-actions">
+            <%= f.submit "Post Job", class: "btn btn-primary" %>
+            <button class="btn" type="reset">Reset</button>
+        </div>
+
+      </fieldset>
+  <% end %>

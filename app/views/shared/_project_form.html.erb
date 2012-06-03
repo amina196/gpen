@@ -1,0 +1,52 @@
+<%= form_for(@project) do |f| %>
+
+  <%if current_user.current_organizations.any? %>
+  Post project on behalf of:
+  <%= f.collection_select :organization_id, current_user.current_organizations, :id, :name %>
+  <%end%>
+
+  <div class="field">
+    <%= f.label :sector_id %><br />
+    <%= f.collection_select :sector_id, Sector.all, :id, :description%>
+  </div>
+  <div class="field">
+    <%= f.label :proj_time %><br />
+     <%= f.select(:proj_time, Project::PROJ_TIME) %>
+  </div>
+  <div class="field">
+    <%= f.label :proj_desc %><br />
+    <%= f.text_field :proj_desc, placeholder: "What is the task about ?" %>
+  </div>
+  <div class="field">
+    <%= f.label :address %><br />
+    <%= f.text_field :address %>
+  </div>
+  <div class="field">
+    <%= f.label :city %><br />
+    <%= f.text_field :city %>
+  </div>
+  <div class="field">
+    <%= f.label :state %><br />
+    <%= f.text_field :state %>
+  </div>
+  <div class="field">
+    <%= f.label :zip %><br />
+    <%= f.text_field :zip %>
+  </div>
+  <div class="field">
+    <%= f.label :nb_people_needed %><br />
+    <%= f.number_field :nb_people_needed %>
+  </div>
+  <div class="field">
+    <%= f.label :min_age %><br />
+    <%= f.text_field :min_age %>
+  </div>
+  <div class="field">
+    <%= f.label :start_date %><br />
+    <%= f.date_select :start_date %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+
+<% end %>

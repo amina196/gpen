@@ -1,0 +1,33 @@
+<table class="table table-striped">
+        <thead>
+          <tr>
+            <th>User Name</th>
+            <th>User Email</th>
+            <% if current_user.admin? %>
+              <th>Get rid of him ?</th>
+            <% end %>
+          </tr>
+        </thead>
+        
+        <tbody>
+          <% if @jobs.any? %>
+        	
+
+          	<% @jobs.each do |job| %>
+            <tr>
+              <td><%= job.title %></td>
+              <td><%= job.organization.name %></td>
+            </tr>
+          <% end %>
+
+
+
+
+    	<% end %>      
+        </tbody>
+      
+</table>
+
+
+
+

@@ -1,0 +1,33 @@
+<h1>Listing searchonprojects</h1>
+
+<table>
+  <tr>
+    <th>City</th>
+    <th>State</th>
+    <th>Zip</th>
+    <th>Title</th>
+    <th>New</th>
+    <th>Show</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @searchonprojects.each do |searchonproject| %>
+  <tr>
+    <td><%= searchonproject.city %></td>
+    <td><%= searchonproject.state %></td>
+    <td><%= searchonproject.zip %></td>
+    <td><%= searchonproject.title %></td>
+    <td><%= searchonproject.new %></td>
+    <td><%= searchonproject.show %></td>
+    <td><%= link_to 'Show', searchonproject %></td>
+    <td><%= link_to 'Edit', edit_searchonproject_path(searchonproject) %></td>
+    <td><%= link_to 'Destroy', searchonproject, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Searchonproject', new_searchonproject_path %>

@@ -1,0 +1,267 @@
+
+      <div class="row">
+        
+        <div class="span9">
+          <div class="hero-unit">
+            <h1>Welcome to the GPEN Database</h1>
+            <h2>Powered by <%= link_to "PhillyEcoCity", "http://www.phillyecocity.com" %></h2>
+            <p>The GPEN Databases are an Internet resource for Environmental and Sustainability related Organizations, "Green" Jobs and "Green" Volunteer Opportunities in the Greater Philadelphia region.</p>
+            <p><a href="<%= about_path %>" class="btn btn-success btn-large">Learn more &raquo;</a></p>
+          </div>
+        </div><!--/span-->
+        <div class="span3">
+        	<div class="well">
+		  		
+
+            <% if signed_in? %>
+
+              <h6>Logged in as:</h6>
+              <h3><%= current_user.fname %> <%= current_user.lname %></h3>
+              
+              <%= link_to "Sign Out", signout_path, method: "delete", class: "btn btn-signup" %>
+
+
+            <% else %>
+              <h6>Member Login</h6>
+               <%= form_for(:session, :url => sessions_path) do |f| %>
+
+
+                  <%= f.text_field :email, class: "login-field", placeholder: "Email" %>
+                  <%= f.password_field :password, class: "login-field", placeholder: "Password" %>
+                  <label class="checkbox">
+                    <input type="checkbox"> Remember me
+                  </label>
+
+
+                    <%= f.submit "Sign In", class: "btn btn-primary" %>
+
+              <% end %>
+
+
+
+               <hr>
+               <h6>Not a Member?</h6>
+               <a class="modal-btn btn btn-signup" data-toggle="modal" href="#signup-modal" >Sign Up, It's Free!</a>
+            <% end %>
+
+
+          
+			</div> <!--/well-->
+        </div><!--/span-->
+      </div><!--/row-->
+      <div class="row">
+            <div class="span4">
+              <h2><%= link_to "Green Organizations", organizations_path, :title => "Browse All Green Organizations", :rel => "tooltip" %></h2>
+              <p>The GPEN Organization Database is a key resource for everyone looking to connect to Environmental and Sustainability related non-profits or for profit Organizations in the Greater Philadelphia area. If your Organization or Company is not already in the GPEN Database, please create an entry for it. You must create an entry for your for profit or not for profit organization in the GPEN Organization database before being able to post a Green Job.</p>
+                <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                          <th>Latest Organizations</th>
+                        </tr>
+                      </thead>
+                    <tbody>
+
+
+                      <% @latest_orgs.each do |organization| %>
+                        <tr>
+                          <td>
+                            <h4><%= link_to(organization.name, organization, :class => "home-org-popover", :rel => "popover", "data-original-title" => organization.name, "data-content" => organization.description) %></h4>
+
+                            <p>Joined <%= time_ago_in_words(organization.created_at) %> ago</p>
+
+                          </td>
+                        </tr>
+                      <% end %>
+
+                      
+
+                    </tbody>
+                  </table>
+            </div><!--/span-->
+            <div class="span4">
+              <h2><%= link_to "Green Jobs", jobs_path, :title => "Browse All Green Jobs", :rel => "tooltip" %></h2>
+              <p>The GPEN Jobs Database on PhillyEcoCity is the place to post your Green Jobs or to search for available Green Jobs in the Philadelphia Metropolitan area. To post a green job for your profit or not for profit organization you must first create an entry in the Organization GPEN Database.</p>
+              <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                          <th>Latest Jobs</th>
+                        </tr>
+                      </thead>
+                    <tbody>
+
+
+                      <% @latest_jobs.each do |job| %>
+                        <tr>
+                          <td>
+                            <h4><%= link_to(job.title, job, :class => "home-org-popover", :rel => "popover", "data-original-title" => job.title, "data-content" => job.description) %></h4>
+
+                            <p>Posted <%= time_ago_in_words(job.created_at) %> ago</p>
+
+                          </td>
+                        </tr>
+                      <% end %>
+
+                      
+
+                    </tbody>
+                  </table>
+
+
+            </div><!--/span-->
+            <div class="span4">
+              <h2><%= link_to "Green Projects", projects_path, :title => "Browse All Green Projects", :rel => "tooltip" %></h2>
+              <p>The GPEN Project Database on PhillyEcocity is the place to advertise your Organization's volunteer days or post the workday projects you are yourself organizing. Anyone can post a volunteering opportunity or a workday project. If you represent an organization, please login to your Organization account first. If you represent yourself or your group of neighbors or friends, start by creating a profile for yourself in the GPEN Database.</p>
+              <table class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                          <th>Latest Projects</th>
+
+                        </tr>
+
+      
+                      </thead>
+                    <tbody>
+
+
+                      <% @latest_projects.each do |project| %>
+                        <tr>
+                          <td>
+                            <h4><%= link_to(project.title, project, :class => "home-org-popover", :rel => "popover", "data-original-title" => project.title, "data-content" => project.proj_desc) %></h4>
+
+                            <p>Posted <%= time_ago_in_words(project.created_at) %> ago</p>
+
+                          </td>
+                        </tr>
+                      <% end %>
+
+                      
+
+                    </tbody>
+                  </table>
+            </div><!--/span-->
+       </div><!--/row-->
+
+
+<% if !signed_in? %>
+<div id="signup-modal" class="modal hide fade">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal" >&times;</a>
+      <h3>Sign Up for a New Account</h3>
+    </div>
+    <div class="modal-body">
+      <%= form_for(@user, :html => { :class => "form-horizontal" } ) do |f| %>
+        <fieldset>
+          <div class="control-group">
+            <%= f.label :fname, "First Name", class: "control-label" %>
+            <div class="controls">
+              <%= f.text_field :fname, class: "input-xlarge" %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <%= f.label :lname, "Last Name", class: "control-label" %>
+            <div class="controls">
+              <%= f.text_field :lname, class: "input-xlarge" %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <%= f.label :email, class: "control-label" %>
+            <div class="controls">
+              <%= f.text_field :email, class: "input-xlarge" %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <%= f.label :phone, class: "control-label" %>
+            <div class="controls">
+              <%= f.text_field :phone, class: "input-xlarge" %>
+            </div>
+          </div>
+
+
+          <div class="control-group">
+            <%= f.label :birth_date, class: "control-label" %>
+            <div class="controls">
+              <%= date_select 'user', "birth_date", {:start_year => Date.today.year-100, :end_year => Date.today.year}, {class: "span1"} %>
+            </div>
+          </div>
+
+          <div class="control-group">
+          <%= f.label :bio, class: "control-label" %>
+          <div class="controls">
+            <%= f.text_area :bio, :rows => 3, class: "input-xlarge" %>
+                <p class="help-block">Tell us about yourself: who are you and what are your passions? What are you involved with in Philadelphia?</p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :website, class: "control-label" %>
+          <div class="controls">
+            <div class="input-prepend">
+                <span class="add-on">http://</span><%= f.text_field :website, class: "span2" %>
+              </div>
+              <p class="help-block">Please omit the http://</p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :facebook, class: "control-label" %>
+          <div class="controls">
+            
+            
+            <div class="input-prepend">
+                <span class="add-on">facebook.com/</span><%= f.text_field :facebook,class: "span2", placeholder: "Facebook Handle" %>
+              </div>
+              <p class="help-block">Please only type in your profile name for Facebook, not the entire URL.</p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :twitter, class: "control-label" %>
+          <div class="controls">
+            <div class="input-prepend">
+                <span class="add-on">twitter.com/</span><%= f.text_field :twitter,class: "span2", placeholder: "Twitter Handle" %>
+              </div>
+            <p class="help-block">Please only type in your profile name for Twitter, not the entire URL.</p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :linkedin, class: "control-label" %>
+          <div class="controls">
+            
+
+            <div class="input-prepend">
+                <span class="add-on">linkedin.com/in/</span><%= f.text_field :linkedin,class: "span2", placeholder: "LinkedIn Handle" %>
+              </div>
+            <p class="help-block">Please only type in your profile name for LinkedIn, not the entire URL.</p>
+          </div>
+        </div>
+
+
+          <div class="control-group">
+            <%= f.label :password, class: "control-label" %>
+            <div class="controls">
+              <%= f.password_field :password, class: "input-xlarge" %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <%= f.label :password_confirmation, "Confirmation", class: "control-label" %>
+            <div class="controls">
+              <%= f.password_field :password_confirmation, class: "input-xlarge" %>
+            </div>
+          </div>
+        </fieldset>
+      
+    </div>
+    <div class="modal-footer">
+      <%= f.submit "Create an Account", class: "btn btn-primary" %>
+      <a href="#" class="btn" data-dismiss="modal">Close</a>
+      
+      
+    </div>
+    <% end %>
+  </div>
+<% end %>

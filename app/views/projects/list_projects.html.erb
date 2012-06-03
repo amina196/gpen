@@ -1,0 +1,90 @@
+<ul class="breadcrumb">
+        <li>
+          <a href="#">Home</a> <span class="divider">/</span>
+        </li>
+        <li>
+          <a href="#">Organizations</a> <span class="divider">/</span>
+        </li>
+        <li class="active">Search for '<%= @searchtext %>'</li>
+      </ul>
+
+<div class="row-fluid">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            
+            <ul class="nav nav-list">
+              <h3>Filters</h3>
+              <li class="nav-header">By County</li>
+              <li><a href="#">Bucks</a></li>
+              <li><a href="#">Chester</a></li>
+              <li><a href="#">Delaware</a></li>
+              <li class="active"><a href="#">Montgomery</a></li>
+              <li><a href="#">Philadelphia</a></li>
+              <li class="active"><a href="#">Harrisburg</a></li>
+              <li class="nav-header">By Type</li>
+              <li><a href="#">Transportation</a></li>
+              <li><a href="#">Energy</a></li>
+              <li><a href="#">Housing</a></li>
+              <li><a href="#">Food</a></li>
+              <li><a href="#">Healthcare</a></li>
+              <li><a href="#">Waste Management</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+
+
+        <div class="span9">
+          <h1>Search for "<%= @searchtext %>"</h1>
+          <h6>filters</h6>
+          <span class="label label-info">Mongomery</span> <span class="label label-info">Harrisburg</span>
+          <hr>
+          <div class="row-fluid">
+            <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Logo</th>
+            <th>Title</th>
+            <th>Contact</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+          <%unless  @projectsearched.nil?%>
+            <%  @projectsearched.each do |proj| %>
+                <tr>
+                    <td><%= link_to image_tag("biz-logo.jpg", :size => "100x100", :class => "org-logo"), '#' %></td>
+                    <td><%= proj.title %></td>
+                    <td><address>
+                      <%= proj.address %><br>
+                      <%= proj.city %>, <%= proj.state %> <%= proj.zip %><br>
+                        </address>
+                    </td>
+                    <td>
+                      <%= link_to 'View', proj, :class => "btn btn-small btn-success" %>
+                    </td>
+                </tr>
+            <% end %>
+          <% end %>
+
+        </tbody>
+      </table>
+
+      <div class="pagination">
+  <ul>
+    <li><a href="#">Prev</a></li>
+    <li class="active">
+      <a href="#">1</a>
+    </li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+    <li><a href="#">5</a></li>
+    <li><a href="#">6</a></li>
+    <li><a href="#">7</a></li>
+    <li><a href="#">8</a></li>
+    <li><a href="#">Next</a></li>
+  </ul>
+</div>
+          </div><!--/row-->
+        </div><!--/span-->
+      </div><!--/row-->

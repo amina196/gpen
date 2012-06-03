@@ -1,0 +1,129 @@
+<%= form_for(@user, :html => { :class => "form-horizontal" } ) do |f| %>
+    
+
+
+    <% if @user.errors.any? %>
+
+
+      <div class="alert alert-error">
+        <h4 class="alert-heading"><%= pluralize(@user.errors.count, "error") %> prohibited your profile from being saved:</h4>
+
+        <ul>
+        <% @user.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+        </ul>
+      </div>
+
+
+    <% end %>
+
+    <fieldset>
+      <div class="control-group">
+        <%= f.label :fname, "First Name", class: "control-label" %>
+        <div class="controls">
+          <%= f.text_field :fname, class: "input-xlarge" %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :lname, "Last Name", class: "control-label" %>
+        <div class="controls">
+          <%= f.text_field :lname, class: "input-xlarge" %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :email, class: "control-label" %>
+        <div class="controls">
+          <%= f.text_field :email, class: "input-xlarge" %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :phone, class: "control-label" %>
+        <div class="controls">
+          <%= f.text_field :phone, class: "input-xlarge" %>
+        </div>
+      </div>
+
+
+      <div class="control-group">
+            <%= f.label :birth_date, "Birth Date", class: "control-label" %>
+            <div class="controls">
+              <%= date_select 'user', "birth_date", {:start_year => Date.today.year-100, :end_year => Date.today.year}, {class: "span1"} %>
+            </div>
+          </div>
+
+      <div class="control-group">
+          <%= f.label :bio, class: "control-label" %>
+          <div class="controls">
+            <%= f.text_area :bio, :rows => 3, class: "input-xlarge" %>
+                <p class="help-block">Tell us about yourself: who are you and what are your passions? What are you involved with in Philadelphia?</p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :website, class: "control-label" %>
+          <div class="controls">
+            <div class="input-prepend">
+                <span class="add-on">http://</span><%= f.text_field :website, class: "input-xlarge" %>
+              </div>
+              <p class="help-block">Please omit the http://</p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :facebook, class: "control-label" %>
+          <div class="controls">
+            
+            
+            <div class="input-prepend">
+                <span class="add-on">facebook.com/</span><%= f.text_field :facebook,class: "input-xlarge", placeholder: "Facebook Handle" %>
+              </div>
+              <p class="help-block">Please only type in your profile name for Facebook, not the entire URL.</p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :twitter, class: "control-label" %>
+          <div class="controls">
+            <div class="input-prepend">
+                <span class="add-on">twitter.com/</span><%= f.text_field :twitter,class: "input-xlarge", placeholder: "Twitter Handle" %>
+              </div>
+            <p class="help-block">Please only type in your profile name for Twitter, not the entire URL.</p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :linkedin, class: "control-label" %>
+          <div class="controls">
+            
+
+            <div class="input-prepend">
+                <span class="add-on">linkedin.com/in/</span><%= f.text_field :linkedin,class: "input-xlarge", placeholder: "LinkedIn Handle" %>
+              </div>
+            <p class="help-block">Please only type in your profile name for LinkedIn, not the entire URL.</p>
+          </div>
+        </div>
+
+      <div class="control-group">
+        <%= f.label :password, class: "control-label" %>
+        <div class="controls">
+          <%= f.password_field :password, class: "input-xlarge" %>
+        </div>
+      </div>
+
+      <div class="control-group">
+        <%= f.label :password_confirmation, "Confirmation", class: "control-label" %>
+        <div class="controls">
+          <%= f.password_field :password_confirmation, class: "input-xlarge" %>
+        </div>
+      </div>
+
+      <div class="form-actions">
+          <%= f.submit "Create Profile", class: "btn btn-primary" %>
+          <button class="btn" type="reset">Reset</button>
+      </div>
+    </fieldset>
+<% end %>

@@ -1,0 +1,26 @@
+<ul class="breadcrumb">
+			  <li>
+			    <a href="<%= root_path %>">Home</a> <span class="divider">/</span>
+			  </li>
+			  <li>
+			    <%= link_to 'Organizations', organizations_path %> <span class="divider">/</span>
+			  </li>
+			  <li class="active">Create Organization</li>
+			</ul>
+			
+      <div class="row">
+         <div class="span12">
+        	
+
+        	<div class="hero-unit">
+            <h1>Create New Organization</h1>
+            <p>We always love to see a new green organization or business. Fill out the details below to get listed!</p>
+          </div>
+
+          <%= render 'form' %>
+
+        </div><!--/span-->
+
+      </div><!--/row-->
+
+

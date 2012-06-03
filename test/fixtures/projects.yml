@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  sector_id: 1
+  proj_time: MyString
+  proj_desc: MyString
+  address: MyString
+  city: MyString
+  state: MyString
+  zip: MyString
+  nb_people_needed: 1
+  min_age: MyString
+  start_date: 2012-04-11
+  user_id: 1
+
+two:
+  sector_id: 1
+  proj_time: MyString
+  proj_desc: MyString
+  address: MyString
+  city: MyString
+  state: MyString
+  zip: MyString
+  nb_people_needed: 1
+  min_age: MyString
+  start_date: 2012-04-11
+  user_id: 1

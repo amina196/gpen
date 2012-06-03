@@ -1,0 +1,131 @@
+      <ul class="breadcrumb">
+        <li>
+          <a href="<%= root_path %>">Home</a> <span class="divider">/</span>
+        </li>
+        <li>
+          <%= link_to @job.organization.name, @job.organization %> <span class="divider">/</span>
+        </li>
+        <li>
+          <a href="<%= jobs_path %>">Jobs</a> <span class="divider">/</span>
+        </li>
+        <li class="active"><%= @job.title %></li>
+      </ul>
+
+<div class="row">
+   <div class="span3">
+    <div class="well">
+      <h3><%= link_to @job.organization.name, @job.organization %></h3>
+
+      <br>
+      <h6>Posted</h6>
+      <p><%= time_ago_in_words(@job.organization.created_at) %> ago</p>
+
+      <% if @job.organization.users.any? %>
+        <h6><%=pluralize(@job.organization.users.count, "Admin")%></h6>
+        <p>
+        <% @job.organization.users.each do |admin| %>
+          <%= link_to admin.fname + " " + admin.lname, admin %> </br>
+        <% end %>
+        </p>
+      <% end %>
+
+
+      <h6>Contact Info</h6>
+          <address>
+        <%= @job.organization.address %><br>
+        <% unless @job.organization.address2.nil? %>
+          <%= @job.organization.address2 %><br>  
+        <% end %>
+        
+        <%= @job.organization.city %>, <%= @job.organization.state %> <%= @job.organization.zip %><br>
+        <abbr title="Phone">P:</abbr> <%= @job.organization.phone %><br>
+        <abbr title="Email">E:</abbr> <%= @job.organization.email %><br>
+        <abbr title="Website">W:</abbr> 
+
+        <%= link_to truncate(@job.organization.website, :length => 25, :omission => '...'), @job.organization.website, :title => @job.organization.website %>
+        </address>
+
+        
+      <% if !@job.organization.twitter.nil?  && !@job.organization.twitter.empty? %>
+        <%= link_to image_tag("icon-twitter.png", :class => "social-icon"), 'http://www.twitter.com/'+@user.twitter, :title => "Follow #{@job.organization.name} on Twitter", :rel => "tooltip" %>
+      <% end %>
+      <% if !@job.organization.facebook.nil? && !@job.organization.facebook.empty? %>
+        <%= link_to image_tag("icon-facebook.png", :class => "social-icon"), 'http://www.facebook.com/'+@user.facebook, :title => "Follow #{@job.organization.name} on Facebook", :rel => "tooltip" %>
+      <% end %>
+      <% if !@job.organization.linkedin.nil? && !@job.organization.linkedin.empty? %>
+        <%= link_to image_tag("icon-linkedin.png", :class => "social-icon"), 'http://www.linkedin.com/in/'+@user.linkedin, :title => "Follow #{@job.organization.name} on LinkedIn", :rel => "tooltip" %>
+      <% end %>
+
+      <div class="clear"></div>
+
+      <% if signed_in? && current_user.admin_of(@job.organization) %>
+      <hr>
+      <div class="btn-group">
+        <button class="btn btn-primary">Admin Actions</button>
+        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+        <ul class="dropdown-menu">
+          <li><%= link_to 'Edit Job', edit_job_path(@job) %></li>
+          <li class="divider"></li>
+          
+          <li><%= link_to 'Destroy', @job, confirm: 'Are you sure?', method: :delete %></li>
+
+        </ul>
+      </div>
+      <% end %>
+
+    </div> <!--/well-->
+  </div><!--/span-->
+  <div class="span9">
+
+    <div class="row">
+      <div class="span9">
+        <div class="hero-unit">
+          
+          <h3>Job ID #<%= @job.id %></h3>
+          <hr>
+          <h6>Title</h6>
+          <p><%= @job.title %></p>
+
+
+          <h6>Description</h6>
+          <p><%= @job.description %></p>
+
+          <% if @job.sectors.any? %>  
+            <h6>Sector</h6>
+            <p>
+              <% @job.sectors.each do |sec| %>
+                <span class="label label-success"><%= sec.description %></span>
+              <%end%>
+            </p>
+          <% end %> 
+          <h6>Status</h6>
+          <p><%= @job.status %></p>
+          <h6>Availability</h6>
+          <p><%= @job.availability %></p>
+          <% unless @job.start_date.nil? %>
+            <h6>Start Date</h6>
+            <p><%= @job.start_date.strftime("%B %d, %Y")%>
+          <% end %>
+          <% unless @job.compensation.nil? %>
+            <h6>Compensation</h6>
+            <p><%= @job.compensation %>
+          <% end %>
+          <h6>Posted</h6>
+          <p><%= @job.created_at %></p>
+          <h6>Updated</h6>
+          <p><%= @job.updated_at %></p>
+          <hr>
+          <%= render 'apply_form' if signed_in? %>
+          <%= button_to "Back to #{@job.organization.name}", organization_path(@job.organization), :class => "btn btn-large", :method => "get" %></td>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div><!--/span-->
+
+</div><!--/row-->
+
+
+

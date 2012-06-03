@@ -1,0 +1,28 @@
+
+<ul class="breadcrumb">
+  <li>
+    <a href="<%= root_path %>">Home</a> <span class="divider">/</span>
+  </li>
+  <li>
+    <%= link_to 'Jobs', jobs_path %> <span class="divider">/</span>
+  </li>
+  <li class="active">Post Job</li>
+</ul>
+			
+      <div class="row">
+         <div class="span12">
+        	
+
+        	<div class="hero-unit">
+            <h1>Post New Job</h1>
+            <p>Post a job on behalf of your organization here.</p>
+          </div>
+          <%= render 'form' %>
+
+        </div><!--/span-->
+
+      </div><!--/row-->
+
+
+
+

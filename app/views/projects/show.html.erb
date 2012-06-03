@@ -1,0 +1,128 @@
+
+    <ul class="breadcrumb">
+        <li>
+          <a href="<%= root_path %>">Home</a> <span class="divider">/</span>
+        </li>
+        <li>
+          <a href="<%= projects_path %>">Projects</a> <span class="divider">/</span>
+        </li>
+        <li class="active"><%= @project.title %></li>
+      </ul>
+
+      <div class="row">
+         <div class="span3">
+          <div class="alert alert-info fade in">
+            <a class="close" data-dismiss="alert">×</a>
+              <h4 class="alert-heading">More People Needed!</h4>
+              <p>This project has <%= @project.users.count%> of <%= @project.nb_people_needed%> people so far.</p>
+              
+
+              <p><div class="progress progress-success progress-striped active">
+                <% percent_attendance = number_to_percentage(((@project.users.count*100) / @project.nb_people_needed), options = {:precision => 0}) %>
+                <div class="bar" style="width: <%= percent_attendance %>"></div></div></p>              
+                        
+          </div>
+          <div class="well">
+            <h6>Posted By</h6>
+            <p><%= link_to @project.user.fname + " " + @project.user.lname, @project.user %></p>
+
+            <!-- This block only displays if the project is affiliated with an organization -->
+            <% if !@project.organization_id.nil? %>
+            <h6>Proj organization:</h6>
+              <p>
+                <%= @project.organization.name %>
+              </p>
+            <% end %>
+            <!-- END -->
+
+            <h6>Posted</h6><p><%= time_ago_in_words(@project.created_at) %> ago</p>
+
+
+              <h6>People Coming (<%= @project.users.count%>)</h6>
+            
+
+                  <% if @project.users.any? %>
+                    <% @project.projectenrollments.each do |pe| %>
+                    <%= link_to pe.user.fname + " " + pe.user.lname, pe.user %><br>
+                    <% end %>
+                  <% end %> 
+                
+
+              <br>
+              <h6>People Needed</h6>
+              <p><%= @project.nb_people_needed %></p>
+                
+
+            <% if signed_in? && current_user.proj_admin(@project) %>
+              <hr>
+              <div class="btn-group">
+                <button class="btn btn-primary">Admin Actions</button>
+                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><%= link_to 'Edit Project', edit_project_path(@project) %></li>
+                  <li class="divider"></li>
+                  
+                  <li><a href="#">Delete Project</a></li>
+                </ul>
+              </div>
+            <% end %>
+
+          </div> <!--/well-->
+        </div><!--/span-->
+        <div class="span9">
+          
+          <div class="row">
+            <div class="span9">
+              <div class="hero-unit">
+                
+                <h1><%= @project.title %></h1><br>
+                <p><%= @project.start_date.strftime("%B %d, %Y") + " during " unless @project.start_date.nil? %><%= @project.proj_time %></p>
+
+
+
+                <hr>
+
+                <% if !@project.organization.nil? %>
+                <h6>Project Sponsor</h6>
+                <p><%= @project.organization.name %></p>
+                <% end %>
+
+                <h6>Description</h6>
+                <p><%= @project.proj_desc %></p>
+
+                <% if @project.sectors.any? %>
+                <h6>Sectors</h6>
+                <p>
+                  <% @project.sectors.each do |sector| %>
+                    <span class="label label-success"><%=sector.description%></span>
+                  <% end %>
+                </p>
+                <% end %>
+
+                <h6>Minimum Age</h6>
+                <p><%= @project.min_age %></p>
+                
+                <h6>Address</h6>
+                
+                <p>
+                    <%= @project.address %><br>
+                    <%= @project.city %>, <%= @project.state %> <%= @project.zip %><br>
+                </p>
+                <hr>
+
+                <% if signed_in? %>
+                <%= render 'volunteer_form' %>
+                <% end %>
+                
+                <%= link_to 'Back to Projects', projects_path, class: "btn btn-large" %>
+
+                
+
+              </div>
+
+            </div>
+          </div>
+
+        </div><!--/span-->
+
+      </div><!--/row-->

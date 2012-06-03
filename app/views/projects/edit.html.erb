@@ -1,0 +1,14 @@
+<ul class="breadcrumb">
+        <li>
+          <a href="<%= root_path %>">Home</a> <span class="divider">/</span>
+        </li>
+        <li>
+          <%= link_to @project.title, @project %> <span class="divider">/</span>
+        </li>
+        <li class="active">Edit Project</li>
+      </ul>
+
+<h1>Edit Project</h1>
+<hr>
+
+<%= render 'form' %>

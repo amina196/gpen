@@ -1,0 +1,14 @@
+<ul class="breadcrumb">
+        <li>
+          <a href="<%= root_path %>">Home</a> <span class="divider">/</span>
+        </li>
+        <li>
+          <%= link_to "Profile", @user %> <span class="divider">/</span>
+        </li>
+        <li class="active">Edit My Profile</li>
+      </ul>
+
+<h1>Edit My Profile</h1>
+<hr>
+
+<%= render 'form' %>

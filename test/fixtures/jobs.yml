@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  title: 
+  description: 
+  status: 
+  availability: MyString
+  organization: 
+
+two:
+  title: 
+  description: 
+  status: 
+  availability: MyString
+  organization: 

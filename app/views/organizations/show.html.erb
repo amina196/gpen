@@ -1,0 +1,161 @@
+    <ul class="breadcrumb">
+        <li>
+          <a href="<%= root_path %>">Home</a> <span class="divider">/</span>
+        </li>
+        <li>
+          <a href="<%= organizations_path %>">Organizations</a> <span class="divider">/</span>
+        </li>
+        <li class="active"><%= @organization.name %></li>
+      </ul>
+
+
+      <div class="row">
+         <div class="span3">
+          <div class="well">
+          <h3><%= @organization.name %></h3>
+
+          <br>
+          <h6>Joined</h6>
+          <p><%= time_ago_in_words(@organization.created_at) %> ago</p>
+
+          <% if @organization.users.any? %>
+            <h6><%=pluralize(@organization.users.count, "Admin")%></h6>
+            <p>
+            <% @organization.users.each do |admin| %>
+              <%= link_to admin.fname + " " + admin.lname, admin %> </br>
+            <% end %>
+            </p>
+          <% end %>
+
+
+        <h6>Contact Info</h6>
+          <address>
+        <%= @organization.address %><br>
+        <% unless @organization.address2.nil? %>
+          <%= @organization.address2 %><br>  
+        <% end %>
+        
+        <%= @organization.city %>, <%= @organization.state %> <%= @organization.zip %><br>
+        <abbr title="Phone">P:</abbr> <%= @organization.phone %><br>
+        <abbr title="Email">E:</abbr> <%= @organization.email %><br>
+        <abbr title="Website">W:</abbr> 
+
+        <%= link_to truncate(@organization.website, :length => 25, :omission => '...'), @organization.website, :title => @organization.website %>
+        </address>
+
+        
+
+            <% if !@organization.twitter.nil? && !@organization.twitter.empty? %>
+            <%= link_to image_tag("icon-twitter.png", :class => "social-icon"), 'http://www.twitter.com/'+@organization.twitter, :title => "Follow #{@organization.name} on Twitter", :rel => "tooltip" %>
+            <% end %>
+            <% if !@organization.facebook.nil? && !@organization.facebook.empty? %>
+            <%= link_to image_tag("icon-facebook.png", :class => "social-icon"), 'http://www.facebook.com/'+@organization.facebook, :title => "Follow #{@organization.name} on Facebook", :rel => "tooltip" %>
+            <% end %>
+            <% if !@organization.linkedin.nil? && !@organization.linkedin.empty? %>
+            <%= link_to image_tag("icon-linkedin.png", :class => "social-icon"), 'http://www.linkedin.com/company/'+@organization.linkedin, :title => "Follow #{@organization.name} on LinkedIn", :rel => "tooltip" %>
+            <% end %>
+
+          <hr>
+
+        <% if signed_in? && current_user.admin_of(@organization) %>
+          <div class="btn-group">
+            <button class="btn btn-primary">Admin Actions</button>
+            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+            <ul class="dropdown-menu">
+              <li><a href="#">Change Admin</a></li>
+              <li><%= link_to 'Edit Organization', edit_organization_path(@organization) %></li>
+              <li><%= link_to "Post New Job", new_job_path %></li>
+              <li><%= link_to "Post New Project", new_project_path %></li>
+              <li class="divider"></li>              
+              <li><a href="#">Delete Organization</a></li>
+            </ul>
+          </div>
+        <% end %>
+
+      </div> <!--/well-->
+        </div><!--/span-->
+        <div class="span9">
+
+          <div class="row">
+            <div class="span9">
+              <div class="hero-unit">
+                <h6>About <%= @organization.name %></h6>
+
+                
+                <p><%= @organization.description %></p>
+
+                <% if @organization.sectors.any? %>
+                <h6>Sectors</h6>
+                
+                  <% @sectors.each do |sec| %>
+                    <span class="label label-success"><%=sec.description%></span>
+                  <% end %>
+                
+                <% end %>
+
+              </div>
+            </div>
+          </div>
+          <div class="row">
+
+            <div class="span5">
+              <h2>Posted Jobs</h2>
+              <% if signed_in? && current_user.admin_of(@organization) %>
+                <p><%= link_to "Post New Job", new_job_path %></p>
+              <% end %>
+              <table class="table table-striped">
+                  <tbody>
+                    <%if @jobs.any? %>
+                      <% @jobs.each do |job| %>
+                        <tr>
+                          <td>
+                            <h4><%= link_to(job.title, job, :class => "home-org-popover", :rel => "popover", "data-original-title" => job.title, "data-content" => job.description) %></h4>
+                            <p>Joined <%= time_ago_in_words(job.created_at) %> ago</p>
+                          </td>
+                      </tr>
+                      <% end %>
+                    <% else %>
+                      <tr>
+                          <td>
+                            <h4>No jobs posted.</h4>
+                          </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+            </div>
+
+            <div class="span4">
+              <h2>Posted Projects</h2>
+              <% if signed_in? && current_user.admin_of(@organization) %>
+                <p><%= link_to "Post New Project", new_project_path %></p>
+              <% end %>
+              <table class="table table-striped">
+                  <tbody>
+                    <%if @projects.any? %>
+                      <% @projects.each do |project| %>
+                        <tr>
+                          <td>
+                            <h4><%= link_to(project.title, project, :class => "home-org-popover", :rel => "popover", "data-original-title" => project.title, "data-content" => project.proj_desc) %></h4>
+                            <p>Joined <%= time_ago_in_words(project.created_at) %> ago</p>
+                          </td>
+                      </tr>
+                      <% end %>
+                    <% else %>
+                      <tr>
+                          <td>
+                            <h4>No projects posted.</h4>
+                          </td>
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+            </div>
+
+          </div>
+        </div><!--/span-->
+
+      </div><!--/row-->
+
+
+

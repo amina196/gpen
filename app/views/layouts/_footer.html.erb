@@ -1,0 +1,106 @@
+<footer class="footer">
+  <small>
+    &copy; PhillyEcoCity
+  </small>
+  <nav>
+    <ul>
+      <li><%= link_to "About",   about_path %></li>
+    </ul>
+  </nav>
+</footer>
+
+
+
+
+<% if !signed_in? %>
+<div id="signin-modal" class="modal hide fade">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal" >&times;</a>
+      <h3>Sign In to Your Account</h3>
+    </div>
+    <div class="modal-body">
+      <%= form_for(:session, :url => sessions_path, :html => { :class => "form-horizontal" } ) do |f| %>
+            <fieldset>
+              <div class="control-group">
+                <%= f.label :email, class: "control-label" %>
+                <div class="controls">
+                  <%= f.text_field :email, class: "input-xlarge" %>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <%= f.label :password, class: "control-label" %>
+                <div class="controls">
+                  <%= f.password_field :password, class: "input-xlarge" %>
+                </div>
+              </div>
+
+            </fieldset>
+  </div>
+  <div class="modal-footer">
+      <%= f.submit "Sign In", class: "btn btn-primary" %>
+      <a href="#" class="btn" data-dismiss="modal">Close</a> 
+  </div>
+  <% end %>
+</div>
+<% end %>
+
+
+<div id="job-apply-modal" class="modal hide fade">
+    <div class="modal-header">
+      <a class="close" data-dismiss="modal" >&times;</a>
+      <h3>Apply to Job</h3>
+    </div>
+    <div class="modal-body">
+      <form class="form-horizontal">
+            <fieldset>
+              <div class="control-group">
+                <label class="control-label" for="disabledInput">Job Title</label>
+                <div class="controls">
+                  <input class="input-xlarge disabled" id="disabledInput" type="text" placeholder="Solar Panel Installer" disabled="">
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label class="control-label" for="disabledInput">Organization Name</label>
+                <div class="controls">
+                  <input class="input-xlarge disabled" id="disabledInput" type="text" placeholder="EcoConsulting Firm" disabled="">
+                </div>
+              </div>
+
+
+              <div class="control-group">
+                <label class="control-label" for="cover">Cover Letter</label>
+                <div class="controls">
+                  <textarea class="input-xlarge" cols="40" id="cover" name="cover" rows="6"></textarea>
+                  <p class="help-block">Describe the purpose and vision of your organization.</p>
+                </div>
+              </div>
+
+              <div class="control-group">
+                <label class="control-label" for="resume">Resume</label>
+                <div class="controls">
+                  <textarea class="input-xlarge" cols="40" id="resume" name="resume" rows="6"></textarea>
+                  <p class="help-block">Please paste in a plain-text version of your resume, with any relevant experience.</p>
+                </div>
+              </div>
+
+              <div class="control-group">
+            <label class="control-label" for="optionsCheckbox"></label>
+            <div class="controls">
+              <label class="checkbox">
+                <input type="checkbox" id="optionsCheckbox" value="option1">
+                Send me a copy
+              </label>
+            </div>
+          </div>
+
+            </fieldset>
+  </form>
+
+  </div>
+  <div class="modal-footer">
+      <%= link_to "Send Application", "#", class: "btn btn-primary" %>
+      <a href="#" class="btn" data-dismiss="modal">Close</a> 
+  </div>
+</div>

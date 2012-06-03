@@ -1,0 +1,119 @@
+      <ul class="breadcrumb">
+        <li>
+          <a href="<%= root_path %>">Home</a> <span class="divider">/</span>
+        </li>
+        <li class="active">Projects</li>
+      </ul>
+
+
+
+
+
+<div class="row">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            
+            <ul class="nav nav-list" id="search_filters">
+              <h3>Filters</h3>
+              <li class="nav-header">By County</li>
+              <li><a href="#">Bucks</a></li>
+              <li><a href="#">Chester</a></li>
+              <li><a href="#">Delaware</a></li>
+              <li><a href="#">Montgomery</a></li>
+              <li><a href="#">Philadelphia</a></li>
+              <li><a href="#">Harrisburg</a></li>
+              <li class="nav-header">By Type</li>
+              <li><a href="#">Transportation</a></li>
+              <li><a href="#">Energy</a></li>
+              <li><a href="#">Housing</a></li>
+              <li><a href="#">Food</a></li>
+              <li><a href="#">Healthcare</a></li>
+              <li><a href="#">Waste Management</a></li>
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
+          <div class="hero-unit">
+            <h1>Green Projects</h1>
+            <p>Post a volunteer opportunity run by yourself or an organization for which you are an admin.</p>
+
+
+              <%= form_tag projects_path, method: 'get' do %>
+                  <p> 
+                      <%= text_field_tag :search, params[:search], class: "big-search-query"%>
+                      <%= submit_tag "Search", name: nil, class: "btn btn-primary btn-big-search pull-right" %>
+                  </p>
+              <% end %>
+
+              
+              <% if signed_in?%><%= link_to 'Post New Project', new_project_path %><% end %>
+          </div>
+
+
+
+
+                <h6>Latest Projects</h6>
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Title</th>
+                <th>Location</th>
+                <th>Time</th>
+                <th>Posted By</th>
+                <th>Link</th>
+              </tr>
+            </thead>
+            <tbody>
+
+
+              <% @projects.reverse.each do |project| %>
+                <tr>
+                  <td>
+                    
+                  <h4><%= link_to(project.title, project, :class => "org-popover", :rel => "popover", "data-original-title" => project.title, "data-content" => project.proj_desc) %></h4>
+                  <p><%= truncate(project.proj_desc, :length => 200, :omission => '...') %></p>
+                  </td>
+                  <td>
+                    <address>
+                      <%= project.address %><br>
+                      <%= project.city %>, <%= project.state %> <%= project.zip %><br>
+                    </address>
+                  </td>
+                  <td><%= project.proj_time %></td>
+
+                  <td><% if project.organization_id.nil? %> <%= link_to project.user.fname + " " + project.user.lname, project.user %> <% else %> <%= link_to project.organization.name, project.organization %><% end %> </td>
+                  
+                  
+
+                  
+                  <td>
+                    <%= link_to 'View', project, class: "btn btn-small btn-success" %>
+                    
+                  </td>
+                </tr>
+          <% end %>
+          
+        </tbody>
+      </table>
+
+      <div class="pagination">
+        <ul>
+          <li><a href="#">Prev</a></li>
+          <li class="active">
+            <a href="#">1</a>
+          </li>
+          <li><a href="#">2</a></li>
+          <li><a href="#">3</a></li>
+          <li><a href="#">4</a></li>
+          <li><a href="#">5</a></li>
+          <li><a href="#">6</a></li>
+          <li><a href="#">7</a></li>
+          <li><a href="#">8</a></li>
+          <li><a href="#">Next</a></li>
+        </ul>
+      </div>
+
+
+
+        </div><!--/span-->
+      </div><!--/row-->

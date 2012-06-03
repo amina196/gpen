@@ -1,0 +1,114 @@
+<%= form_for(@project, :html => { :class => "form-horizontal" } ) do |f| %>
+    <% if @project.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@project.errors.count, "error") %> prohibited this project from being saved:</h2>
+
+          <ul>
+          <% @project.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+    <% end %>
+
+      <fieldset>
+        <legend>Details</legend>
+
+        <div class="control-group">
+          <%= f.label :title, "Project Title", class: "control-label" %>
+          <div class="controls">
+            <%= f.text_field :title, class: "input-xlarge" %>
+          </div>
+        </div>
+
+       
+            <%if current_user.current_organizations.any? %>
+
+        <div class="control-group">
+              <%= f.label :organization_id, "Organization", class: "control-label" %>
+              <div class="controls">
+                <%= f.collection_select :organization_id, current_user.current_organizations, :id, :name, options ={:prompt => "--none--"} %>
+                <p class="help-block">Optionally post this project on behalf of an organization.</p>
+              </div>
+            </div>
+        <%end%>
+
+        <div class="control-group">
+          <%= f.label :proj_desc, "Project Description", class: "control-label" %>
+          <div class="controls">
+            <%= f.text_area :proj_desc, :rows => 3, class: "input-xlarge" %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :sectors, class: "control-label" %>
+          <div class="controls">
+            <%= select_tag("sector_ids[]", options_for_select(Sector.find(:all).collect { |sec| [sec.description, sec.id] }, @project.sectors.collect { |sec| sec.id}), {:multiple=>true, :size=>6})%>
+              </div>
+        </div>
+
+        <div class="control-group">
+              <%= f.label :proj_time, "Time", class: "control-label" %>
+              <div class="controls">
+                <%= f.select(:proj_time, Project::PROJ_TIME) %>
+              </div>
+            </div>
+
+        <div class="control-group">
+          <%= f.label :nb_people_needed, "Number People Needed", class: "control-label" %>
+          <div class="controls">
+            <%= f.number_field :nb_people_needed, class: "input-xlarge" %>
+          </div>
+        </div>
+
+         <div class="control-group">
+          <%= f.label :min_age, "Minimum Age", class: "control-label" %>
+          <div class="controls">
+            <%= f.text_field :min_age, class: "input-xlarge" %>
+          </div>
+        </div>
+
+      <div class="control-group">
+              <%= f.label :start_date, "Start Date", class: "control-label" %>
+              <div class="controls">
+                <%= f.date_select :start_date %>
+              </div>
+            </div>
+
+        <legend>Location</legend>
+
+            <div class="control-group">
+          <%= f.label :address, "Address", class: "control-label" %>
+          <div class="controls">
+            <%= f.text_field :address, class: "input-xlarge" %>
+          </div>
+        </div>
+        
+        <div class="control-group">
+          <%= f.label :city, class: "control-label" %>
+          <div class="controls">
+            <%= f.text_field :city, class: "input-xlarge" %>
+          </div>
+        </div>
+
+          <div class="control-group">
+              <%= f.label :state, class: "control-label" %>
+              <div class="controls">
+                <%= f.text_field :state, class: "input-xlarge" %>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <%= f.label :zip, class: "control-label" %>
+              <div class="controls">
+                <%= f.text_field :zip, class: "input-xlarge" %>
+              </div>
+            </div>
+            
+
+        <div class="form-actions">
+          <%= f.submit "Post Project", class: "btn btn-primary" %>
+          <button class="btn" type="reset">Reset</button>
+        </div>
+      </fieldset>
+    <% end %>

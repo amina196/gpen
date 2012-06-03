@@ -1,0 +1,121 @@
+      <ul class="breadcrumb">
+        <li>
+          <a href="<%= root_path %>">Home</a> <span class="divider">/</span>
+        </li>
+        <li>
+          <%= link_to "Organizations", organizations_path %> <span class="divider">/</span>
+        </li>
+        <li class="active">Search for '<%= @searchtext %>'</li>
+      </ul>
+
+<div class="row">
+        <div class="span3">
+          <div class="well sidebar-nav">
+            
+            <ul class="nav nav-list" id="search_filters">
+              <h3>Filters</h3>
+              <li class="nav-header">By Sector</li>
+
+              <% @sectors.each do |sector| %>
+
+                <li <% if (@filters_id == sector.id.to_s)%> class="active" <% end %>>
+                  <a href="#" id="<%= sector.id %>"><%= sector.description %></a>
+                </li>
+
+              <% end %>
+
+
+            </ul>
+          </div><!--/.well -->
+        </div><!--/span-->
+        <div class="span9">
+          <div class="hero-unit">
+
+
+            <% if @searchtext.nil? %>
+            <h1>Green Organizations</h1>
+
+            <p>We are proud to say that we have 1,019 (and counting!) green organizations listed on our website. Use the filters to the left or the search bar below to find organizations.</p>
+            <% else %>
+            <h2>Organization Results <small>for '<%= @searchtext %>'</small></h2>
+            
+
+
+            <h6>filters</h6>
+            <span class="label label-info"><%= @filters %></span> <span class="label label-info">ID <%= @filters_id %></span>
+            <% end %>
+
+            <%= form_tag organizations_path, method: 'get', :id => 'search_orgs', class: 'form-search form-big-search' do%>
+              <p>
+                  <%= text_field_tag :search, params[:search], class: 'big-search-query' %>
+                  <%= hidden_field_tag :filters, params[:filters], class: 'big-search-query' %>
+                  <%= hidden_field_tag :filters_id, params[:filters_id], class: 'big-search-query' %>
+                  <%= submit_tag "Search", class: 'btn btn-primary btn-big-search pull-right', name: 'nil'%>
+              </p>
+            <% end %>
+
+
+            <!--
+            <form class="form-search form-big-search">
+              <input type="text" class="big-search-query">
+              <button type="submit" class="btn btn-primary btn-big-search pull-right">Search</button>
+            </form>
+            -->
+
+            <% if signed_in?%><%= link_to 'Create New Organization', new_organization_path %><% end %>
+
+          </div>
+
+            <% if @searchtext.nil? %>
+            <h6>Latest Organizations</h6>
+            <% else %>
+            <h6>Search Results</h6>
+
+            <% end %>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th style="width: 60%">Title</th>
+            <th style="width: 30%">Contact</th>
+            <th style="width: 10%">Link</th>
+          </tr>
+        </thead>
+        <tbody>
+
+
+          <% @organizations.reverse.each do |organization| %>
+            <tr>
+              <td>
+                
+              <h4><%= link_to(organization.name, organization, :class => "org-popover", :rel => "popover", "data-original-title" => organization.name, "data-content" => organization.description) %></h4>
+              <p><%= truncate(organization.description, :length => 200, :omission => '...') %></p>
+              </td>
+              <td>
+                <address>
+                  <%= organization.address %><br>
+                  <%= organization.address2 if organization.address2 %>
+                  <%= organization.city %>, <%= organization.state %> <%= organization.zip %><br>
+                  <abbr title="Phone">P:</abbr> <%= organization.phone %><br>
+                </address>
+              </td>
+
+              
+              <td>
+                <%= link_to 'View', organization, class: "btn btn-small btn-success" %>
+                
+              </td>
+            </tr>
+          <% end %>
+          
+        </tbody>
+      </table>
+
+
+
+
+      <%= will_paginate @organizations, :inner_window => 2, :outer_window => 2 %>
+
+
+
+        </div><!--/span-->
+      </div><!--/row-->

@@ -1,0 +1,5 @@
+<%= form_for(current_user.projectenrollments.build(project_id: @project.id)) do |f| %>
+  <div><%= f.hidden_field :project_id %></div>
+  <%= f.submit "Volunteer on Project", :class => "btn btn-large btn-success" %>
+<% end %>
+

@@ -1,0 +1,29 @@
+
+<div class="row-fluid">
+            <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Time</th>
+            <th>Location</th>
+            <th>For</th>
+          </tr>
+        </thead>
+
+        <tbody>  
+           <% if @projects.any? %> 
+              <% @projects.each do |project| %>
+                  <tr>               
+                      <td><%= project.proj_desc %></td>
+                      <td><%= project.proj_time %></td>
+                      <td><%= project.city %></td>
+                      <td><%= project.user.fname %></td>
+                      <td><%= link_to 'Show', project, class: "btn btn-small btn-success" %></td>
+                       <td><%= link_to 'Destroy', project, class: "btn btn-small btn-danger", confirm: 'Are you sure?', method: :delete %></td>
+                  </tr>
+              <% end %>
+          <% end %>
+          
+        </tbody>
+      </table>
+</div>

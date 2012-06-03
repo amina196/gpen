@@ -1,0 +1,153 @@
+<%= form_for(@organization, :html => { :class => "form-horizontal" } ) do |f| %>
+    <% if @organization.errors.any? %>
+        <div class="alert alert-error">
+        <h4 class="alert-heading"><%= pluralize(@organization.errors.count, "error") %> prohibited your profile from being saved:</h4>
+          <ul>
+          <% @organization.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+      <fieldset>
+        <legend>Details</legend>
+        <div class="control-group">
+          <%= f.label :name, class: "control-label" %>
+          <div class="controls">
+            <%= f.text_field :name, class: "input-xlarge" %>
+                <p class="help-block">What is the title or name of your organization?</p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :description, class: "control-label" %>
+          <div class="controls">
+            <%= f.text_area :description, :rows => 3, class: "input-xlarge" %>
+                <p class="help-block">Describe the purpose and vision of your organization.</p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :sectors, class: "control-label" %>
+          <div class="controls">
+            <%= select_tag("sector_ids[]", options_for_select(Sector.find(:all).collect { |sec| [sec.description, sec.id] }, @organization.sectors.collect { |sec| sec.id}), {:multiple=>true, :size=>6})%>
+            <p class="help-block">Please select which sector(s) your organization falls into.</p>
+              </div>
+
+        </div>
+
+        <legend>Location</legend>
+
+            <div class="control-group">
+          <%= f.label :address, "Address Line 1", class: "control-label" %>
+          <div class="controls">
+            <%= f.text_field :address, class: "input-xlarge" %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :address2, "Address Line 2", class: "control-label" %>
+          <div class="controls">
+            <%= f.text_field :address, class: "input-xlarge" %>
+          </div>
+        </div>
+        
+        <div class="control-group">
+          <%= f.label :city, class: "control-label" %>
+          <div class="controls">
+            <%= f.text_field :city, class: "input-xlarge" %>
+          </div>
+        </div>
+
+          <div class="control-group">
+              <%= f.label :state, class: "control-label" %>
+              <div class="controls">
+                <%= f.text_field :state, class: "input-xlarge" %>
+              </div>
+            </div>
+
+            <div class="control-group">
+              <%= f.label :zip, class: "control-label" %>
+              <div class="controls">
+                <%= f.text_field :zip, class: "input-xlarge" %>
+              </div>
+            </div>
+        
+        <legend>Contact Information</legend>
+        <div class="control-group">
+          <%= f.label :phone, class: "control-label" %>
+          <div class="controls">
+            <%= f.text_field :phone, class: "input-xlarge" %>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :email, class: "control-label" %>
+          <div class="controls">
+            <%= f.text_field :email, class: "input-xlarge" %>
+          </div>
+        </div>
+      
+      <div class="control-group">
+          <%= f.label :website, class: "control-label" %>
+          <div class="controls">
+            <div class="input-prepend">
+                <span class="add-on">http://</span><%= f.text_field :website, class: "input-xlarge" %>
+              </div>
+              <p class="help-block">Please omit the http://</p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :facebook, class: "control-label" %>
+          <div class="controls">
+            
+            
+            <div class="input-prepend">
+                <span class="add-on">facebook.com/</span><%= f.text_field :facebook,class: "input-xlarge", placeholder: "Facebook Handle" %>
+              </div>
+              <p class="help-block">Please only type in your profile name for Facebook, not the entire URL.</p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :twitter, class: "control-label" %>
+          <div class="controls">
+            <div class="input-prepend">
+                <span class="add-on">twitter.com/</span><%= f.text_field :twitter,class: "input-xlarge", placeholder: "Twitter Handle" %>
+              </div>
+            <p class="help-block">Please only type in your profile name for Twitter, not the entire URL.</p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :linkedin, class: "control-label" %>
+          <div class="controls">
+            <div class="input-prepend">
+                <span class="add-on">linkedin.com/in/</span><%= f.text_field :linkedin,class: "input-xlarge", placeholder: "LinkedIn Handle" %>
+              </div>
+            <p class="help-block">Please only type in your profile name for LinkedIn, not the entire URL.</p>
+          </div>
+        </div>
+
+       <div class="control-group">
+          <%= f.label :feespaid, "Fees Paid", class: "control-label" %>
+          <div class="controls">
+            <%= f.check_box :feespaid %>
+          </div>
+        </div>
+ 
+      <div class="control-group">
+          <%= f.label :enddate, "End Date", class: "control-label" %>
+          <div class="controls">
+           <%= f.date_select :end_date, :start_year => Date.today.year , :end_year => Date.today.year + 20, :order => [:month, :day, :year], :default => Date.today %>
+          </div>
+        </div>
+
+
+        <div class="form-actions">
+          <%= f.submit "Create Organization", class: "btn btn-primary" %>
+          <button class="btn" type="reset">Reset</button>
+        </div>
+      </fieldset>
+    <% end %>
