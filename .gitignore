@@ -33,7 +33,7 @@ config/database.yml
 *.out
 
 ## added  by Amina : Gemfile.lock
-/Gemfile.lock
+#/Gemfile.lock
 
 ## added by Andrew: schema.rb
 /db/schema.rb
