@@ -1,4 +1,4 @@
 <%= form_for(current_user.jobenrollments.build(job_id: @job.id)) do |f| %>
   <div><%= f.hidden_field :job_id %></div>
-  <%= f.submit "Apply", :class => "btn btn-large btn-success" %>
+  <%= f.submit "Apply & Attach resumé", :class => "btn btn-large btn-success" %>
 <% end %>
