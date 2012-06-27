@@ -23,7 +23,7 @@ db/schema.rb
 ### rules below added by justin so we don't keep getting conflicts
 
 #rails specific
-config/database.yml
+#config/database.yml
 
 ## generic files to ignore
 *~
