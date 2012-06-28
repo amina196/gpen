@@ -35,7 +35,7 @@
             <% if @searchtext.nil? %>
             <h1>Green Organizations</h1>
 
-            <p>We are proud to say that we have 1,019 (and counting!) green organizations listed on our website. Use the filters to the left or the search bar below to find organizations.</p>
+            <p>We are proud to say that we have <%= Organization.all.count %> (and counting!) green organizations listed on our website. Use the filters to the left or the search bar below to find organizations.</p>
             <% else %>
             <h2>Organization Results <small>for '<%= @searchtext %>'</small></h2>
             
