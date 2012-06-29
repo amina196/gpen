@@ -45,7 +45,7 @@
                   <tbody>
                     <% @orgs_to_approve.each do |ota| %>
                       <td><%= ota.name %></td>
-                      <td>View Approve</td>
+                      <td><a class = "btn btn-info" href = "<%= organization_path(ota) %>">View</a> <%= link_to('Approve', organization_approve_url(ota), :method => :put, class: "btn btn-success")%></td>
                     <% end %>
                   </tbody>
                 </table>
