@@ -34,7 +34,7 @@
             <% if @orgs_to_approve.any? %>  
               <div class="alert alert-info fade in">
                 <a class="close" data-dismiss="alert">×</a>
-                There are <%= pluralize(@orgs_to_approve.count, "organization") %> requiring your approval.
+                <strong>Admin notice:</strong> <%= pluralize(@orgs_to_approve.count, "organization") %> need to be approved.
               </div>
             <% end %>
           <% end %>
