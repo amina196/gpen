@@ -29,7 +29,7 @@ class Organization < ActiveRecord::Base
     if c.empty?
       false
     else
-      if c.first.end_date > Date.today
+      if c.first.end_date.nil? || c.first.end_date > Date.today
         true
       else
         false
