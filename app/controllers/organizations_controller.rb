@@ -40,12 +40,11 @@ class OrganizationsController < ApplicationController
   # POST /organizations.json
   def create
     @organization = Organization.create(params[:organization])
+    @organization.approved = false
     @organization.sectors = Sector.find(params[:sector_ids]) if params[:sector_ids]
-    somedate = Date.new(params[:organization][:"end_date(1i)"].to_i, 
-                   params[:organization][:"end_date(2i)"].to_i,
-                   params[:organization][:"end_date(3i)"].to_i)
+    @end_date = Date.today + 3.months
     if @organization.save
-      Contacthistory.create(user_id: current_user.id, organization_id: @organization.id, start_date: Date.today, end_date: somedate)
+      Contacthistory.create(user_id: current_user.id, organization_id: @organization.id, start_date: Date.today, end_date: @end_date)
       flash[:success] = "Organization created!"
       redirect_to @organization
     else
