@@ -130,23 +130,9 @@
           </div>
         </div>
 
-       <div class="control-group">
-          <%= f.label :feespaid, "Fees Paid", class: "control-label" %>
-          <div class="controls">
-            <%= f.check_box :feespaid %>
-          </div>
-        </div>
- 
-      <div class="control-group">
-          <%= f.label :enddate, "End Date", class: "control-label" %>
-          <div class="controls">
-           <%= f.date_select :end_date, :start_year => Date.today.year , :end_year => Date.today.year + 20, :order => [:month, :day, :year], :default => Date.today %>
-          </div>
-        </div>
-
 
         <div class="form-actions">
-          <%= f.submit "Create Organization", class: "btn btn-primary" %>
+          <%= f.submit class: "btn btn-primary" %>
           <button class="btn" type="reset">Reset</button>
         </div>
       </fieldset>
