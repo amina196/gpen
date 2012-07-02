@@ -43,7 +43,7 @@ class OrganizationsController < ApplicationController
     @organization.approved = false
     @organization.sectors = Sector.find(params[:sector_ids]) if params[:sector_ids]
     if @organization.save
-      Contacthistory.create(user_id: current_user.id, organization_id: @organization.id, start_date: Date.today)
+      Contacthistory.create(user_id: current_user.id, organization_id: @organization.id)
       flash[:success] = "Organization created!"
       redirect_to @organization
     else
@@ -57,6 +57,12 @@ class OrganizationsController < ApplicationController
       approved: true,
       end_date: @organization.created_at + 3.months
     )
+    @organization.contacthistories.each do |ch|
+      ch.update_attributes(
+        :start_date = Date.today,
+        :end_date = Date.today + 3.months
+      )
+    end
     flash[:success] = "You successfully approved: " + @organization.name
     redirect_to organizations_path
   end
