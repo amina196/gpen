@@ -1,7 +1,7 @@
 <%= form_for(current_user.jobenrollments.build(job_id: @job.id), :html => { :multipart => true }) do |f| %>
 	  
 	  <%= f.hidden_field :job_id %>
-	  <%= f.file_field :resume %>
+	  <%= f.file_field :resume, placeholder: "Upload resume for application" %> <br>
 	  <%= f.submit "Apply", :class => "btn btn-large btn-success" %>
 
 <% end %>
