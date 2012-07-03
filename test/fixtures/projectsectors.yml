@@ -7,3 +7,14 @@ one:
 two:
   project_id: 1
   sector_id: 1
+# == Schema Information
+#
+# Table name: projectsectors
+#
+#  id         :integer         not null, primary key
+#  project_id :integer
+#  sector_id  :integer
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#
+
