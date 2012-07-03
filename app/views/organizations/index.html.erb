@@ -3,9 +3,9 @@
           <a href="<%= root_path %>">Home</a> <span class="divider">/</span>
         </li>
         <li>
-          <%= link_to "Organizations", organizations_path %> <span class="divider">/</span>
+          <%= link_to "Organizations", organizations_path %>
         </li>
-        <li class="active">Search for '<%= @searchtext %>'</li>
+        <% unless @searchtext.nil? %> <span class="divider">/</span><li class="active">Search for '<%= @searchtext %>'</li><% end %>
       </ul>
 
 <div class="row">
@@ -29,13 +29,36 @@
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
+          <% if !current_user.nil? && current_user.admin == true %>
+            <% @orgs_to_approve = (Organization.where(approved: false)) %>
+            <% if @orgs_to_approve.any? %>  
+              <div class="alert alert-info fade in">
+                <a class="close" data-dismiss="alert">×</a>
+                <strong>Admin notice:</strong> <%= pluralize(@orgs_to_approve.count, "organization") %> awaiting approval:
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @orgs_to_approve.each do |ota| %>
+                      <td><%= ota.name %></td>
+                      <td><a class = "btn btn-info" href = "<%= organization_path(ota) %>">View</a> <%= link_to('Approve', organization_approve_url(ota), :method => :put, class: "btn btn-success")%></td>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            <% end %>
+          <% end %>
           <div class="hero-unit">
 
-
+            
             <% if @searchtext.nil? %>
             <h1>Green Organizations</h1>
 
-            <p>We are proud to say that we have 1,019 (and counting!) green organizations listed on our website. Use the filters to the left or the search bar below to find organizations.</p>
+            <p>We are proud to say that we have <%= Organization.all.count %> (and counting!) green organizations listed on our website. Use the filters to the left or the search bar below to find organizations.</p>
             <% else %>
             <h2>Organization Results <small>for '<%= @searchtext %>'</small></h2>
             
