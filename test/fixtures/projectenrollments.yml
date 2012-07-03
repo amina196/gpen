@@ -7,3 +7,14 @@ one:
 two:
   user_id: 1
   project_id: 1
+# == Schema Information
+#
+# Table name: projectenrollments
+#
+#  id         :integer         not null, primary key
+#  user_id    :integer
+#  project_id :integer
+#  created_at :datetime        not null
+#  updated_at :datetime        not null
+#
+

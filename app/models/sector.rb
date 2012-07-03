@@ -11,4 +11,13 @@ class Sector < ActiveRecord::Base
  has_many :jobsectors
  has_many :jobs, through: :jobsectors
  
-end
+end# == Schema Information
+#
+# Table name: sectors
+#
+#  id          :integer         not null, primary key
+#  description :string(255)
+#  created_at  :datetime        not null
+#  updated_at  :datetime        not null
+#
+
