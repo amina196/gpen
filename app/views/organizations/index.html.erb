@@ -52,6 +52,13 @@
               </div>
             <% end %>
           <% end %>
+
+          <% if !current_user.nil? && current_user.organizations.where(approved: false).any? %>
+            <div class="alert alert-info fade in">
+              <a class="close" data-dismiss="alert">×</a>
+              <strong>Notice:</strong> <%= pluralize(current_user.organizations.where(approved: false).count, 'organization') %> that you created are awaiting approval by GPEN staff. You will be notified via email when <% if current_user.organizations.where(approved:false).count > 1 %> they have <% else %> it has <% end %> been approved.
+            </div>
+          <% end %>
           <div class="hero-unit">
 
             

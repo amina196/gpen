@@ -19,6 +19,7 @@ class OrganizationsController < ApplicationController
   # GET /organizations/1.json
   def show
     @organization = Organization.find(params[:id])
+    redirect_to organizations_path unless (@organization.approved == true || current_user.admin == true)
     @date = @organization.end_date unless @organization.nil?
     @jobs = @organization.jobs
     @projects = @organization.projects
