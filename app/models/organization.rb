@@ -58,8 +58,8 @@ class Organization < ActiveRecord::Base
       #sectors = self.sectors   #array of the sectors of the organization 
       paginate :per_page => 10, 
                :page => page,
-               :conditions => ['approved = ? AND (UPPER(name) LIKE UPPER(?) OR UPPER(description) LIKE UPPER(?) OR UPPER(city) 
-                                  LIKE UPPER(?) OR UPPER(state) LIKE UPPER(?) or UPPER(zip) LIKE UPPER(?))', true,
+               :conditions => ['approved = ? AND end_date > ? AND (UPPER(name) LIKE UPPER(?) OR UPPER(description) LIKE UPPER(?) OR UPPER(city) 
+                                  LIKE UPPER(?) OR UPPER(state) LIKE UPPER(?) or UPPER(zip) LIKE UPPER(?))', true, Date.today,
                                   "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%"], 
               :order => 'name'
       end
