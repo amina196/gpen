@@ -25,16 +25,11 @@ class Organization < ActiveRecord::Base
 
 
   def current_admin?(user)
-    c = self.contacthistories.where("user_id=?", user.id)
-    if c.empty?
-      false
-    else
-      if c.first.end_date.nil? || c.first.end_date > Date.today
-        true
-      else
-        false
-      end
-    end
+    user.current_organizations.include?(self)
+  end
+
+  def renew(months)
+    self.end_date = Date.today + months.months
   end
 
 =begin
