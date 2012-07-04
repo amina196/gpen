@@ -4,6 +4,11 @@ class Contacthistory < ActiveRecord::Base
 	validates_uniqueness_of :user_id, :scope => :organization_id
 	#validates :start_date, :presence => true
 	#validates :end_date, :presence => true
+
+	def current?
+		!start_date.nil? && (end_date.nil? || end_date > Date.today)
+	end
+
 end
 # == Schema Information
 #

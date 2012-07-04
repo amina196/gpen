@@ -60,8 +60,7 @@ class OrganizationsController < ApplicationController
     )
     @organization.contacthistories.each do |ch|
       ch.update_attributes(
-        :start_date => Date.today,
-        :end_date => Date.today + 3.months
+        :start_date => Date.today
       )
     end
     flash[:success] = "You successfully approved: " + @organization.name

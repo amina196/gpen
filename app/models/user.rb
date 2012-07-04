@@ -61,7 +61,8 @@ def current_organizations()
 	if self.admin
 		Organization.all
 	else
-		organizations.all.select{ |o| o.current_admin?(self) }
+		chs = contacthistories.all.select{ |c| c.current? }
+		chs.collect{ |ch| ch.organization }
 	end
 end
 
