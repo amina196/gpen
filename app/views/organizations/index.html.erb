@@ -35,6 +35,7 @@
               <div class="alert alert-info fade in">
                 <a class="close" data-dismiss="alert">×</a>
                 <strong>Admin notice:</strong> <%= pluralize(@orgs_to_approve.count, "organization") %> awaiting approval:
+                
                 <table class="table">
                   <thead>
                     <tr>
@@ -44,8 +45,10 @@
                   </thead>
                   <tbody>
                     <% @orgs_to_approve.each do |ota| %>
-                      <td><%= ota.name %></td>
-                      <td><a class = "btn btn-info" href = "<%= organization_path(ota) %>">View</a> <%= link_to('Approve', organization_approve_url(ota), :method => :put, class: "btn btn-success")%></td>
+                      <td>
+                        <a style="font-size:20px" href = "<%= organization_path(ota) %>"><%= ota.name %></a>
+                      </td>
+                      <td> <%= link_to('Approve', organization_approve_url(ota), :method => :put, class: "btn btn-success")%> </td> 
                     <% end %>
                   </tbody>
                 </table>

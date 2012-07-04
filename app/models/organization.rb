@@ -1,14 +1,24 @@
 class Organization < ActiveRecord::Base
+    
+    #### ASSOCIATION ####
 
-  has_many :organizationsectors, dependent: :destroy
-  has_many :sectors, :through => :organizationsectors
+ #one-to-many rel Job
   has_many :jobs, dependent: :destroy
 
+ #one-to-many rel with Project
+  has_many :projects, dependent: :destroy
+
+ #many-to-many rel with Sector
+  has_many :organizationsectors, dependent: :destroy
+  has_many :sectors, :through => :organizationsectors
+
+ #many-to-many rel with User (as admin)
   has_many :users, :through => :contacthistories
   has_many :contacthistories, dependent: :destroy
   
-  has_many :projects, dependent: :destroy
   
+     #### VALIDATION ####
+
   validates :name, :presence => true
   
   valid_email_regex = /(^$)|\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
@@ -53,8 +63,8 @@ class Organization < ActiveRecord::Base
       #sectors = self.sectors   #array of the sectors of the organization 
       paginate :per_page => 10, 
                :page => page,
-               :conditions => ['approved = "true" AND UPPER(name) LIKE UPPER(?) OR UPPER(description) LIKE UPPER(?) OR UPPER(city) 
-                                  LIKE UPPER(?) OR UPPER(state) LIKE UPPER(?) or UPPER(zip) LIKE UPPER(?)',
+               :conditions => ['approved = ? AND (UPPER(name) LIKE UPPER(?) OR UPPER(description) LIKE UPPER(?) OR UPPER(city) 
+                                  LIKE UPPER(?) OR UPPER(state) LIKE UPPER(?) or UPPER(zip) LIKE UPPER(?))', true,
                                   "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%"], 
               :order => 'name'
       end
