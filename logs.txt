@@ -1,0 +1,100 @@
+2012-07-04T03:12:21+00:00 app[web.1]: cache: [POST /sessions] invalidate, pass
+2012-07-04T03:12:21+00:00 heroku[router]: POST gpen-back.herokuapp.com/sessions dyno=web.1 queue=0 wait=0ms service=152ms status=200 bytes=9633
+2012-07-04T03:12:29+00:00 app[web.1]: 
+2012-07-04T03:12:29+00:00 app[web.1]: 
+2012-07-04T03:12:29+00:00 app[web.1]: Started POST "/sessions" for 76.104.29.64 at 2012-07-04 03:12:29 +0000
+2012-07-04T03:12:29+00:00 app[web.1]: Processing by SessionsController#create as HTML
+2012-07-04T03:12:29+00:00 app[web.1]:   Parameters: {"utf8"=>"✓", "authenticity_token"=>"KyKeB99J/XYJzCgONCCeZa0yxFGV8/5I5g8Q/DW8wk8=", "session"=>{"email"=>"amina.bouabdallah@gmail.com", "password"=>"[FILTERED]"}, "commit"=>"Sign In"}
+2012-07-04T03:12:29+00:00 app[web.1]: Redirected to http://gpen-back.herokuapp.com/users/857
+2012-07-04T03:12:29+00:00 app[web.1]: cache: [POST /sessions] invalidate, pass
+2012-07-04T03:12:29+00:00 app[web.1]: Completed 302 Found in 84ms (ActiveRecord: 1.0ms)
+2012-07-04T03:12:29+00:00 heroku[router]: POST gpen-back.herokuapp.com/sessions dyno=web.1 queue=0 wait=0ms service=95ms status=302 bytes=106
+2012-07-04T03:12:29+00:00 app[web.1]: 
+2012-07-04T03:12:29+00:00 app[web.1]: 
+2012-07-04T03:12:29+00:00 app[web.1]: Started GET "/users/857" for 76.104.29.64 at 2012-07-04 03:12:29 +0000
+2012-07-04T03:12:29+00:00 app[web.1]:   Parameters: {"id"=>"857"}
+2012-07-04T03:12:29+00:00 app[web.1]: Processing by UsersController#show as HTML
+2012-07-04T03:12:29+00:00 app[web.1]:   Rendered layouts/_shim.html.erb (0.0ms)
+2012-07-04T03:12:29+00:00 app[web.1]:   Rendered users/show.html.erb within layouts/application (143.6ms)
+2012-07-04T03:12:29+00:00 app[web.1]:   Rendered layouts/_header.html.erb (3.1ms)
+2012-07-04T03:12:29+00:00 app[web.1]:   Rendered layouts/_footer.html.erb (0.2ms)
+2012-07-04T03:12:29+00:00 app[web.1]: Completed 200 OK in 216ms (Views: 104.4ms | ActiveRecord: 47.7ms)
+2012-07-04T03:12:29+00:00 app[web.1]: cache: [GET /users/857] miss
+2012-07-04T03:12:29+00:00 heroku[router]: GET gpen-back.herokuapp.com/users/857 dyno=web.1 queue=0 wait=0ms service=230ms status=200 bytes=13404
+2012-07-04T03:12:34+00:00 app[web.1]: 
+2012-07-04T03:12:34+00:00 app[web.1]: 
+2012-07-04T03:12:34+00:00 app[web.1]: Started GET "/projects/1" for 76.104.29.64 at 2012-07-04 03:12:34 +0000
+2012-07-04T03:12:34+00:00 app[web.1]:   Parameters: {"id"=>"1"}
+2012-07-04T03:12:34+00:00 app[web.1]: Processing by ProjectsController#show as HTML
+2012-07-04T03:12:35+00:00 app[web.1]:   Rendered projects/_unvolunteer.html.erb (4.3ms)
+2012-07-04T03:12:35+00:00 app[web.1]:   Rendered projects/_volunteer_form.html.erb (7.1ms)
+2012-07-04T03:12:35+00:00 app[web.1]:   Rendered projects/show.html.erb within layouts/application (118.7ms)
+2012-07-04T03:12:35+00:00 app[web.1]:   Rendered layouts/_shim.html.erb (0.0ms)
+2012-07-04T03:12:35+00:00 app[web.1]:   Rendered layouts/_header.html.erb (1.9ms)
+2012-07-04T03:12:35+00:00 app[web.1]:   Rendered layouts/_footer.html.erb (0.2ms)
+2012-07-04T03:12:35+00:00 app[web.1]: Completed 200 OK in 142ms (Views: 74.1ms | ActiveRecord: 67.0ms)
+2012-07-04T03:12:35+00:00 app[web.1]: cache: [GET /projects/1] miss
+2012-07-04T03:12:35+00:00 heroku[router]: GET gpen-back.herokuapp.com/projects/1 dyno=web.1 queue=0 wait=0ms service=154ms status=200 bytes=11129
+2012-07-04T03:12:49+00:00 app[web.1]: 
+2012-07-04T03:12:49+00:00 app[web.1]: 
+2012-07-04T03:12:49+00:00 app[web.1]: Started GET "/organizations/new" for 76.104.29.64 at 2012-07-04 03:12:49 +0000
+2012-07-04T03:12:49+00:00 app[web.1]: Processing by OrganizationsController#new as HTML
+2012-07-04T03:12:49+00:00 app[web.1]:   Rendered layouts/_header.html.erb (1.9ms)
+2012-07-04T03:12:49+00:00 app[web.1]:   Rendered organizations/new.html.erb within layouts/application (15.2ms)
+2012-07-04T03:12:49+00:00 app[web.1]:   Rendered organizations/_form.html.erb (13.9ms)
+2012-07-04T03:12:49+00:00 app[web.1]:   Rendered layouts/_shim.html.erb (0.0ms)
+2012-07-04T03:12:49+00:00 app[web.1]: cache: [GET /organizations/new] miss
+2012-07-04T03:12:49+00:00 app[web.1]:   Rendered layouts/_footer.html.erb (0.2ms)
+2012-07-04T03:12:49+00:00 app[web.1]: Completed 200 OK in 22ms (Views: 19.5ms | ActiveRecord: 2.0ms)
+2012-07-04T03:12:49+00:00 heroku[router]: GET gpen-back.herokuapp.com/organizations/new dyno=web.1 queue=0 wait=0ms service=35ms status=200 bytes=14987
+2012-07-04T03:13:51+00:00 app[web.1]: 
+2012-07-04T03:13:51+00:00 app[web.1]: 
+2012-07-04T03:13:51+00:00 app[web.1]: Started POST "/organizations" for 76.104.29.64 at 2012-07-04 03:13:51 +0000
+2012-07-04T03:13:51+00:00 app[web.1]: Processing by OrganizationsController#create as HTML
+2012-07-04T03:13:51+00:00 app[web.1]:   Parameters: {"utf8"=>"✓", "authenticity_token"=>"KyKeB99J/XYJzCgONCCeZa0yxFGV8/5I5g8Q/DW8wk8=", "organization"=>{"name"=>"Dummy Org", "description"=>"I'm tired", "address"=>"", "city"=>"Charlottesville", "state"=>"Pennsylvania", "zip"=>"19104", "phone"=>"2672051460", "email"=>"amina.bouabdallah@gmail.com", "website"=>"", "facebook"=>"", "twitter"=>"", "linkedin"=>""}, "sector_ids"=>["2", "6"], "commit"=>"Create Organization"}
+2012-07-04T03:13:51+00:00 app[web.1]: Redirected to http://gpen-back.herokuapp.com/organizations/460
+2012-07-04T03:13:51+00:00 app[web.1]: Completed 302 Found in 185ms (ActiveRecord: 111.3ms)
+2012-07-04T03:13:51+00:00 app[web.1]: cache: [POST /organizations] invalidate, pass
+2012-07-04T03:13:51+00:00 heroku[router]: POST gpen-back.herokuapp.com/organizations dyno=web.1 queue=0 wait=0ms service=193ms status=302 bytes=114
+2012-07-04T03:13:51+00:00 app[web.1]: 
+2012-07-04T03:13:51+00:00 app[web.1]: 
+2012-07-04T03:13:51+00:00 app[web.1]: Started GET "/organizations/460" for 76.104.29.64 at 2012-07-04 03:13:51 +0000
+2012-07-04T03:13:51+00:00 app[web.1]: Processing by OrganizationsController#show as HTML
+2012-07-04T03:13:51+00:00 app[web.1]:   Parameters: {"id"=>"460"}
+2012-07-04T03:13:51+00:00 app[web.1]:   Rendered organizations/show.html.erb within layouts/application (59.4ms)
+2012-07-04T03:13:51+00:00 app[web.1]:   Rendered layouts/_shim.html.erb (0.0ms)
+2012-07-04T03:13:51+00:00 heroku[router]: GET gpen-back.herokuapp.com/organizations/460 dyno=web.1 queue=0 wait=0ms service=77ms status=200 bytes=10680
+2012-07-04T03:13:51+00:00 app[web.1]:   Rendered layouts/_header.html.erb (2.0ms)
+2012-07-04T03:13:51+00:00 app[web.1]:   Rendered layouts/_footer.html.erb (0.2ms)
+2012-07-04T03:13:51+00:00 app[web.1]: Completed 200 OK in 67ms (Views: 48.9ms | ActiveRecord: 17.0ms)
+2012-07-04T03:13:51+00:00 app[web.1]: cache: [GET /organizations/460] miss
+2012-07-04T03:13:51+00:00 heroku[router]: GET gpen-back.herokuapp.com/assets/application-9c0204f97aacf11d126b7c0138cb30cf.css dyno=web.1 queue=0 wait=0ms service=5ms status=304 bytes=0
+2012-07-04T03:13:51+00:00 app[web.1]: cache: [GET /assets/application-9c0204f97aacf11d126b7c0138cb30cf.css] miss
+2012-07-04T03:13:51+00:00 heroku[router]: GET gpen-back.herokuapp.com/assets/application-a698584fe2b35c4d4525b7903ff49847.js dyno=web.1 queue=0 wait=0ms service=4ms status=304 bytes=0
+2012-07-04T03:13:51+00:00 app[web.1]: cache: [GET /assets/application-a698584fe2b35c4d4525b7903ff49847.js] miss
+2012-07-04T03:13:52+00:00 app[web.1]: cache: [GET /assets/gpen-logo-f63d1ee4ab7c39049b17e2a9e8ec6067.png] miss
+2012-07-04T03:13:52+00:00 heroku[router]: GET gpen-back.herokuapp.com/assets/gpen-logo-f63d1ee4ab7c39049b17e2a9e8ec6067.png dyno=web.1 queue=0 wait=0ms service=6ms status=304 bytes=0
+2012-07-04T03:14:03+00:00 app[web.1]: Processing by OrganizationsController#index as HTML
+2012-07-04T03:14:03+00:00 app[web.1]: 
+2012-07-04T03:14:03+00:00 app[web.1]: 
+2012-07-04T03:14:03+00:00 app[web.1]: Started GET "/organizations" for 76.104.29.64 at 2012-07-04 03:14:03 +0000
+2012-07-04T03:14:03+00:00 app[web.1]:   Rendered organizations/index.html.erb within layouts/application (125.7ms)
+2012-07-04T03:14:03+00:00 app[web.1]: Completed 500 Internal Server Error in 129ms
+2012-07-04T03:14:03+00:00 app[web.1]: 
+2012-07-04T03:14:03+00:00 app[web.1]: ActionView::Template::Error (PG::Error: ERROR:  column "true" does not exist
+2012-07-04T03:14:03+00:00 app[web.1]: LINE 1: ...ations".* FROM "organizations"  WHERE (approved = "true" AND...
+2012-07-04T03:14:03+00:00 app[web.1]:                                                              ^
+2012-07-04T03:14:03+00:00 app[web.1]: : SELECT  "organizations".* FROM "organizations"  WHERE (approved = "true" AND UPPER(name) LIKE UPPER('%%') OR UPPER(description) LIKE UPPER('%%') OR UPPER(city) 
+2012-07-04T03:14:03+00:00 app[web.1]:                                   LIKE UPPER('%%') OR UPPER(state) LIKE UPPER('%%') or UPPER(zip) LIKE UPPER('%%')) ORDER BY name LIMIT 10 OFFSET 0):
+2012-07-04T03:14:03+00:00 app[web.1]:     106:         <tbody>
+2012-07-04T03:14:03+00:00 app[web.1]:     107: 
+2012-07-04T03:14:03+00:00 app[web.1]:     108: 
+2012-07-04T03:14:03+00:00 app[web.1]:     109:           <% @organizations.reverse.each do |organization| %>
+2012-07-04T03:14:03+00:00 app[web.1]:     110:             <tr>
+2012-07-04T03:14:03+00:00 app[web.1]:     111:               <td>
+2012-07-04T03:14:03+00:00 app[web.1]:     112:                 
+2012-07-04T03:14:03+00:00 app[web.1]:   app/views/organizations/index.html.erb:109:in `_app_views_organizations_index_html_erb__3204676589640519199_20785100'
+2012-07-04T03:14:03+00:00 app[web.1]: 
+2012-07-04T03:14:03+00:00 app[web.1]: 
+2012-07-04T03:14:03+00:00 app[web.1]: cache: [GET /organizations] miss
+2012-07-04T03:14:03+00:00 heroku[router]: GET gpen-back.herokuapp.com/organizations dyno=web.1 queue=0 wait=0ms service=140ms status=500 bytes=643
