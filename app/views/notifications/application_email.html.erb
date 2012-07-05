@@ -10,8 +10,10 @@
       entitled " <%= @job.title %> "
       Your application will be reviewed by the author of the job
       on the GPEN database, and will be in touch with you soon. 
-      In case you want to contact them directly, their email is
-      <%= @organization.email %>.
+      <% if @organization.email.any? %>
+          In case you want to contact them directly, their email is
+          <%= @organization.email %>.
+      <% end %>
     </p>
 
     <p>
