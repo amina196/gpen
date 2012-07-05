@@ -1,0 +1,7 @@
+development:
+  dropbox_key: phillyecocity@gmail.com
+  dropbox_secret: 4ecocity_gpen
+  path: "/:attachment/:attachment/:id/:style/:filename"
+production:
+  dropbox_key: phillyecocity@gmail.com
+  dropbox_secret: 4ecocity_gpen
