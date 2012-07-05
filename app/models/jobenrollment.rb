@@ -5,7 +5,6 @@ class Jobenrollment < ActiveRecord::Base
 
 	#resume attachment using Paperclip, cf doc in Github readme
 	has_attached_file :resume, url: "/resumes/:id/:basename.:extension",
-							   :storage => :Dropboxstorage,
 							   path: ":rails_root/public/resumes/:id/:basename.:extension"
 
 
