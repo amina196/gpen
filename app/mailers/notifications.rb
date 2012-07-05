@@ -1,5 +1,6 @@
 class Notifications < ActionMailer::Base
-  default :from => "welcome@gpen.org"
+  default :from => "support@gpen.org"
+
   def welcome_email(user)
     @url = "http://gpen.phillyecocity.com"
     @user = user
