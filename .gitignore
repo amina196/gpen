@@ -24,7 +24,7 @@ db/schema.rb
 
 #rails specific
 #config/database.yml
-
+config/paperclipdropbox.yml
 ## generic files to ignore
 *~
 *.lock
