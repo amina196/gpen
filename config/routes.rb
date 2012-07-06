@@ -24,6 +24,7 @@ GpenApp::Application.routes.draw do
   resources :jobs
   resources :organizations do
     put :approve
+    post :renew
   end
   resources :jobenrollments, only: [:create, :destroy]
   resources :projects

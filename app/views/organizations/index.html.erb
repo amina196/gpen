@@ -45,10 +45,12 @@
                   </thead>
                   <tbody>
                     <% @orgs_to_approve.each do |ota| %>
-                      <td>
-                        <a style="font-size:20px" href = "<%= organization_path(ota) %>"><%= ota.name %></a>
-                      </td>
-                      <td> <%= link_to('Approve', organization_approve_url(ota), :method => :put, class: "btn btn-success")%> </td> 
+                      <tr>  
+                        <td>
+                          <a href = "<%= organization_path(ota) %>"><%= ota.name %></a>
+                        </td>
+                        <td> <%= link_to('Approve', organization_approve_url(ota), :method => :put, class: "btn btn-success")%> </td> 
+                      </tr>
                     <% end %>
                   </tbody>
                 </table>

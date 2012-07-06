@@ -26,6 +26,17 @@ class OrganizationsController < ApplicationController
     @sectors = @organization.sectors
   end
 
+  def renew
+    @organization = Organization.find(params[:organization_id])
+    if !current_user.admin_of(@organization) 
+      redirect_to root_path 
+    end
+    @organization.renew(params[:months])
+    @organization.save
+    flash[:success] = sprintf("Successfully renewed %s for %i months.", @organization.name, params[:months])
+    redirect_to @organization
+  end
+
   # GET /organizations/new
   # GET /organizations/new.json
   def new
