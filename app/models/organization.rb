@@ -39,7 +39,7 @@ class Organization < ActiveRecord::Base
   end
 
   def renew(months)
-    self.end_date = Date.today + months.to_i.months
+    self.end_date = self.end_date + months.to_i.months
   end
 
 =begin
