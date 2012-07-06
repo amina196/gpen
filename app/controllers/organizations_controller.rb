@@ -46,6 +46,7 @@ class OrganizationsController < ApplicationController
   # GET /organizations/1/edit
   def edit
     @organization = Organization.find(params[:id])
+    redirect_to root_path unless current_user.admin_of(@organization)
   end
 
   # POST /organizations
