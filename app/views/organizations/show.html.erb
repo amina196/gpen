@@ -167,11 +167,11 @@
   </div>
   <div class="modal-body">
     <%= form_tag sprintf('%i/renew', @organization.id) do %>
-      <%= text_field_tag 'months' %>
+      Renew for: <%= text_field_tag 'months' %> months.
   </div>
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal">Close</a>
-    <%= submit_tag 'Renew' %>
+    <%= submit_tag 'Renew', class: "btn btn-primary" %>
   </div>
   <% end %>
 </div>
