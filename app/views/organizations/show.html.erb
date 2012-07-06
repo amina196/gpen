@@ -67,7 +67,9 @@
               <li><%= link_to 'Edit Organization', edit_organization_path(@organization) %></li>
               <li><%= link_to "Post New Job", new_job_path %></li>
               <li><%= link_to "Post New Project", new_project_path %></li>
-              <li><a data-toggle="modal" href="#myModal" >Renew Membership</a></li>
+              <% if current_user.admin == true %>
+                <li><a data-toggle="modal" href="#myModal" >Renew Membership</a></li>
+              <% end %>
               <li class="divider"></li>              
               <li><a href="#">Delete Organization</a></li>
             </ul>
