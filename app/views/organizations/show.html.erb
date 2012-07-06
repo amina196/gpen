@@ -58,8 +58,8 @@
           <hr>
 
         <% if signed_in? && current_user.admin_of(@organization) %>
+          <p><strong>Expiration: <%= @organization.end_date %></strong></p>
           <div class="btn-group">
-            Expiration: <%= @organization.end_date %>
             <button class="btn btn-primary">Admin Actions</button>
             <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
             <ul class="dropdown-menu">
