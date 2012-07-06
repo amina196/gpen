@@ -7,6 +7,7 @@ class Jobenrollment < ActiveRecord::Base
 	has_attached_file :resume, url: "/resumes/:id/:basename.:extension",
 							   path: ":rails_root/public/resumes/:id/:basename.:extension"
 
+
 	#validates_attachment_presence :resume
 end
 # == Schema Information
