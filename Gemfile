@@ -7,6 +7,7 @@ gem 'bootstrap-will_paginate'
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'annotate'
 gem 'dropbox'
+gem 'paperclipdropbox'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

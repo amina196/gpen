@@ -22,10 +22,12 @@ GpenApp::Application.routes.draw do
   # match '/organizations', to: 'organizations#index'
 
   resources :jobs
+
   resources :organizations do
     put :approve
     post :renew
   end
+  
   resources :jobenrollments, only: [:create, :destroy]
   resources :projects
   resources :projectenrollments, only: [:create, :destroy]
