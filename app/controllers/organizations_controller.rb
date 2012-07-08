@@ -30,11 +30,12 @@ class OrganizationsController < ApplicationController
     @organization = Organization.find(params[:organization_id])
     if !current_user.admin_of(@organization) 
       redirect_to root_path 
+    else
+      @organization.renew(params[:months])
+      @organization.save
+      flash[:success] = sprintf("Successfully renewed %s for %i months.", @organization.name, params[:months])
+      redirect_to @organization
     end
-    @organization.renew(params[:months])
-    @organization.save
-    flash[:success] = sprintf("Successfully renewed %s for %i months.", @organization.name, params[:months])
-    redirect_to @organization
   end
 
   # GET /organizations/new

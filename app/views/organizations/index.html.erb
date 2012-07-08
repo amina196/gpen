@@ -3,7 +3,7 @@
           <a href="<%= root_path %>">Home</a> <span class="divider">/</span>
         </li>
         <li>
-          <%= link_to "Organizations AMIINA", organizations_path %>
+          <%= link_to "Organizations", organizations_path %>
         </li>
         <% unless @searchtext.nil? %> <span class="divider">/</span><li class="active">Search for '<%= @searchtext %>'</li><% end %>
       </ul>

@@ -22,13 +22,20 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
+      @user.update_attributes(confirmed: false)
       Notifications.welcome_email(@user).deliver
-      sign_in @user
-      flash[:success] = "Welcome to GPEN, #{@user.fname}!"
-      redirect_to @user
+      #sign_in @user
+      flash[:success] = "Welcome to GPEN, #{@user.fname}! Please confirm your account for full access to the GPEN website"
+      redirect_to root_path
     else
       render 'new'
     end
+  end
+
+  def confirm
+    @user = User.find(params[:id])
+    @user.update_attributes(confirmed: true)
+    sign_in(@user)
   end
 
   def jobs

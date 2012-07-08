@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
 
-attr_accessible :fname, :lname, :phone, :birth_date, :email, :password, :password_confirmation, :bio, :id, :facebook, :twitter, :linkedin, :website
+attr_accessible :fname, :lname, :phone, :birth_date, :email, :password, :password_confirmation, :bio, :id, :facebook, :twitter, :linkedin, :website, :confirmed
 
 has_secure_password
 before_save :create_remember_token

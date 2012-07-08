@@ -27,7 +27,7 @@ GpenApp::Application.routes.draw do
     put :approve
     post :renew
   end
-  
+
   resources :jobenrollments, only: [:create, :destroy]
   resources :projects
   resources :projectenrollments, only: [:create, :destroy]
@@ -35,6 +35,7 @@ GpenApp::Application.routes.draw do
   resources :users do
     member do
       get :jobs, :projects
+      put :confirm
     end
   end
 
