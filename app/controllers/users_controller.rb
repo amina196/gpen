@@ -34,9 +34,12 @@ class UsersController < ApplicationController
 
   def confirm
     @user = User.find(params[:id])
-    @user.update_attributes(confirmed: true)
-    sign_in(@user)
-     flash[:success] = "Your account has been successfully confirmed - You can now access the full GPEN database"
+    @user.confirm
+    
+    if @user.save && @user.confirmed == true
+      sign_in(@user)
+    end
+    flash[:success] = "Your account has been successfully confirmed - You can now access the full GPEN database"
     redirect_to root_path
   end
 

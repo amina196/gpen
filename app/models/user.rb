@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
 
-attr_accessible :fname, :lname, :phone, :birth_date, :email, :password, :password_confirmation, :bio, :id, :facebook, :twitter, :linkedin, :website, :confirmed
-
+attr_accessible :fname, :lname, :phone, :birth_date, :email, :password, :password_confirmation, :bio, :id, :facebook, :twitter, :linkedin, :website
 has_secure_password
 before_save :create_remember_token
 
@@ -72,6 +71,10 @@ end
 
 def proj_admin(proj)
 	posted_projects.include?(proj) || (self.admin)
+end
+
+def confirm
+	self.confirmed = true
 end
 
 private
