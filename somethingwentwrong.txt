@@ -1,64 +1,3 @@
-2012-07-08T14:56:26+00:00 heroku[slugc]: Slug compilation started
-2012-07-08T14:57:26+00:00 heroku[api]: Release v27 created by amina.bouabdallah@gmail.com
-2012-07-08T14:57:26+00:00 heroku[api]: Deploy af3cd29 by amina.bouabdallah@gmail.com
-2012-07-08T14:57:26+00:00 heroku[web.1]: State changed from up to starting
-2012-07-08T14:57:27+00:00 heroku[slugc]: Slug compilation finished
-2012-07-08T14:57:28+00:00 heroku[web.1]: Stopping all processes with SIGTERM
-2012-07-08T14:57:29+00:00 app[web.1]: [2012-07-08 14:57:29] ERROR SignalException: SIGTERM
-2012-07-08T14:57:29+00:00 app[web.1]: 	/usr/local/lib/ruby/1.9.1/webrick/server.rb:90:in `select'
-2012-07-08T14:57:32+00:00 heroku[web.1]: Starting process with command `bundle exec rails server -p 51233`
-2012-07-08T14:57:38+00:00 heroku[web.1]: Error R12 (Exit timeout) -> At least one process failed to exit within 10 seconds of SIGTERM
-2012-07-08T14:57:38+00:00 heroku[web.1]: Stopping remaining processes with SIGKILL
-2012-07-08T14:57:39+00:00 heroku[web.1]: Process exited with status 137
-2012-07-08T14:57:44+00:00 app[web.1]: DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/01/04/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /app/config/environment.rb:5)
-2012-07-08T14:57:44+00:00 app[web.1]: DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/01/04/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /app/config/environment.rb:5)
-2012-07-08T14:58:04+00:00 heroku[run.1]: Awaiting client
-2012-07-08T14:58:04+00:00 heroku[run.1]: Starting process with command `rails console`
-2012-07-08T14:58:04+00:00 heroku[run.1]: State changed from starting to up
-2012-07-08T14:58:19+00:00 app[web.1]: [2012-07-08 14:58:19] INFO  WEBrick 1.3.1
-2012-07-08T14:58:19+00:00 app[web.1]: [2012-07-08 14:58:19] INFO  ruby 1.9.2 (2011-07-09) [x86_64-linux]
-2012-07-08T14:58:19+00:00 app[web.1]: [2012-07-08 14:58:19] INFO  WEBrick::HTTPServer#start: pid=1 port=51233
-2012-07-08T14:58:20+00:00 heroku[web.1]: State changed from starting to up
-2012-07-08T14:58:24+00:00 app[web.1]: => Booting WEBrick
-2012-07-08T14:58:24+00:00 app[web.1]: => Rails 3.2.1 application starting in production on http://0.0.0.0:51233
-2012-07-08T14:58:24+00:00 app[web.1]: => Call with -d to detach
-2012-07-08T14:58:24+00:00 app[web.1]: => Ctrl-C to shutdown server
-2012-07-08T14:58:24+00:00 app[web.1]: Started GET "/" for 76.104.29.64 at 2012-07-08 14:58:23 +0000
-2012-07-08T14:58:24+00:00 app[web.1]: 
-2012-07-08T14:58:24+00:00 app[web.1]: 
-2012-07-08T14:58:24+00:00 app[web.1]: Processing by StaticPagesController#home as HTML
-2012-07-08T14:58:24+00:00 app[web.1]:   Rendered static_pages/home.html.erb within layouts/application (838.5ms)
-2012-07-08T14:58:24+00:00 app[web.1]:   Rendered layouts/_shim.html.erb (19.4ms)
-2012-07-08T14:58:24+00:00 app[web.1]:   Rendered layouts/_header.html.erb (2.5ms)
-2012-07-08T14:58:24+00:00 app[web.1]:   Rendered layouts/_footer.html.erb (2.6ms)
-2012-07-08T14:58:24+00:00 app[web.1]: Completed 200 OK in 1169ms (Views: 977.0ms | ActiveRecord: 108.1ms)
-2012-07-08T14:58:24+00:00 app[web.1]: cache: [GET /] miss
-2012-07-08T14:58:24+00:00 heroku[router]: GET gpen-back.herokuapp.com/ dyno=web.1 queue=0 wait=0ms service=1432ms status=200 bytes=26604
-2012-07-08T14:58:40+00:00 app[web.1]: 
-2012-07-08T14:58:40+00:00 app[web.1]: 
-2012-07-08T14:58:40+00:00 app[web.1]: Started GET "/" for 76.104.29.64 at 2012-07-08 14:58:40 +0000
-2012-07-08T14:58:40+00:00 app[web.1]: Processing by StaticPagesController#home as HTML
-2012-07-08T14:58:42+00:00 heroku[router]: GET gpen-back.herokuapp.com/ dyno=web.1 queue=0 wait=0ms service=1913ms status=200 bytes=26604
-2012-07-08T14:58:42+00:00 heroku[router]: GET gpen-back.herokuapp.com/assets/application-9c0204f97aacf11d126b7c0138cb30cf.css dyno=web.1 queue=0 wait=0ms service=45ms status=200 bytes=85184
-2012-07-08T14:58:42+00:00 app[web.1]:   Rendered static_pages/home.html.erb within layouts/application (1455.1ms)
-2012-07-08T14:58:42+00:00 app[web.1]:   Rendered layouts/_shim.html.erb (0.0ms)
-2012-07-08T14:58:42+00:00 app[web.1]:   Rendered layouts/_header.html.erb (1.4ms)
-2012-07-08T14:58:42+00:00 app[web.1]:   Rendered layouts/_footer.html.erb (1.5ms)
-2012-07-08T14:58:42+00:00 app[web.1]: cache: [GET /] miss
-2012-07-08T14:58:42+00:00 app[web.1]: Completed 200 OK in 1701ms (Views: 1521.8ms | ActiveRecord: 176.6ms)
-2012-07-08T14:58:42+00:00 app[web.1]: cache: [GET /assets/application-9c0204f97aacf11d126b7c0138cb30cf.css] miss
-2012-07-08T14:58:42+00:00 app[web.1]: cache: [GET /assets/application-a698584fe2b35c4d4525b7903ff49847.js] miss
-2012-07-08T14:58:42+00:00 heroku[router]: GET gpen-back.herokuapp.com/assets/application-a698584fe2b35c4d4525b7903ff49847.js dyno=web.1 queue=0 wait=0ms service=264ms status=200 bytes=124213
-2012-07-08T14:58:43+00:00 app[web.1]: cache: [GET /assets/gpen-logo-f63d1ee4ab7c39049b17e2a9e8ec6067.png] miss
-2012-07-08T14:58:43+00:00 heroku[router]: GET gpen-back.herokuapp.com/assets/gpen-logo-f63d1ee4ab7c39049b17e2a9e8ec6067.png dyno=web.1 queue=0 wait=0ms service=15ms status=200 bytes=854
-2012-07-08T14:58:45+00:00 app[web.1]: cache: [GET /assets/application-a698584fe2b35c4d4525b7903ff49847.js] miss, store
-2012-07-08T14:58:45+00:00 heroku[router]: GET gpen-back.herokuapp.com/assets/application-a698584fe2b35c4d4525b7903ff49847.js dyno=web.1 queue=0 wait=0ms service=1398ms status=200 bytes=124213
-2012-07-08T14:58:54+00:00 app[web.1]: 
-2012-07-08T14:58:54+00:00 app[web.1]: 
-2012-07-08T14:58:54+00:00 app[web.1]: Started POST "/sessions" for 76.104.29.64 at 2012-07-08 14:58:54 +0000
-2012-07-08T14:58:54+00:00 app[web.1]: Processing by SessionsController#create as HTML
-2012-07-08T14:58:54+00:00 app[web.1]:   Parameters: {"utf8"=>"✓", "authenticity_token"=>"R5V8/D+YImnNZs9yktiSDeINY+aLeW1xJCUwMjRL0GU=", "session"=>{"email"=>"amina_bou1@hotmail.fr", "password"=>"[FILTERED]"}, "commit"=>"Sign In"}
-2012-07-08T14:58:54+00:00 app[web.1]: Completed 500 Internal Server Error in 25ms
 2012-07-08T14:58:54+00:00 app[web.1]: NoMethodError (undefined method `confirmed' for nil:NilClass):
 2012-07-08T14:58:54+00:00 app[web.1]: 
 2012-07-08T14:58:54+00:00 app[web.1]: 
@@ -98,3 +37,64 @@
 2012-07-08T14:59:22+00:00 app[web.1]: cache: [POST /sessions] invalidate, pass
 2012-07-08T14:59:22+00:00 app[web.1]: 
 2012-07-08T14:59:22+00:00 heroku[router]: POST gpen.phillyecocity.com/sessions dyno=web.1 queue=0 wait=0ms service=14ms status=500 bytes=643
+2012-07-08T15:02:19+00:00 app[web.1]: 
+2012-07-08T15:02:19+00:00 app[web.1]: 
+2012-07-08T15:02:19+00:00 app[web.1]: Started GET "/jobs/new" for 150.70.172.107 at 2012-07-08 15:02:19 +0000
+2012-07-08T15:02:19+00:00 app[web.1]: Processing by JobsController#new as */*
+2012-07-08T15:02:19+00:00 app[web.1]: Redirected to http://gpen-back.herokuapp.com/
+2012-07-08T15:02:19+00:00 app[web.1]: Filter chain halted as :org_admin rendered or redirected
+2012-07-08T15:02:19+00:00 app[web.1]: Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+2012-07-08T15:02:19+00:00 app[web.1]: cache: [GET /jobs/new] miss
+2012-07-08T15:02:19+00:00 heroku[router]: GET gpen-back.herokuapp.com/jobs/new dyno=web.1 queue=0 wait=0ms service=8ms status=302 bytes=97
+2012-07-08T15:02:26+00:00 heroku[slugc]: Slug compilation started
+2012-07-08T15:03:19+00:00 heroku[api]: Release v28 created by amina.bouabdallah@gmail.com
+2012-07-08T15:03:19+00:00 heroku[api]: Deploy 5c8586a by amina.bouabdallah@gmail.com
+2012-07-08T15:03:19+00:00 heroku[web.1]: State changed from up to starting
+2012-07-08T15:03:20+00:00 heroku[slugc]: Slug compilation finished
+2012-07-08T15:03:21+00:00 heroku[web.1]: Starting process with command `bundle exec rails server -p 21517`
+2012-07-08T15:03:23+00:00 heroku[web.1]: Stopping all processes with SIGTERM
+2012-07-08T15:03:24+00:00 app[web.1]: [2012-07-08 15:03:24] ERROR SignalException: SIGTERM
+2012-07-08T15:03:24+00:00 app[web.1]: 	/usr/local/lib/ruby/1.9.1/webrick/server.rb:90:in `select'
+2012-07-08T15:03:25+00:00 app[web.1]: DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/01/04/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /app/config/environment.rb:5)
+2012-07-08T15:03:25+00:00 app[web.1]: DEPRECATION WARNING: You have Rails 2.3-style plugins in vendor/plugins! Support for these plugins will be removed in Rails 4.0. Move them out and bundle them in your Gemfile, or fold them in to your app as lib/myplugin/* and config/initializers/myplugin.rb. See the release notes for more on this: http://weblog.rubyonrails.org/2012/01/04/rails-3-2-0-rc2-has-been-released. (called from <top (required)> at /app/config/environment.rb:5)
+2012-07-08T15:03:29+00:00 app[web.1]: [2012-07-08 15:03:29] INFO  WEBrick 1.3.1
+2012-07-08T15:03:29+00:00 app[web.1]: [2012-07-08 15:03:29] INFO  ruby 1.9.2 (2011-07-09) [x86_64-linux]
+2012-07-08T15:03:29+00:00 app[web.1]: [2012-07-08 15:03:29] INFO  WEBrick::HTTPServer#start: pid=1 port=21517
+2012-07-08T15:03:29+00:00 heroku[web.1]: State changed from starting to up
+2012-07-08T15:03:34+00:00 heroku[web.1]: Error R12 (Exit timeout) -> At least one process failed to exit within 10 seconds of SIGTERM
+2012-07-08T15:03:34+00:00 heroku[web.1]: Stopping remaining processes with SIGKILL
+2012-07-08T15:03:36+00:00 heroku[web.1]: Process exited with status 137
+2012-07-08T15:04:43+00:00 app[web.1]: => Booting WEBrick
+2012-07-08T15:04:43+00:00 app[web.1]: => Rails 3.2.1 application starting in production on http://0.0.0.0:21517
+2012-07-08T15:04:43+00:00 app[web.1]: => Call with -d to detach
+2012-07-08T15:04:43+00:00 app[web.1]: => Ctrl-C to shutdown server
+2012-07-08T15:04:43+00:00 app[web.1]: 
+2012-07-08T15:04:43+00:00 app[web.1]: 
+2012-07-08T15:04:43+00:00 app[web.1]: Started GET "/" for 76.104.29.64 at 2012-07-08 15:04:43 +0000
+2012-07-08T15:04:43+00:00 app[web.1]: Processing by StaticPagesController#home as HTML
+2012-07-08T15:04:43+00:00 app[web.1]:   Rendered static_pages/home.html.erb within layouts/application (70.5ms)
+2012-07-08T15:04:43+00:00 app[web.1]:   Rendered layouts/_shim.html.erb (0.2ms)
+2012-07-08T15:04:43+00:00 app[web.1]:   Rendered layouts/_header.html.erb (2.5ms)
+2012-07-08T15:04:43+00:00 app[web.1]: Completed 200 OK in 353ms (Views: 143.9ms | ActiveRecord: 136.8ms)
+2012-07-08T15:04:43+00:00 app[web.1]:   Rendered layouts/_footer.html.erb (2.2ms)
+2012-07-08T15:04:43+00:00 app[web.1]: cache: [GET /] miss
+2012-07-08T15:04:43+00:00 heroku[router]: GET gpen.phillyecocity.com/ dyno=web.1 queue=0 wait=0ms service=500ms status=200 bytes=26604
+2012-07-08T15:04:44+00:00 app[web.1]: cache: [GET /assets/application-9c0204f97aacf11d126b7c0138cb30cf.css] miss
+2012-07-08T15:04:44+00:00 heroku[router]: GET gpen.phillyecocity.com/assets/application-9c0204f97aacf11d126b7c0138cb30cf.css dyno=web.1 queue=0 wait=0ms service=47ms status=200 bytes=85184
+2012-07-08T15:04:44+00:00 app[web.1]: cache: [GET /assets/application-a698584fe2b35c4d4525b7903ff49847.js] miss
+2012-07-08T15:04:44+00:00 heroku[router]: GET gpen.phillyecocity.com/assets/application-a698584fe2b35c4d4525b7903ff49847.js dyno=web.1 queue=0 wait=0ms service=18ms status=200 bytes=124213
+2012-07-08T15:04:44+00:00 app[web.1]: cache: [GET /assets/gpen-logo-f63d1ee4ab7c39049b17e2a9e8ec6067.png] miss
+2012-07-08T15:04:44+00:00 heroku[router]: GET gpen.phillyecocity.com/assets/gpen-logo-f63d1ee4ab7c39049b17e2a9e8ec6067.png dyno=web.1 queue=0 wait=0ms service=8ms status=200 bytes=854
+2012-07-08T15:04:54+00:00 app[web.1]: 
+2012-07-08T15:04:54+00:00 app[web.1]: 
+2012-07-08T15:04:54+00:00 app[web.1]: Started POST "/sessions" for 76.104.29.64 at 2012-07-08 15:04:54 +0000
+2012-07-08T15:04:54+00:00 app[web.1]: Processing by SessionsController#create as HTML
+2012-07-08T15:04:54+00:00 app[web.1]:   Parameters: {"utf8"=>"✓", "authenticity_token"=>"EMU8KffEdMuXsBkxirnxt11jxvxH1Bq3LShHVlzgZu0=", "session"=>{"email"=>"amina_bou1@hotmail.fr", "password"=>"[FILTERED]"}, "commit"=>"Sign In"}
+2012-07-08T15:04:54+00:00 app[web.1]: Completed 500 Internal Server Error in 17ms
+2012-07-08T15:04:54+00:00 app[web.1]:   app/controllers/sessions_controller.rb:12:in `create'
+2012-07-08T15:04:54+00:00 app[web.1]: NoMethodError (undefined method `confirmed' for nil:NilClass):
+2012-07-08T15:04:54+00:00 app[web.1]: 
+2012-07-08T15:04:54+00:00 app[web.1]: 
+2012-07-08T15:04:54+00:00 app[web.1]: 
+2012-07-08T15:04:54+00:00 app[web.1]: cache: [POST /sessions] invalidate, pass
+2012-07-08T15:04:54+00:00 heroku[router]: POST gpen.phillyecocity.com/sessions dyno=web.1 queue=0 wait=0ms service=57ms status=500 bytes=643
