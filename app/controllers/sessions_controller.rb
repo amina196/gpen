@@ -10,7 +10,7 @@ def create
     redirect_to user
   else
       if user.confirmed == false
-        flash.[:notice] = 'Please confirm your email first for full use of the GPEN website' 
+        flash[:notice] = 'Please confirm your email first for full use of the GPEN website' 
         redirect_to root_path
       else
         flash.now[:error] = 'Invalid email/password combination'
