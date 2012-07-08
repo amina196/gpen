@@ -18,7 +18,8 @@ db/schema.rb
 /log/*.log
 /tmp/*
 
-
+# Ignore all .txt
+*.txt
 
 ### rules below added by justin so we don't keep getting conflicts
 
