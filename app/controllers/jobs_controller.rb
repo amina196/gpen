@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   before_filter :org_admin, only: [:new, :create, :update, :edit, :destroy]
-
+  
   def index
     @jobs = Job.all
     @searchedjobs = Job.search(params[:search])

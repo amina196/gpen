@@ -1,0 +1,102 @@
+2012-07-07T21:52:07+00:00 app[web.1]: Completed 302 Found in 1ms (ActiveRecord: 0.0ms)
+2012-07-07T21:52:07+00:00 app[web.1]: cache: [POST /signout] invalidate, pass
+2012-07-07T21:52:07+00:00 heroku[router]: POST gpen.phillyecocity.com/signout dyno=web.1 queue=0 wait=0ms service=18ms status=302 bytes=96
+2012-07-07T21:52:07+00:00 app[web.1]: 
+2012-07-07T21:52:07+00:00 app[web.1]: 
+2012-07-07T21:52:07+00:00 app[web.1]: Started GET "/" for 76.104.29.64 at 2012-07-07 21:52:07 +0000
+2012-07-07T21:52:07+00:00 app[web.1]: Processing by StaticPagesController#home as HTML
+2012-07-07T21:52:07+00:00 app[web.1]:   Rendered static_pages/home.html.erb within layouts/application (47.7ms)
+2012-07-07T21:52:07+00:00 app[web.1]:   Rendered layouts/_shim.html.erb (0.0ms)
+2012-07-07T21:52:07+00:00 app[web.1]:   Rendered layouts/_header.html.erb (1.3ms)
+2012-07-07T21:52:07+00:00 app[web.1]:   Rendered layouts/_footer.html.erb (1.1ms)
+2012-07-07T21:52:07+00:00 app[web.1]: Completed 200 OK in 62ms (Views: 52.0ms | ActiveRecord: 8.5ms)
+2012-07-07T21:52:07+00:00 app[web.1]: cache: [GET /] miss
+2012-07-07T21:52:07+00:00 heroku[router]: GET gpen.phillyecocity.com/ dyno=web.1 queue=0 wait=0ms service=69ms status=200 bytes=26604
+2012-07-07T21:52:15+00:00 app[web.1]: 
+2012-07-07T21:52:15+00:00 app[web.1]: 
+2012-07-07T21:52:15+00:00 app[web.1]: Started POST "/sessions" for 76.104.29.64 at 2012-07-07 21:52:15 +0000
+2012-07-07T21:52:15+00:00 app[web.1]: Processing by SessionsController#create as HTML
+2012-07-07T21:52:15+00:00 app[web.1]:   Parameters: {"utf8"=>"✓", "authenticity_token"=>"EMU8KffEdMuXsBkxirnxt11jxvxH1Bq3LShHVlzgZu0=", "session"=>{"email"=>"amina_bou1@hotmail.fr", "password"=>"[FILTERED]"}, "commit"=>"Sign In"}
+2012-07-07T21:52:15+00:00 app[web.1]: Redirected to http://gpen.phillyecocity.com/users/859
+2012-07-07T21:52:15+00:00 app[web.1]: Completed 302 Found in 301ms (ActiveRecord: 218.9ms)
+2012-07-07T21:52:15+00:00 app[web.1]: cache: [POST /sessions] invalidate, pass
+2012-07-07T21:52:15+00:00 heroku[router]: POST gpen.phillyecocity.com/sessions dyno=web.1 queue=0 wait=0ms service=308ms status=302 bytes=105
+2012-07-07T21:52:16+00:00 app[web.1]: 
+2012-07-07T21:52:16+00:00 app[web.1]: 
+2012-07-07T21:52:16+00:00 app[web.1]: Started GET "/users/859" for 76.104.29.64 at 2012-07-07 21:52:16 +0000
+2012-07-07T21:52:16+00:00 app[web.1]: Processing by UsersController#show as HTML
+2012-07-07T21:52:16+00:00 app[web.1]:   Parameters: {"id"=>"859"}
+2012-07-07T21:52:16+00:00 app[web.1]:   Rendered users/show.html.erb within layouts/application (11.4ms)
+2012-07-07T21:52:16+00:00 app[web.1]:   Rendered layouts/_shim.html.erb (0.0ms)
+2012-07-07T21:52:16+00:00 app[web.1]:   Rendered layouts/_header.html.erb (3.8ms)
+2012-07-07T21:52:16+00:00 app[web.1]: cache: [GET /users/859] miss
+2012-07-07T21:52:16+00:00 app[web.1]:   Rendered layouts/_footer.html.erb (0.2ms)
+2012-07-07T21:52:16+00:00 app[web.1]: Completed 200 OK in 47ms (Views: 10.6ms | ActiveRecord: 35.4ms)
+2012-07-07T21:52:16+00:00 heroku[router]: GET gpen.phillyecocity.com/users/859 dyn
+o=web.1 queue=0 wait=0ms service=55ms status=200 bytes=12240
+2012-07-07T21:52:46+00:00 heroku[run.1]: Awaiting client
+2012-07-07T21:52:46+00:00 heroku[run.1]: Starting process with command `rails console`
+2012-07-07T21:52:46+00:00 heroku[run.1]: State changed from starting to up
+2012-07-07T21:53:59+00:00 app[web.1]: 
+2012-07-07T21:53:59+00:00 app[web.1]:   Parameters: {"authenticity_token"=>"EMU8KffEdMuXsBkxirnxt11jxvxH1Bq3LShHVlzgZu0="}
+2012-07-07T21:53:59+00:00 app[web.1]: 
+2012-07-07T21:53:59+00:00 app[web.1]: Started DELETE "/signout" for 76.104.29.64 at 2012-07-07 21:53:59 +0000
+2012-07-07T21:53:59+00:00 app[web.1]: Processing by SessionsController#destroy as HTML
+2012-07-07T21:53:59+00:00 app[web.1]: Redirected to http://gpen.phillyecocity.com/
+2012-07-07T21:53:59+00:00 app[web.1]: cache: [POST /signout] invalidate, pass
+2012-07-07T21:53:59+00:00 app[web.1]: Completed 302 Found in 0ms (ActiveRecord: 0.0ms)
+2012-07-07T21:53:59+00:00 heroku[router]: POST gpen.phillyecocity.com/signout dyno=web.1 queue=0 wait=0ms service=7ms status=302 bytes=96
+2012-07-07T21:53:59+00:00 app[web.1]: 
+2012-07-07T21:53:59+00:00 app[web.1]: 
+2012-07-07T21:53:59+00:00 app[web.1]: Processing by StaticPagesController#home as HTML
+2012-07-07T21:53:59+00:00 app[web.1]: Started GET "/" for 76.104.29.64 at 2012-07-07 21:53:59 +0000
+2012-07-07T21:53:59+00:00 app[web.1]:   Rendered static_pages/home.html.erb within layouts/application (48.4ms)
+2012-07-07T21:53:59+00:00 app[web.1]:   Rendered layouts/_shim.html.erb (0.0ms)
+2012-07-07T21:53:59+00:00 app[web.1]:   Rendered layouts/_header.html.erb (1.2ms)
+2012-07-07T21:53:59+00:00 app[web.1]: Completed 200 OK in 60ms (Views: 52.8ms | ActiveRecord: 5.3ms)
+2012-07-07T21:53:59+00:00 app[web.1]:   Rendered layouts/_footer.html.erb (1.1ms)
+2012-07-07T21:53:59+00:00 app[web.1]: cache: [GET /] miss
+2012-07-07T21:53:59+00:00 heroku[router]: GET gpen.phillyecocity.com/ dyno=web.1 queue=0 wait=0ms service=64ms status=304 bytes=0
+2012-07-07T21:54:38+00:00 app[web.1]: 
+2012-07-07T21:54:38+00:00 app[web.1]: 
+2012-07-07T21:54:38+00:00 app[web.1]: Started GET "/" for 76.104.29.64 at 2012-07-07 21:54:38 +0000
+2012-07-07T21:54:38+00:00 app[web.1]: Processing by StaticPagesController#home as HTML
+2012-07-07T21:54:38+00:00 app[web.1]:   Rendered static_pages/home.html.erb within layouts/application (47.8ms)
+2012-07-07T21:54:38+00:00 app[web.1]:   Rendered layouts/_shim.html.erb (0.0ms)
+2012-07-07T21:54:38+00:00 app[web.1]:   Rendered layouts/_header.html.erb (1.2ms)
+2012-07-07T21:54:38+00:00 app[web.1]:   Rendered layouts/_footer.html.erb (1.1ms)
+2012-07-07T21:54:38+00:00 app[web.1]: Completed 200 OK in 106ms (Views: 51.9ms | ActiveRecord: 51.8ms)
+2012-07-07T21:54:38+00:00 app[web.1]: cache: [GET /] miss
+2012-07-07T21:54:38+00:00 heroku[router]: GET gpen.phillyecocity.com/ dyno=web.1 queue=0 wait=0ms service=112ms status=304 bytes=0
+2012-07-0
+7T21:54:38+00:00 app[web.1]: cache: [GET /assets/application-9c0204f97aacf11d126b7c0138cb30cf.css] miss
+2012-07-07T21:54:38+00:00 app[web.1]: cache: [GET /assets/application-a698584fe2b35c4d4525b7903ff49847.js] miss
+2012-07-07T21:54:38+00:00 heroku[router]: GET gpen.phillyecocity.com/assets/application-9c0204f97aacf11d126b7c0138cb30cf.css dyno=web.1 queue=0 wait=0ms service=5ms status=304 bytes=0
+2012-07-07T21:54:38+00:00 heroku[router]: GET gpen.phillyecocity.com/assets/application-a698584fe2b35c4d4525b7903ff49847.js dyno=web.1 queue=0 wait=0ms service=7ms status=304 bytes=0
+2012-07-07T21:54:38+00:00 app[web.1]: cache: [GET /assets/gpen-logo-f63d1ee4ab7c39049b17e2a9e8ec6067.png] miss
+2012-07-07T21:54:38+00:00 heroku[router]: GET gpen.phillyecocity.com/assets/gpen-logo-f63d1ee4ab7c39049b17e2a9e8ec6067.png dyno=web.1 queue=0 wait=0ms service=5ms status=304 bytes=0
+2012-07-07T21:55:25+00:00 app[web.1]: 
+2012-07-07T21:55:25+00:00 app[web.1]: 
+2012-07-07T21:55:25+00:00 app[web.1]: Started POST "/users" for 76.104.29.64 at 2012-07-07 21:55:25 +0000
+2012-07-07T21:55:25+00:00 app[web.1]: Processing by UsersController#create as HTML
+2012-07-07T21:55:25+00:00 app[web.1]:   Parameters: {"utf8"=>"✓", "authenticity_token"=>"EMU8KffEdMuXsBkxirnxt11jxvxH1Bq3LShHVlzgZu0=", "user"=>{"fname"=>"Amina", "lname"=>"Myna", "email"=>"amina@gmail.com", "phone"=>"2672051460", "birth_date(1i)"=>"1982", "birth_date(2i)"=>"7", "birth_date(3i)"=>"7", "bio"=>"", "website"=>"", "facebook"=>"", "twitter"=>"", "linkedin"=>"", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}, "commit"=>"Create an Account"}
+2012-07-07T21:55:25+00:00 app[web.1]:   Rendered notifications/welcome_email.html.erb (0.7ms)
+2012-07-07T21:55:25+00:00 app[web.1]:   Rendered notifications/welcome_email.text.erb (0.2ms)
+2012-07-07T21:55:26+00:00 app[web.1]: cache: [POST /users] invalidate, pass
+2012-07-07T21:55:26+00:00 app[web.1]: Redirected to http://gpen.phillyecocity.com/users/861
+2012-07-07T21:55:26+00:00 app[web.1]: Completed 302 Found in 994ms (ActiveRecord: 56.6ms)
+2012-07-07T21:55:26+00:00 heroku[router]: POST gpen.phillyecocity.com/users dyno=web.1 queue=0 wait=0ms service=1001ms status=302 bytes=105
+2012-07-07T21:55:26+00:00 app[web.1]: 
+2012-07-07T21:55:26+00:00 app[web.1]: 
+2012-07-07T21:55:26+00:00 app[web.1]: Started GET "/users/861" for 76.104.29.64 at 2012-07-07 21:55:26 +0000
+2012-07-07T21:55:26+00:00 app[web.1]: Processing by UsersController#show as HTML
+2012-07-07T21:55:26+00:00 app[web.1]:   Parameters: {"id"=>"861"}
+2012-07-07T21:55:26+00:00 app[web.1]:   Rendered users/show.html.erb within layouts/application (11.5ms)
+2012-07-07T21:55:26+00:00 app[web.1]:   Rendered layouts/_shim.html.erb (0.0ms)
+2012-07-07T21:55:26+00:00 app[web.1]:   Rendered layouts/_header.html.erb (4.2ms)
+2012-07-07T21:55:26+00:00 app[web.1]:   Rendered layouts/_footer.html.erb (0.2ms)
+2012-07-07T21:55:26+00:00 app[web.1]: Completed 200 OK in 53ms (Views: 43.5ms | ActiveRecord: 8.8ms)
+2012-07-07T21:55:26+00:00 app[web.1]: cache: [GET /users/861] miss
+2012-07-07T21:55:26+00:00 heroku[router]: GET gpen.phillyecocity.com/users/861 dyno=web.1 queue=0 wait=0ms service=62ms status=200 bytes=12306
+2012-07-07T21:56:28+00:00 heroku[run.1]: Process exited with status 0
+2012-07-07T21:56:28+00:00 heroku[run.1]: State changed from up to complete
