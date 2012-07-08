@@ -34,14 +34,16 @@ class UsersController < ApplicationController
 
   def confirm
     @user = User.find(params[:id])
-    @user.confirm
-    
-    if @user.save && @user.confirmed == true
+    @user.update_attribute(:confirmed, true) 
+    if @user.confirmed == true  
       sign_in(@user)
-    end
-    flash[:success] = "Your account has been successfully confirmed - You can now access the full GPEN database"
-    redirect_to root_path
+      flash[:success] = "Your account has been successfully confirmed - You can now access the full GPEN database"
+    else
+      flash[:error] = "There has been a problem confirming your account "
+    end 
+     redirect_to root_path
   end
+
 
   def jobs
     @user = User.find(params[:id])
