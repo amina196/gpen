@@ -34,8 +34,7 @@ GpenApp::Application.routes.draw do
 
   resources :users do
     member do
-      get :jobs, :projects
-      put :confirm
+      get :jobs, :projects, :confirm
     end
   end
 
