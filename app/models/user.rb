@@ -5,6 +5,7 @@ attr_accessible :fname, :lname, :phone, :birth_date, :email, :password, :passwor
 has_secure_password
 
 before_save :create_remember_token
+before_save :create_verification_token
 
 valid_website_regex = /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix
 validates :website, format: { with: valid_website_regex}
@@ -83,6 +84,10 @@ private
 
 	def create_remember_token
 		self.remember_token = SecureRandom.urlsafe_base64
+	end
+
+	def create_verification_token
+		self.verification_token = SecureRandom.urlsafe_base64
 	end
 
 end

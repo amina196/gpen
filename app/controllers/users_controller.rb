@@ -22,7 +22,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     if @user.save
-      @user.update_attributes(confirmed: false)
+      @user.update_attribute(:confirmed, false)
       Notifications.welcome_email(@user).deliver
       #sign_in @user
       flash[:success] = "Welcome to GPEN, #{@user.fname}! Please confirm your account for full access to the GPEN website"
@@ -41,7 +41,7 @@ class UsersController < ApplicationController
     else
       flash[:error] = "There has been a problem confirming your account "
     end 
-     redirect_to root_path
+    redirect_to root_path
   end
 
 

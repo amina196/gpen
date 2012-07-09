@@ -35,7 +35,7 @@ GpenApp::Application.routes.draw do
   resources :users do
     member do
       get :jobs, :projects 
-      put :confirm
+      match '/confirm/:token' => 'users#confirm', :as => :confirm
     end
   end
 
