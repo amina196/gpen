@@ -33,7 +33,7 @@ class UsersController < ApplicationController
   end
 
   def confirm
-    @user = User.find(params[:id])
+    @user = User.find_by_verification_token(params[:token])
     @user.update_attribute(:confirmed, true) 
     if @user.confirmed == true  
       sign_in(@user)
