@@ -6,7 +6,7 @@ class Jobenrollment < ActiveRecord::Base
 	#resume attachment using Paperclip, cf doc in Github readme
 	has_attached_file :resume, 
 					  :url  => "/:id/:basename.:extension",
-                      :path => ":rails_root/public/:id/:basename.:extension" 
+                      :path => ":rails_root/public/:id/:basename.:extension", 
 					  :storage => :s3,
     				  :bucket => ENV['S3_BUCKET_NAME'],
 					  :s3_credentials => {
