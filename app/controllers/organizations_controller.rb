@@ -11,15 +11,24 @@ class OrganizationsController < ApplicationController
     @organizations = Organization.search(params[:search],params[:page],params[:filters],params[:filters_id]  )
     @sectors = Sector.all
 
-    #session[:orgfound] = @searchedorgs
-    #render 'list_orgs' unless @searchedorgs.nil?
+    if @filters_id.nil?
+      @organizations = Organization.search(params[:search],params[:page],params[:filters],params[:filters_id] )
+    else
+      @organizations = Sector.find(params[:filters_id].to_i).organizations.keep_if {|o| o.approved == true }
+    end
+
   end
 
   # GET /organizations/1
   # GET /organizations/1.json
   def show
     @organization = Organization.find(params[:id])
-    redirect_to organizations_path unless (@organization.approved == true || current_user.admin == true)
+    if !current_user.nil?
+      redirect_to organizations_path unless (@organization.approved == true || current_user.admin == true)
+    else
+      redirect_to organizations_path unless (@organization.approved == true)
+      flash[:notice] = "This organization will be visible after it has been approved"
+    end
     @date = @organization.end_date unless @organization.nil?
     @jobs = @organization.jobs
     @projects = @organization.projects

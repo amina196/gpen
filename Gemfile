@@ -5,6 +5,7 @@ gem 'bcrypt-ruby', '3.0.1'
 gem 'bootstrap-sass'
 gem 'bootstrap-will_paginate'
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
+gem 'aws-s3'
 gem 'annotate'
 gem 'dropbox'
 gem 'paperclipdropbox'
