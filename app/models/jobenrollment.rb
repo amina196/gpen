@@ -4,7 +4,10 @@ class Jobenrollment < ActiveRecord::Base
 	validates_uniqueness_of :user_id, :scope => :job_id
 
 	#resume attachment using Paperclip, cf doc in Github readme
-	has_attached_file :resume, :storage => :s3,
+	has_attached_file :resume, 
+					  :url  => "/:id/:basename.:extension",
+                      :path => ":rails_root/public/:id/:basename.:extension" 
+					  :storage => :s3,
     				  :bucket => ENV['S3_BUCKET_NAME'],
 					  :s3_credentials => {
 					     :access_key_id => ENV['AWS_ACCESS_KEY_ID'],
