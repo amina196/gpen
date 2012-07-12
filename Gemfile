@@ -6,6 +6,7 @@ gem 'bootstrap-sass'
 gem 'bootstrap-will_paginate'
 gem "paperclip", :git => "git://github.com/thoughtbot/paperclip.git"
 gem 'aws-s3'
+gem 'aws-sdk', '~> 1.3.4'
 gem 'annotate'
 gem 'dropbox'
 gem 'paperclipdropbox'
