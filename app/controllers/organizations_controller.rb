@@ -17,8 +17,10 @@ class OrganizationsController < ApplicationController
    if params[:search].nil?  #GET /organizations -- params[:filters_id & :filters] also not null 
       if cookies[:filters].nil? || cookies[:filters].empty?
         @organizations = Organization.all
+        @filters = []
       else
         @organizations = Organization.filter(cookies[:filters])
+        @filters = ((cookies[:filters].split(',').collect { |stringid| stringid.to_i}).collect { |id| Sector.find(id)}).uniq
       end
    else
      if !params[:search].empty? && params[:filters_id].empty? # search and no filters
@@ -35,7 +37,7 @@ class OrganizationsController < ApplicationController
    end
 
    #get array of string for showing labels of filters activated
-   @filters = ((cookies[:filters].split(',').collect { |stringid| stringid.to_i}).collect { |id| Sector.find(id)}).uniq
+   
    @searchtext = params[:search]
    @sectors = Sector.all
    @filters_id = params[:filters_id]
