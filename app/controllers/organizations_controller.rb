@@ -36,10 +36,12 @@ class OrganizationsController < ApplicationController
 
    #get array of string for showing labels of filters activated
    if cookies[:filters].nil? || cookies[:filters].empty?
-     @filters = ((cookies[:filters].split(',').collect { |stringid| stringid.to_i}).collect { |id| Sector.find(id)}).uniq
-   else
      @filters = []
+   else
+     @filters = ((cookies[:filters].split(',').collect { |stringid| stringid.to_i}).collect { |id| Sector.find(id)}).uniq
    end
+     
+
    @searchtext = params[:search]
    @sectors = Sector.all
    @filters_id = params[:filters_id]
