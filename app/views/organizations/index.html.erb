@@ -68,16 +68,18 @@
 
             
             <% if @searchtext.nil? %>
-            <h1>Green Organizations</h1>
 
-            <p>We are proud to say that we have <%= Organization.all.count %> (and counting!) green organizations listed on our website. Use the filters to the left or the search bar below to find organizations.</p>
+                <h1>Green Organizations</h1>
+                <p>We are proud to say that we have <%= Organization.all.count %> (and counting!) green organizations listed on our website. Use the filters to the left or the search bar below to find organizations.</p>
+
             <% else %>
-            <h2>Organization Results <small>for '<%= @searchtext %>'</small></h2>
-            
 
+                <h2>Organization Results <% if !@searchtext.empty? %><small>for '<%= @searchtext %>'</small><% end %></h2>
+                <h6>filters</h6>
+                <% @filters.each do |filterobject| %>
+                    <span class="label label-info"><%= filterobject.description %></span>
+                <% end %>
 
-            <h6>filters</h6>
-            <span class="label label-info"><%= @filter %></span> <span class="label label-info">ID <%= @filters_id %></span>
             <% end %>
 
             <%= form_tag organizations_path, method: 'get', :id => 'search_orgs', class: 'form-search form-big-search' do%>
@@ -89,6 +91,7 @@
               </p>
             <% end %>
 
+            <%= link_to('Reset filters', organization_resetcookies_url(1), :method => :get, class: "btn btn-success")%>
 
             <!--
             <form class="form-search form-big-search">
@@ -105,8 +108,11 @@
             <h6>Latest Organizations</h6>
             <% else %>
             <h6>Search Results</h6>
-
             <% end %>
+      
+      <% if @organizations.nil? %>
+        Your search shows no results. Reset filters and try another search.
+      <% else %>     
       <table class="table table-striped">
         <thead>
           <tr>
@@ -117,8 +123,9 @@
         </thead>
         <tbody>
 
-
+        
           <% @organizations.reverse.each do |organization| %>
+            <% if !organization.nil? %>
             <tr>
               <td>
                 
@@ -140,7 +147,10 @@
                 
               </td>
             </tr>
+            <% end %>
           <% end %>
+        <% end %>
+
           
         </tbody>
       </table>
@@ -148,8 +158,7 @@
 
 
 
-      <%= will_paginate @organizations, :inner_window => 2, :outer_window => 2 %>
-
+      
 
 
         </div><!--/span-->

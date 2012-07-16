@@ -26,6 +26,7 @@ GpenApp::Application.routes.draw do
   resources :organizations do
     put :approve
     post :renew
+    get :resetcookies
   end
 
   resources :jobenrollments, only: [:create, :destroy]

@@ -1,22 +1,61 @@
 class OrganizationsController < ApplicationController
   before_filter :signed_in_user, only: [:create, :new, :update, :edit, :destroy]
 
-  # GET /organizations
-  # GET /organizations.json
+ 
   def index
-    @searchtext = params[:search]
-    @filters = params[:filters]
-    @filters_id = params[:filters_id]
+   #collect filters if any 
+   
+   if !params[:filters_id].nil? 
+      if cookies[:filters].blank?
+        cookies[:filters] = (params[:filters_id] + ',')
+      else
+        cookies[:filters] = cookies[:filters] << (params[:filters_id] + ',') unless cookies[:filters].include?(params[:filters_id] + ',')
+      end 
+   end
+
+   #set up search
+   if params[:search].nil?  #GET /organizations -- params[:filters_id & :filters] also not null 
+      if cookies[:filters].nil? || cookies[:filters].empty?
+        @organizations = Organization.all
+      else
+        @organizations = Organization.filter(cookies[:filters])
+      end
+   else
+     if !params[:search].empty? && params[:filters_id].empty? # search and no filters
+        @organizations = Organization.search(params[:search])
+     end
+
+     if !params[:search].empty? && !params[:filters_id].empty? # search and filters
+        @organizations = Organization.search_and_filter(cookies[:filters], params[:search])
+     end
+
+     if params[:search].empty? && !params[:filters_id].empty? #no search, filters
+        @organizations = Organization.filter(cookies[:filters])
+     end
+   end
+
+   #get array of string for showing labels of filters activated
+   @filters = ((cookies[:filters].split(',').collect { |stringid| stringid.to_i}).collect { |id| Sector.find(id)}).uniq
+   @searchtext = params[:search]
+   @sectors = Sector.all
+   @filters_id = params[:filters_id]
+
+=begin
     #@organizations = Organization.paginate(:page => params[:page], :per_page => 10)
     @organizations = Organization.search(params[:search],params[:page],params[:filters],params[:filters_id]  )
-    @sectors = Sector.all
+    
 
     if @filters_id.nil?
       @organizations = Organization.search(params[:search],params[:page],params[:filters],params[:filters_id] )
     else
       @organizations = Sector.find(params[:filters_id].to_i).organizations.keep_if {|o| o.approved == true }
     end
-
+=end
+  end
+ 
+  def resetcookies
+    cookies[:filters] = nil
+    redirect_to organizations_path
   end
 
   # GET /organizations/1

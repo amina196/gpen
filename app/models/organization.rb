@@ -46,30 +46,43 @@ class Organization < ActiveRecord::Base
     end
   end
 
-=begin
-  def self.search(search)
-    if search
-      find(:all, conditions: ['UPPER(name) LIKE UPPER(?) OR UPPER(description) LIKE UPPER(?) OR UPPER(city) 
-                              LIKE UPPER(?) OR UPPER(state) LIKE UPPER(?) or UPPER(zip) LIKE UPPER(?)',
-                              "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%"])
-    else
-      find(:all).paginate(:page => params[:page], :per_page => 10)
-    end
-  end
-=end
+  #def self.search(search, page, sector)
 
-  def self.search(search, page, sector, id)
-      #sectors = self.sectors   #array of the sectors of the organization 
+
+     #sector : string of the form 'id1,id2,id3...'   
+=begin      
       paginate :per_page => 10, 
                :page => page,
                :conditions => ['approved = ? AND end_date > ? AND (UPPER(name) LIKE UPPER(?) OR UPPER(description) LIKE UPPER(?) OR UPPER(city) LIKE UPPER(?) OR UPPER(state) LIKE UPPER(?) or UPPER(zip) LIKE UPPER(?))', true, Date.today,"%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%"], 
                 :order => 'name'
       end
+=end
 
+  def self.filter(sector)
+        sectorarray = sector.split(',')
+        a = Organizationsector.find_all_by_sector_id(sectorarray)
+        b = a.collect {|orgsec| orgsec.organization}
+        return b
   end
 
-  def search_by_sector(sectorname)
+  def self.search(search)
+        Organization.find(:all, :conditions => ['approved = ? AND end_date > ? AND (UPPER(name) LIKE UPPER(?) OR UPPER(description) LIKE UPPER(?) OR UPPER(city) LIKE UPPER(?) OR UPPER(state) LIKE UPPER(?) or UPPER(zip) LIKE UPPER(?))', true, Date.today,"%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%"])
+  end
 
+  def self.search_and_filter(sector, search)
+    sectors = sector.split(',')
+    result = []
+    searchresult = Organization.find(:all, :conditions => ['approved = ? AND end_date > ? AND (UPPER(name) LIKE UPPER(?) OR UPPER(description) LIKE UPPER(?) OR UPPER(city) LIKE UPPER(?) OR UPPER(state) LIKE UPPER(?) or UPPER(zip) LIKE UPPER(?))', true, Date.today,"%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%"])
+    searchresult.each do |o|
+      sector_ids = o.sectors.collect {|sector| sector.id.to_s}
+      sector_ids.each do |s| 
+        if sectors.include?(s) 
+          result = result << o
+          break
+        end
+      end
+    end
+    return result
   end
 
 
@@ -128,6 +141,7 @@ STATES = [
     ['Wisconsin', 'WI'],
     ['Wyoming', 'WY']
   ]
+end
 
 # == Schema Information
 #
