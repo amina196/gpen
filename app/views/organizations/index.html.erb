@@ -74,7 +74,7 @@
 
             <% else %>
 
-                <h2>Organization Results <% if !@searchtext.empty? %><small>for '<%= @searchtext %>'</small><% end %></h2>
+                <h2>Organization Results <% if !@searchtext.nil? %><small>for '<%= @searchtext %>'</small><% end %></h2>
                 <h6>filters</h6>
                 <% @filters.each do |filterobject| %>
                     <span class="label label-info"><%= filterobject.description %></span>
