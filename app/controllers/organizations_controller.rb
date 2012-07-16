@@ -68,12 +68,17 @@ class OrganizationsController < ApplicationController
   # GET /organizations/1.json
   def show
     @organization = Organization.find(params[:id])
-    if !current_user.nil?
-      redirect_to organizations_path unless (@organization.approved == true || current_user.admin == true)
-    else
-      redirect_to organizations_path unless (@organization.approved == true)
-      flash[:notice] = "This organization will be visible after it has been approved"
+    if @organization.approved == false
+        if !current_user.nil?
+          if (current_user.admin == false)
+             redirect_to organizations_path 
+             flash[:notice] = "This organization will be visible after it has been approved"
+        else 
+            redirect_to organizations_path 
+            flash[:notice] = "This organization will be visible after it has been approved"
+        end
     end
+
     @date = @organization.end_date unless @organization.nil?
     @jobs = @organization.jobs
     @projects = @organization.projects
