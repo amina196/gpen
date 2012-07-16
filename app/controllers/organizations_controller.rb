@@ -70,7 +70,7 @@ class OrganizationsController < ApplicationController
     @organization = Organization.find(params[:id])
     if @organization.approved == false
         if !current_user.nil?
-          if (current_user.admin == false)
+          if (current_user.admin == nil)
              redirect_to organizations_path 
              flash[:notice] = "This organization will be visible after it has been approved"
           end
