@@ -73,6 +73,7 @@ class OrganizationsController < ApplicationController
           if (current_user.admin == false)
              redirect_to organizations_path 
              flash[:notice] = "This organization will be visible after it has been approved"
+          end
         else 
             redirect_to organizations_path 
             flash[:notice] = "This organization will be visible after it has been approved"
