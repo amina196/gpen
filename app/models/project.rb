@@ -16,7 +16,7 @@ class Project < ActiveRecord::Base
 def self.filter(sector)
         sectorarray = sector.split(',')
         a = Projectsector.find_all_by_sector_id(sectorarray)
-        b = a.collect {|orgsec| orgsec.organization}
+        b = a.collect {|orgsec| orgsec.project}
         return b
   end
 
