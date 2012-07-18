@@ -83,7 +83,7 @@ class ProjectsController < ApplicationController
  
   def resetcookies
     cookies[:filters] = nil
-    redirect_to organizations_path
+    redirect_to projects_path
   end
 
 
