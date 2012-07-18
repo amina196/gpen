@@ -78,13 +78,13 @@
                 <h6>filters</h6>
                 <% if !@filters.nil? %>
                     <% @filters.each do |filterobject| %>
-                        <span class="label label-info"><%= filterobject.description %></span>
+                        <span class="label label-info"><%= filterobject.description %> </span>
                     <% end %>
                 <% end %>
 
             <% end %>
 
-            <%= form_tag organizations_path, method: 'get', :id => 'search_orgs', class: 'form-search form-big-search' do%>
+            <%= form_tag organizations_path, method: 'get', :id => 'search_orgs', class: 'form-search form-big-search' do %>
               <p>
                   <%= text_field_tag :search, params[:search], class: 'big-search-query' %>
                   <%= hidden_field_tag :filters, params[:filters], class: 'big-search-query' %>

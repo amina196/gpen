@@ -2,11 +2,60 @@ class JobsController < ApplicationController
   before_filter :org_admin, only: [:new, :create, :update, :edit, :destroy]
   
   def index
-    @jobs = Job.all
+   
+    @sectors = Sector.all
     @searchedjobs = Job.search(params[:search])
     @searchtext = params[:search]
-    render 'list_jobs' unless @searchedjobs.nil?
+    @filters_id = params[:filters_id]
+
+
+if !params[:filters_id].nil? 
+      if cookies[:filters].blank?
+        cookies[:filters] = (params[:filters_id] + ',')
+      else
+        cookies[:filters] = cookies[:filters] << (params[:filters_id] + ',') unless cookies[:filters].include?(params[:filters_id] + ',')
+      end 
+   end
+
+   #set up search
+   if params[:search].nil?  #GET /organizations -- params[:filters_id & :filters] also not null 
+      if cookies[:filters].nil? || cookies[:filters].empty?
+        @jobs = Job.all
+      else
+        @jobs = Job.filter(cookies[:filters])
+      end
+   else
+     if !params[:search].empty? && params[:filters_id].empty? # search and no filters
+        @jobs = Job.search(params[:search])
+     end
+
+     if !params[:search].empty? && !params[:filters_id].empty? # search and filters
+        @jobs = Job.search_and_filter(cookies[:filters], params[:search])
+     end
+
+     if params[:search].empty? && !params[:filters_id].empty? #no search, filters
+        @jobs = Job.filter(cookies[:filters])
+     end
+   end
+
+   #get array of string for showing labels of filters activated
+   if cookies[:filters].nil? || cookies[:filters].empty?
+     @filters = []
+   else
+     @filters = ((cookies[:filters].split(',').collect { |stringid| stringid.to_i}).collect { |id| Sector.find(id)}).uniq
+   end
+     
+
+   @searchtext = params[:search]
+   @sectors = Sector.all
+   @filters_id = params[:filters_id]
   end
+
+  def resetcookies
+    cookies[:filters] = nil
+    redirect_to jobs_path
+  end
+  
 
   def show
     @job = Job.find(params[:id])

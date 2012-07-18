@@ -45,18 +45,6 @@ class OrganizationsController < ApplicationController
    @searchtext = params[:search]
    @sectors = Sector.all
    @filters_id = params[:filters_id]
-
-=begin
-    #@organizations = Organization.paginate(:page => params[:page], :per_page => 10)
-    @organizations = Organization.search(params[:search],params[:page],params[:filters],params[:filters_id]  )
-    
-
-    if @filters_id.nil?
-      @organizations = Organization.search(params[:search],params[:page],params[:filters],params[:filters_id] )
-    else
-      @organizations = Sector.find(params[:filters_id].to_i).organizations.keep_if {|o| o.approved == true }
-    end
-=end
   end
  
   def resetcookies

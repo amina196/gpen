@@ -21,7 +21,9 @@ GpenApp::Application.routes.draw do
   match '/single_project', to: 'static_pages#single_project'
   # match '/organizations', to: 'organizations#index'
 
-  resources :jobs
+  resources :jobs do
+    get :resetcookies
+  end
 
   resources :organizations do
     put :approve

@@ -22,35 +22,47 @@
               <li><a href="#">Philadelphia</a></li>
               <li><a href="#">Harrisburg</a></li>
               <li class="nav-header">By Type</li>
-              <li><a href="#">Transportation</a></li>
-              <li><a href="#">Energy</a></li>
-              <li><a href="#">Housing</a></li>
-              <li><a href="#">Food</a></li>
-              <li><a href="#">Healthcare</a></li>
-              <li><a href="#">Waste Management</a></li>
+              <% @sectors.each do |sector| %>
+                  <li <% if (@filters_id == sector.id.to_s)%> class="active" <% end %>>
+                  <a href="#" id="<%= sector.id %>"><%= sector.description %></a>
+                </li>
+              <% end %>
+
+
+              
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
           <div class="hero-unit">
-            <h1>Green Jobs</h1>
-            <p>We are proud to say that we have <%= @jobs.count %> (and counting!) green organizations listed on our website. Use the filters to the left or the search bar below to find organizations.</p>
             
-            <!--
-            <form class="form-search form-big-search">
-              <input type="text" class="big-search-query">
-              <button type="submit" class="btn btn-primary btn-big-search pull-right">Search</button>
-            </form>
-            -->
+            
+         <% if @searchtext.nil? %>
 
-            <%= form_tag jobs_path, method: 'get', class: 'form-search form-big-search' do%>
+                <h1>Green Jobs</h1>
+            <p>We are proud to say that we have <%= @jobs.count %> (and counting!) green organizations listed on our website. Use the filters to the left or the search bar below to find organizations.</p>
+            <% else %>
+
+                <h2>Organization Results <% if !@searchtext.nil? %><small>for '<%= @searchtext %>'</small><% end %></h2>
+                <h6>filters</h6>
+                <% if !@filters.nil? %>
+                    <% @filters.each do |filterobject| %>
+                        <span class="label label-info"><%= filterobject.description %> </span>
+                    <% end %>
+                <% end %>
+
+            <% end %>
+
+            <%= form_tag jobs_path, method: 'get', id: 'search_jobs', class: 'form-search form-big-search' do %>
               <p>
                   <%= text_field_tag :search, params[:search], class: 'big-search-query' %>
+                  <%= hidden_field_tag :filters, params[:filters], class: 'big-search-query' %>
+                  <%= hidden_field_tag :filters_id, params[:filters_id], class: 'big-search-query' %>
                   <%= submit_tag "Search", class: 'btn btn-primary btn-big-search pull-right', name: 'nil'%>
               </p>
             <% end %>
 
-            
+            <%= link_to('Reset filters', job_resetcookies_url(1), :method => :get, class: "btn btn-success")%>
 
 
             <% if signed_in? && current_user.organizations.any? %><%= link_to 'Post New Job', new_job_path %> <% end %>
