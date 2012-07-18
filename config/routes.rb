@@ -32,7 +32,11 @@ GpenApp::Application.routes.draw do
   end
 
   resources :jobenrollments, only: [:create, :destroy]
-  resources :projects
+  
+  resources :projects do
+    get :resetcookies
+  end
+
   resources :projectenrollments, only: [:create, :destroy]
 
   resources :users do

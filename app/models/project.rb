@@ -11,17 +11,34 @@ class Project < ActiveRecord::Base
 		has_many :users, through: :projectenrollments
 
 
-
-
 	#method for search
-	def self.search(search)
-		if search
-			find(:all, conditions: ['title LIKE ? OR proj_desc LIKE ? OR city LIKE ? OR state LIKE ? or zip LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%"])
-		else
-			nil
-		end
-	end
+	
+def self.filter(sector)
+        sectorarray = sector.split(',')
+        a = Projectsector.find_all_by_sector_id(sectorarray)
+        b = a.collect {|orgsec| orgsec.organization}
+        return b
+  end
 
+  def self.search(search)
+        Project.find(:all, :conditions => ['title LIKE ? OR proj_desc LIKE ? OR city LIKE ? OR state LIKE ? or zip LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%"])
+  end
+
+  def self.search_and_filter(sector, search)
+    sectors = sector.split(',')
+    result = []
+    searchresult = self.search(search)
+    searchresult.each do |o|
+      sector_ids = o.sectors.collect {|sector| sector.id.to_s}
+      sector_ids.each do |s| 
+        if sectors.include?(s) 
+          result = result << o
+          break
+        end
+      end
+    end
+    return result
+  end
 	
 end
 # == Schema Information

@@ -41,9 +41,9 @@
 
                 <h1>Green Jobs</h1>
             <p>We are proud to say that we have <%= @jobs.count %> (and counting!) green organizations listed on our website. Use the filters to the left or the search bar below to find organizations.</p>
-            <% else %>
+          <% else %>
 
-                <h2>Organization Results <% if !@searchtext.nil? %><small>for '<%= @searchtext %>'</small><% end %></h2>
+                <h2>Jobs Results <% if !@searchtext.nil? %><small>for '<%= @searchtext %>'</small><% end %></h2>
                 <h6>filters</h6>
                 <% if !@filters.nil? %>
                     <% @filters.each do |filterobject| %>
@@ -51,7 +51,7 @@
                     <% end %>
                 <% end %>
 
-            <% end %>
+          <% end %>
 
             <%= form_tag jobs_path, method: 'get', id: 'search_jobs', class: 'form-search form-big-search' do %>
               <p>

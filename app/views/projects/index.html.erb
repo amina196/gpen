@@ -23,27 +23,45 @@
               <li><a href="#">Philadelphia</a></li>
               <li><a href="#">Harrisburg</a></li>
               <li class="nav-header">By Type</li>
-              <li><a href="#">Transportation</a></li>
-              <li><a href="#">Energy</a></li>
-              <li><a href="#">Housing</a></li>
-              <li><a href="#">Food</a></li>
-              <li><a href="#">Healthcare</a></li>
-              <li><a href="#">Waste Management</a></li>
+              <% @sectors.each do |sector| %>
+                  <li <% if (@filters_id == sector.id.to_s)%> class="active" <% end %>>
+                  <a href="#" id="<%= sector.id %>"><%= sector.description %></a>
+                </li>
+              <% end %>
             </ul>
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
           <div class="hero-unit">
-            <h1>Green Projects</h1>
+
+            <% if @searchtext.nil? %>
+
+                <h1>Green Projects</h1>
             <p>Post a volunteer opportunity run by yourself or an organization for which you are an admin.</p>
+          <% else %>
+
+                <h2>Project Results <% if !@searchtext.nil? %><small>for '<%= @searchtext %>'</small><% end %></h2>
+                <h6>filters</h6>
+                <% if !@filters.nil? %>
+                    <% @filters.each do |filterobject| %>
+                        <span class="label label-info"><%= filterobject.description %> </span>
+                    <% end %>
+                <% end %>
+
+          <% end %>
+            
 
 
-              <%= form_tag projects_path, method: 'get' do %>
+              <%= form_tag projects_path, method: 'get', id: 'search_projects', class: 'form-search form-big-search' do %>
                   <p> 
                       <%= text_field_tag :search, params[:search], class: "big-search-query"%>
+                      <%= hidden_field_tag :filters, params[:filters], class: 'big-search-query' %>
+                      <%= hidden_field_tag :filters_id, params[:filters_id], class: 'big-search-query' %>
                       <%= submit_tag "Search", name: nil, class: "btn btn-primary btn-big-search pull-right" %>
                   </p>
               <% end %>
+
+               <%= link_to('Reset filters', project_resetcookies_url(1), :method => :get, class: "btn btn-success")%>
 
               
               <% if signed_in?%><%= link_to 'Post New Project', new_project_path %><% end %>

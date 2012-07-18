@@ -78,6 +78,7 @@
 			$('#filters_id').val($('a', this).attr('id'));
 			$('#search_orgs').submit();
 			$('#search_jobs').submit();
+			$('#search_projects').submit();
 
 		});
 

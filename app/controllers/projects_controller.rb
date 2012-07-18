@@ -35,13 +35,57 @@ class ProjectsController < ApplicationController
   end
 
   def index
-    @projectsearched = Project.search(params[:search])
-    @projects = Project.all
-    render 'list_projects' unless @projectsearched.nil?
-    @searchtext = params[:search]
 
+    @searchtext = params[:search]
+    @sectors = Sector.all
+    @filters_id = params[:filters_id]
     
+  if !params[:filters_id].nil? 
+      if cookies[:filters].blank?
+        cookies[:filters] = (params[:filters_id] + ',')
+      else
+        cookies[:filters] = cookies[:filters] << (params[:filters_id] + ',') unless cookies[:filters].include?(params[:filters_id] + ',')
+      end 
+   end
+
+   #set up search
+   if params[:search].nil?  #GET /organizations -- params[:filters_id & :filters] also not null 
+      if cookies[:filters].nil? || cookies[:filters].empty?
+        @projects = Project.all
+      else
+        @projects = Project.filter(cookies[:filters])
+      end
+   else
+     if !params[:search].empty? && params[:filters_id].empty? # search and no filters
+        @projects = Project.search(params[:search])
+     end
+
+     if !params[:search].empty? && !params[:filters_id].empty? # search and filters
+        @projects = Project.search_and_filter(cookies[:filters], params[:search])
+     end
+
+     if params[:search].empty? && !params[:filters_id].empty? #no search, filters
+        @projects = Project.filter(cookies[:filters])
+     end
+   end
+
+   #get array of string for showing labels of filters activated
+   if cookies[:filters].nil? || cookies[:filters].empty?
+     @filters = []
+   else
+     @filters = ((cookies[:filters].split(',').collect { |stringid| stringid.to_i}).collect { |id| Sector.find(id)}).uniq
+   end
+     
+   @searchtext = params[:search]
+   @sectors = Sector.all
+   @filters_id = params[:filters_id]
   end
+ 
+  def resetcookies
+    cookies[:filters] = nil
+    redirect_to organizations_path
+  end
+
 
   def update
     @project = Project.find(params[:id])
