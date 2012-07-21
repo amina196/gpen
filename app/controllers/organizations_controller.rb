@@ -3,8 +3,11 @@ class OrganizationsController < ApplicationController
 
  
   def index
+
+   @searchtext = params[:search]
+   @sectors = Sector.all
+   @filters_id = params[:filters_id]
    #collect filters if any 
-   
    if !params[:filters_id].nil? 
       if cookies[:filters].blank?
         cookies[:filters] = (params[:filters_id] + ',')
@@ -41,10 +44,6 @@ class OrganizationsController < ApplicationController
      @filters = ((cookies[:filters].split(',').collect { |stringid| stringid.to_i}).collect { |id| Sector.find(id)}).uniq
    end
      
-
-   @searchtext = params[:search]
-   @sectors = Sector.all
-   @filters_id = params[:filters_id]
   end
  
   def resetcookies

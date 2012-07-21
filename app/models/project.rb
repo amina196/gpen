@@ -27,7 +27,7 @@ def self.filter(sector)
   def self.search_and_filter(sector, search)
     sectors = sector.split(',')
     result = []
-    searchresult = self.search(search)
+    searchresult = Project.find(:all, :conditions => ['title LIKE ? OR proj_desc LIKE ? OR city LIKE ? OR state LIKE ? or zip LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%"])
     searchresult.each do |o|
       sector_ids = o.sectors.collect {|sector| sector.id.to_s}
       sector_ids.each do |s| 

@@ -49,11 +49,11 @@ class ProjectsController < ApplicationController
    end
 
    #set up search
-   if params[:search].nil?  #GET /organizations -- params[:filters_id & :filters] also not null 
+   if params[:search].nil?  #GET /organizations -- params[:filters_id & :filters] also null 
       if cookies[:filters].nil? || cookies[:filters].empty?
         @projects = Project.all
       else
-        @projects = Project.filter(cookies[:filters])
+        @projects = Project.filter(cookies[:filters]) 
       end
    else
      if !params[:search].empty? && params[:filters_id].empty? # search and no filters
@@ -69,7 +69,7 @@ class ProjectsController < ApplicationController
      end
    end
 
-   #get array of string for showing labels of filters activated
+   #get array of string for showing labels of activated filters
    if cookies[:filters].nil? || cookies[:filters].empty?
      @filters = []
    else
