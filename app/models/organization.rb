@@ -72,7 +72,7 @@ class Organization < ActiveRecord::Base
   def self.search_and_filter(sector, search)
     sectors = sector.split(',')
     result = []
-    searchresult = Organization.find(:all, :conditions => ['approved = ? AND end_date > ? AND (UPPER(name) LIKE UPPER(?) OR UPPER(description) LIKE UPPER(?) OR UPPER(city) LIKE UPPER(?) OR UPPER(state) LIKE UPPER(?) or UPPER(zip) LIKE UPPER(?))', true, Date.today,"%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%"])
+    searchresult = self.search(search)
     searchresult.each do |o|
       sector_ids = o.sectors.collect {|sector| sector.id.to_s}
       sector_ids.each do |s| 
