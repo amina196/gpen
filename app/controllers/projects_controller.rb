@@ -35,7 +35,6 @@ class ProjectsController < ApplicationController
   end
 
   def index
-
     @searchtext = params[:search]
     @sectors = Sector.all
     @filters_id = params[:filters_id]

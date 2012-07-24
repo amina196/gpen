@@ -41,7 +41,8 @@ class OrganizationsController < ApplicationController
    if cookies[:filters].nil? || cookies[:filters].empty?
      @filters = []
    else
-     @filters = ((cookies[:filters].split(',').collect { |stringid| stringid.to_i}).collect { |id| Sector.find(id)}).uniq
+    @filters_1 = (cookies[:filters].split(',').collect { |stringid| stringid.to_i}
+     @filters = @filters_1.collect {|id| Sector.find(id)}.uniq
    end
      
   end
