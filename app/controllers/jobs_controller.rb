@@ -11,7 +11,7 @@ class JobsController < ApplicationController
 
 if !params[:filters_id].nil? 
       if cookies[:filters].blank?
-        cookies[:filters] = (params[:filters_id] + ',')
+        cookies[:filters] = (params[:filters_id] + ',') unless params[:filters_id].empty?
       else
         cookies[:filters] = cookies[:filters] << (params[:filters_id] + ',') unless cookies[:filters].include?(params[:filters_id] + ',')
       end 
