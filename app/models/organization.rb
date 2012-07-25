@@ -66,7 +66,7 @@ class Organization < ActiveRecord::Base
   end
 
   def self.search(search)
-        Organization.find(:all, :conditions => ['approved = ? AND (UPPER(name) LIKE UPPER(?) OR UPPER(description) LIKE UPPER(?) OR UPPER(city) LIKE UPPER(?) OR UPPER(state) LIKE UPPER(?) or UPPER(zip) LIKE UPPER(?))', true, "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%"])
+        Organization.find(:all, :conditions => ['approved = ? AND end_date > ? AND (UPPER(name) LIKE UPPER(?) OR UPPER(description) LIKE UPPER(?) OR UPPER(city) LIKE UPPER(?) OR UPPER(state) LIKE UPPER(?) or UPPER(zip) LIKE UPPER(?))', true, Date.today,"%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%"])
   end
 
   def self.search_and_filter(sector, search)
