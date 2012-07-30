@@ -58,7 +58,7 @@ class UsersController < ApplicationController
         new_pass = SecureRandom.urlsafe_base64
         @user.update_attributes(password: new_pass, password_confirmation: new_pass)
         flash[:notice] = "A new password has been sent to your email inbox !"
-        Notifications.resetpswd_email(@user, new_pass)
+        Notifications.resetpswd_email(@user, new_pass).deliver
         redirect_to root_path
       end
     end
