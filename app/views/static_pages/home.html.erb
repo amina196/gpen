@@ -24,20 +24,13 @@
             <% else %>
               <h6>Member Login</h6>
                <%= form_for(:session, :url => sessions_path) do |f| %>
-
-
                   <%= f.text_field :email, class: "login-field", placeholder: "Email" %>
                   <%= f.password_field :password, class: "login-field", placeholder: "Password" %>
-                  <label class="checkbox">
-                    <input type="checkbox"> Remember me
-                  </label>
-
-
-                    <%= f.submit "Sign In", class: "btn btn-primary" %>
+                  <%= f.submit "Sign In", class: "btn btn-primary" %>
 
               <% end %>
 
-
+              <%= link_to "Forgot my password", resetpswd_path, method: 'get' %>
 
                <hr>
                <h6>Not a Member?</h6>

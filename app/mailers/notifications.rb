@@ -14,4 +14,10 @@ class Notifications < ActionMailer::Base
     @organization = Organization.find(@job.organization_id)
     mail(:to => user.email, :subject => "Application on GPEN job")
   end
+
+  def resetpswd_email(user, new_pass)
+    @user = user
+    @new_pass = new_pass
+    mail(:to => user.email, :subject => "Your GPEN password has been modified")
+  end
 end

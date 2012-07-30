@@ -44,6 +44,26 @@ class UsersController < ApplicationController
     redirect_to root_path
   end
 
+  def resetpswd
+    if request.get?
+      render 'resetpswd'
+    end
+
+    if request.post?
+      @user = User.find_by_email(params[:user][:email])
+      if @user.nil?
+        flash[:error] = "The email address entered is not a GPEN account."
+        redirect_to request.referer
+      else
+        new_pass = SecureRandom.urlsafe_base64
+        @user.update_attributes(password: new_pass, password_confirmation: new_pass)
+        flash[:notice] = "A new password has been sent to your email inbox !"
+        Notifications.resetpswd_email(@user, new_pass)
+        redirect_to root_path
+      end
+    end
+
+  end
 
   def jobs
     @user = User.find(params[:id])
