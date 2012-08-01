@@ -32,19 +32,19 @@ class Job < ActiveRecord::Base
   end
 
   def self.search_and_filter(sector, search)
-    sectors = sector.split(',')
-    result = []
-    searchresult = self.search(search)
-    searchresult.each do |o|
-      sector_ids = o.sectors.collect {|sector| sector.id.to_s}
-      sector_ids.each do |s| 
-        if sectors.include?(s) 
-          result = result << o
-          break
+      sectors = sector.split(',')
+      result = []
+      searchresult = self.search(search)
+      searchresult.each do |o|
+        sector_ids = o.sectors.collect {|sector| sector.id.to_s}
+        sector_ids.each do |s| 
+          if sectors.include?(s) 
+            result = result << o
+            break
+          end
         end
       end
-    end
-    return result
+      return result
   end
 
 end

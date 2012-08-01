@@ -17,10 +17,10 @@ if !params[:filters_id].nil?
       end 
    end
 
-   #set up search
+   #set up search : ONLY JOBS WHOSE ORG HAS BEEN APPROVED
    if params[:search].nil?  #GET /organizations -- params[:filters_id & :filters] also not null 
       if cookies[:filters].nil? || cookies[:filters].empty?
-        @jobs = Job.all
+        @jobs = Job.all  #jobs whose organization has been approved 
       else
         @jobs = Job.filter(cookies[:filters])
       end
