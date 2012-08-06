@@ -60,9 +60,9 @@
                 <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
                 <ul class="dropdown-menu">
                   <li><%= link_to 'Edit Project', edit_project_path(@project) %></li>
+                  <li><%= link_to 'Destroy', @project, confirm: 'Are you sure?', method: :delete %></li>
                   <li class="divider"></li>
                   
-                  <li><a href="#">Delete Project</a></li>
                 </ul>
               </div>
             <% end %>
