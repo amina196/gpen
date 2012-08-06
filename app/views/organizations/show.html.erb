@@ -71,7 +71,7 @@
                 <li><a data-toggle="modal" href="#myModal" >Renew Membership</a></li>
               <% end %>
               <li class="divider"></li>              
-              <li><a href="#">Delete Organization</a></li>
+              <li><%= link_to 'Delete Organization', @organization, confirm: 'Are you sure?', method: :delete %></li>
             </ul>
           </div>
         <% end %>
