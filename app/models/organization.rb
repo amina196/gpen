@@ -1,5 +1,5 @@
 class Organization < ActiveRecord::Base
-    
+    require 'will_paginate/array'
     #### ASSOCIATION ####
 
  #one-to-many rel Job
@@ -58,11 +58,11 @@ class Organization < ActiveRecord::Base
       end
 =end
 
-  def self.filter(sector)
+  def self.filter(sector, page)
         sectorarray = sector.split(',')
         a = Organizationsector.find_all_by_sector_id(sectorarray)
         b = a.collect {|orgsec| orgsec.organization}
-        return b
+        return b.paginate(page: page, per_page: 10)
   end
 
   def self.search(search)
