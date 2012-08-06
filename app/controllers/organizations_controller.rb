@@ -19,7 +19,7 @@ class OrganizationsController < ApplicationController
    #set up search
    if params[:search].nil?  #GET /organizations -- params[:filters_id & :filters] also not null 
       if cookies[:filters].nil? || cookies[:filters].empty?
-        @organizations = Organization.where('approved = ?', true).paginate(page: params[:page], per_page: 10)
+        @organizations = Organization.where('approved = ?', true)
       else
         @organizations = Organization.filter(cookies[:filters])
       end

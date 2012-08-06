@@ -14,13 +14,6 @@
             
             <ul class="nav nav-list" id="search_filters">
               <h3>Filters</h3>
-              <li class="nav-header">By County</li>
-              <li><a href="#">Bucks</a></li>
-              <li><a href="#">Chester</a></li>
-              <li><a href="#">Delaware</a></li>
-              <li><a href="#">Montgomery</a></li>
-              <li><a href="#">Philadelphia</a></li>
-              <li><a href="#">Harrisburg</a></li>
               <li class="nav-header">By Type</li>
               <% @sectors.each do |sector| %>
                   <li <% if (@filters_id == sector.id.to_s)%> class="active" <% end %>>

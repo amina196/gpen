@@ -58,11 +58,11 @@ class Organization < ActiveRecord::Base
       end
 =end
 
-  def self.filter(sector, page)
+  def self.filter(sector)
         sectorarray = sector.split(',')
         a = Organizationsector.find_all_by_sector_id(sectorarray)
         b = a.collect {|orgsec| orgsec.organization}
-        return b.paginate(page: page, per_page: 10)
+        return b
   end
 
   def self.search(search)
