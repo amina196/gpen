@@ -1,9 +1,6 @@
-<%= form_for(@user, :html => { :class => "form-horizontal" } ) do |f| %>
+<%= form_for(@user, :html => {:class => "form-horizontal" } ) do |f| %>
     
-
-
     <% if @user.errors.any? %>
-
 
       <div class="alert alert-error">
         <h4 class="alert-heading"><%= pluralize(@user.errors.count, "error") %> prohibited your profile from being saved:</h4>
@@ -120,6 +117,10 @@
           <%= f.password_field :password_confirmation, class: "input-xlarge" %>
         </div>
       </div>
+
+      <div style="display:none">
+          <%= f.password_field :botfisher, class: "input-xlarge", placeholder: "parapapapa" %>
+        </div>
 
       <div class="form-actions">
           <%= f.submit "Create Profile", class: "btn btn-primary" %>

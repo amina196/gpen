@@ -72,7 +72,7 @@
 
 		// seach filters
 		$('#search_filters li').click(function(e) {
-			$('#search_filters li.active').removeClass();
+			
 			$(this).toggleClass('active');
 			$('#filters').val($('a', this).text());
 			$('#filters_id').val($('a', this).attr('id'));

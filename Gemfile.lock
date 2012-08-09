@@ -73,6 +73,7 @@ GEM
       multi_json (~> 1.0)
     galetahub-simple_captcha (0.1.3)
     hike (1.2.1)
+    honeypot-captcha (0.0.2)
     httparty (0.8.3)
       multi_json (~> 1.0)
       multi_xml
@@ -165,6 +166,7 @@ DEPENDENCIES
   coffee-rails (~> 3.2.1)
   dropbox
   galetahub-simple_captcha
+  honeypot-captcha
   jquery-rails
   paperclip!
   paperclipdropbox

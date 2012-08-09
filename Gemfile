@@ -11,6 +11,7 @@ gem 'annotate'
 gem 'dropbox'
 gem 'paperclipdropbox'
 gem "galetahub-simple_captcha", :require => "simple_captcha"
+gem 'honeypot-captcha'
 
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'

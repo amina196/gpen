@@ -20,15 +20,19 @@ class UsersController < ApplicationController
   end
   
   def create
-    @user = User.new(params[:user])
-    if @user.save
-      @user.update_attribute(:confirmed, false)
-      Notifications.welcome_email(@user).deliver
-      #sign_in @user
-      flash[:success] = "Welcome to GPEN, #{@user.fname}! Please confirm your account for full access to the GPEN website"
-      redirect_to root_path
-    else
-      render 'new'
+    if params[:user][:botfisher].empty?
+      h = params[:user]
+      h.delete("botfisher")
+      @user = User.new(h)
+      if @user.save
+        @user.update_attribute(:confirmed, false)
+        Notifications.welcome_email(@user).deliver
+        #sign_in @user
+        flash[:success] = "Welcome to GPEN, #{@user.fname}! Please confirm your account for full access to the GPEN website"
+        redirect_to root_path
+      else
+        render 'new'
+      end
     end
   end
 
