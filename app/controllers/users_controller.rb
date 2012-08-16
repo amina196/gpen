@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   end
   
   def create
-    if params[:user][:botfisher].empty?
+    if params[:user][:botfisher].empty? 
       h = params[:user]
       h.delete("botfisher")
       @user = User.new(h)
@@ -86,14 +86,18 @@ class UsersController < ApplicationController
   end
 
   def update
-    @user = User.find(params[:id])
-    respond_to do |format|
-      if @user.update_attributes(params[:user])
-        format.html { redirect_to @user, notice: 'Your profile was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: "edit" }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+    if params[:user][:botfisher].empty? 
+      h = params[:user]
+      h.delete("botfisher")
+      @user = User.find(params[:id])
+      respond_to do |format|
+        if @user.update_attributes(h)
+          format.html { redirect_to @user, notice: 'Your profile was successfully updated.' }
+          format.json { head :no_content }
+        else
+          format.html { render action: "edit" }
+          format.json { render json: @user.errors, status: :unprocessable_entity }
+        end
       end
     end
   end

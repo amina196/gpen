@@ -44,9 +44,14 @@ class OrganizationsController < ApplicationController
     @filters_1 = cookies[:filters].split(',').collect { |stringid| stringid.to_i}
     @filters = @filters_1.collect {|id| Sector.find(id)}.uniq
    end
-     
+=begin
+   respond_to do |format|
+      format.html
+      format.xml { send_data @organizations.to_xml}
+   end
   end
- 
+=end 
+
   def resetcookies
     cookies[:filters] = nil
     redirect_to organizations_path

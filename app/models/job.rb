@@ -2,6 +2,7 @@ class Job < ActiveRecord::Base
   STATUS=['Full-time', 'Part-time', 'Contract']
   AVAILABILITY=['Available', 'Unavailable']
 
+
   #one to many relationship with the organization model
   belongs_to :organization
   
