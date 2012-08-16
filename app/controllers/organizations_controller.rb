@@ -49,8 +49,9 @@ class OrganizationsController < ApplicationController
       format.html
       format.xml { send_data @organizations.to_xml}
    end
-  end
 =end 
+  end
+
 
   def resetcookies
     cookies[:filters] = nil
@@ -160,4 +161,5 @@ class OrganizationsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
 end
