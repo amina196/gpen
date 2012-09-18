@@ -20,8 +20,48 @@
               </ul>
             </li>
           -->
+          
+
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="http://phillyecocity.com/about/vision/">Vision</a></li>
+                <li class="divider"></li>
+                <li><a href="http://phillyecocity.com/about/help/">Help us</a></li>
+                <li class="divider"></li>
+                 <li><a href="http://phillyecocity.com/about/histor/">History</a></li>
+                <li class="divider"></li>
+                 <li><a href="http://phillyecocity.com/about/contact/">Contact</a></li>
+                <li class="divider"></li>
+                 <li><a href="http://phillyecocity.com/about/shout-out/">Shout out</a></li>
+                <li class="divider"></li>
+                 <li><a href="http://phillyecocity.com/groups">Groups</a></li>
+                <li class="divider"></li>
+                 <li><a href="http://phillyecocity.com/members">Members</a></li>
+                <li class="divider"></li>
+                 <li><a href="http://phillyecocity.com/forums">Forums</a></li>
+                <li class="divider"></li>
+                 <li><a href="http://phillyecocity.com/activity">Activities</a></li>
+                <li class="divider"></li>
+              </ul>
+            </li>
+
+          <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Articles <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="<%= organizations_path %>">Act Philly</a></li>
+                <li class="divider"></li>
+                <li><a href="<%= new_organization_path %>">Think Globally</a></li>
+                <li class="divider"></li>
+              </ul>
+            </li>
+
+          <li class="dropdown">
+              <a href="http://phillyecocity.com/events/"> Events <b class="caret"></b></a>
+          </li>
+
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Organizations <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Green Organizations <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="<%= organizations_path %>">Browse Organizations</a></li>
                 <li class="divider"></li>
@@ -30,18 +70,16 @@
             </li>
 
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jobs <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Green Jobs <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="<%= jobs_path %>">Browse Jobs</a></li>
-                <li><a href="<%= list_jobs_path %>">(static) List Jobs</a></li>
                 <li class="divider"></li>
                 <li><a href="<%= new_job_path %>"><i class="icon-lock"></i> Post Job for Org</a></li>
-                <li><a class="modal-btn" data-toggle="modal" href="#job-apply-modal">(static) Apply to Job Modal Box</a></li>
               </ul>
             </li>
 
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Projects <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Green Projects <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="<%= projects_path %>">Browse Projects</a></li>
                 <li class="divider"></li>
@@ -49,7 +87,22 @@
               </ul>
             </li>
 
-
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Eco Tips <b class="caret"></b></a>
+              <ul class="dropdown-menu">
+                <li><a href="http://phillyecocity.com/tools/carbon-footprint/">Carbon Footprint</a></li>
+                <li class="divider"></li>
+                <li><a href="http://phillyecocity.com/tools/water-footprint/">Water Footprint</a></li>
+                <li class="divider"></li>
+                 <li><a href="http://phillyecocity.com/tools/buying_less_stuff/">Buying Less Stuff</a></li>
+                <li class="divider"></li>
+                 <li><a href="http://phillyecocity.com/tools/values-based-shopping/">Values based Shopping</a></li>
+                <li class="divider"></li>
+                <li><a href=" http://phillyecocity.com/tools/recycling/">Recycling</a></li>
+                <li class="divider"></li>
+                 <li><a href="http://phillyecocity.com/the-meporter-app/">Citizen Journalism</a></li>
+              </ul>
+            </li>
 
             
           
@@ -57,7 +110,7 @@
           
           
           <ul class="nav pull-right">
-             
+          <!--   
             <li><form class="navbar-search pull-left" action="">
               <input id="search_bar_type" type="hidden" value="org">
 
@@ -65,7 +118,7 @@
 
             </form>
           </li>
-
+          
           <li class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-search icon-white" id="search_button" ></i> <b class="caret"></b></a>
               <ul class="dropdown-menu">
@@ -74,6 +127,7 @@
                 <li><a id="search_proj" href="#">Search Projects</a></li>
               </ul>
             </li>
+          -->
             <li class="divider-vertical"></li>
             <% if signed_in? %>
               
