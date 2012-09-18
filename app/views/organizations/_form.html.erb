@@ -48,7 +48,7 @@
         <div class="control-group">
           <%= f.label :address2, "Address Line 2", class: "control-label" %>
           <div class="controls">
-            <%= f.text_field :address, class: "input-xlarge" %>
+            <%= f.text_field :address2, class: "input-xlarge" %>
           </div>
         </div>
         
@@ -92,9 +92,9 @@
           <%= f.label :website, class: "control-label" %>
           <div class="controls">
             <div class="input-prepend">
-                <span class="add-on">http://</span><%= f.text_field :website, class: "input-xlarge" %>
+                <%= f.text_field :website, class: "input-xlarge" %>
               </div>
-              <p class="help-block">Please omit the http://</p>
+              <p class="help-block">Please copy-paste the full website URL :</p>
           </div>
         </div>
 
@@ -133,7 +133,6 @@
 
         <div class="form-actions">
           <%= f.submit class: "btn btn-primary" %>
-          <button class="btn" type="reset">Reset</button>
         </div>
       </fieldset>
     <% end %>

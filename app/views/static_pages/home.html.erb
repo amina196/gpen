@@ -192,9 +192,9 @@
           <%= f.label :website, class: "control-label" %>
           <div class="controls">
             <div class="input-prepend">
-                <span class="add-on">http://</span><%= f.text_field :website, class: "span2" %>
+                <%= f.text_field :website, class: "span2" %>
               </div>
-              <p class="help-block">Please omit the http://</p>
+              <p class="help-block">Please copy-paste the full website URL : </p>
           </div>
         </div>
 
@@ -246,6 +246,11 @@
               <%= f.password_field :password_confirmation, class: "input-xlarge" %>
             </div>
           </div>
+
+          <div style="display:none">
+            <%= f.password_field :botfisher, class: "input-xlarge", placeholder: "parapapapa" %>
+          </div>
+
         </fieldset>
       
     </div>
