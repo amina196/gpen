@@ -78,7 +78,7 @@ if !params[:filters_id].nil?
     @job = Job.create(params[:job])
     @job.sectors = Sector.find(params[:sector_ids]) if params[:sector_ids]
     if @job.save
-      flash[:success] = "Job created!"
+      flash[:success] = "The job you posted has been successfully saved ! "
       redirect_to @job
     else
       render 'jobs/new'

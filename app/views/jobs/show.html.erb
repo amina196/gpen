@@ -44,16 +44,15 @@
 
         <%= link_to truncate(@job.organization.website, :length => 25, :omission => '...'), @job.organization.website, :title => @job.organization.website %>
         </address>
-
         
-      <% if !@job.organization.twitter.nil?  && !@job.organization.twitter.empty? %>
-        <%= link_to image_tag("icon-twitter.png", :class => "social-icon"), 'http://www.twitter.com/'+@user.twitter, :title => "Follow #{@job.organization.name} on Twitter", :rel => "tooltip" %>
+      <% if !@job.organization.twitter.empty? %>
+        <%= link_to image_tag("icon-twitter.png", :class => "social-icon"), 'http://www.twitter.com/'+@job.organization.twitter, :title => "Follow #{@job.organization.name} on Twitter", :rel => "tooltip" %>
       <% end %>
       <% if !@job.organization.facebook.nil? && !@job.organization.facebook.empty? %>
-        <%= link_to image_tag("icon-facebook.png", :class => "social-icon"), 'http://www.facebook.com/'+@user.facebook, :title => "Follow #{@job.organization.name} on Facebook", :rel => "tooltip" %>
+        <%= link_to image_tag("icon-facebook.png", :class => "social-icon"), 'http://www.facebook.com/'+ @job.organization.facebook, :title => "Follow #{@job.organization.name} on Facebook", :rel => "tooltip" %>
       <% end %>
       <% if !@job.organization.linkedin.nil? && !@job.organization.linkedin.empty? %>
-        <%= link_to image_tag("icon-linkedin.png", :class => "social-icon"), 'http://www.linkedin.com/in/'+@user.linkedin, :title => "Follow #{@job.organization.name} on LinkedIn", :rel => "tooltip" %>
+        <%= link_to image_tag("icon-linkedin.png", :class => "social-icon"), 'http://www.linkedin.com/in/'+@job.organization.linkedin, :title => "Follow #{@job.organization.name} on LinkedIn", :rel => "tooltip" %>
       <% end %>
 
       <div class="clear"></div>
