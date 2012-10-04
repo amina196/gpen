@@ -52,7 +52,7 @@ GEM
       uuidtools (~> 2.1)
     bcrypt-ruby (3.0.1)
     bcrypt-ruby (3.0.1-x86-mingw32)
-    bootstrap-sass (2.0.0)
+    bootstrap-sass (2.1.0.0)
     bootstrap-will_paginate (0.0.7)
       will_paginate
     builder (3.0.0)

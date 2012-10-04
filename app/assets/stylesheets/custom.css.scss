@@ -1,7 +1,6 @@
 @import "bootstrap";
 
 /* mixins, variables, etc. */
-
 $grayMediumLight: #eaeaea;
 
 /* universal */
@@ -59,12 +58,13 @@ clear: both;
 }
 
 .navbar .divider-vertical {
-background-color: #47a147;
+border-left: 1px solid #47a147;
 border-right: 1px solid #93D693;
 }
 
 .navbar .nav > li > a {
 color: #fff;
+text-shadow: none;
 }
 
 .navbar-search .search-query {
@@ -75,7 +75,13 @@ border: 1px solid #47A147;
 }
 
 .navbar-static-top .container, .navbar-fixed-top .container, .navbar-fixed-bottom .container {
-width: 1040px;
+  width: 940px;
+}
+
+.nav-list.filters > li > a {
+  padding: 3px 15px;
+  font-size: 12px;
+  line-height: 15px;
 }
 
 
@@ -180,7 +186,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF5F5F5', en
 width: 170px;
 }
 
-.big-search-query {
+input[type="text"].big-search-query {
   padding-left: 14px;
   padding-right: 14px;
   margin-bottom: 0;
@@ -224,4 +230,17 @@ width: 170px;
 
 .cross > a {
   color : white;
+}
+
+
+
+/* TYPOGRAPHY ************************ */
+
+h6 {
+  text-transform: uppercase;
+  color: #999;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  margin: 0px;
 }
