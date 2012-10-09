@@ -39,15 +39,19 @@
 
 
           <hr>
-          <div class="btn-group">
-            <button class="btn btn-primary">Admin Actions</button>
-            <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-            <ul class="dropdown-menu">
-              <li><%= link_to 'Edit My Profile', edit_user_path(@user) %></li>
-              <li class="divider"></li>
-              <li><%= link_to 'Delete My Account', @user, confirm: 'Are you sure?', method: :delete %></li>
-            </ul>
-          </div>
+
+          <% if current_user.admin == true %>
+            <div class="btn-group">
+              <button class="btn btn-primary">Admin Actions</button>
+              <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+              <ul class="dropdown-menu">
+                <li><%= link_to 'Edit My Profile', edit_user_path(@user) %></li>
+                <li class="divider"></li>
+                <li><%= link_to 'Delete My Account', @user, confirm: 'Are you sure?', method: :delete %></li>
+              </ul>
+            </div> 
+          <% end %>
+          
 
 
 			</div> <!--/well-->

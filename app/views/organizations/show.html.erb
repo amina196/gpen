@@ -10,7 +10,7 @@
 
 
       <div class="row">
-         <div class="span3">
+         <div class="span4">
           <div class="well">
           <h3><%= @organization.name %></h3>
 
@@ -78,10 +78,10 @@
 
       </div> <!--/well-->
         </div><!--/span-->
-        <div class="span9">
+        <div class="span8">
 
           <div class="row">
-            <div class="span9">
+            <div class="span8">
               <div class="hero-unit">
                 <h6>About <%= @organization.name %></h6>
 
@@ -102,7 +102,7 @@
           </div>
           <div class="row">
 
-            <div class="span5">
+            <div class="span4">
               <h2>Posted Jobs</h2>
               <% if signed_in? && current_user.admin_of(@organization) %>
                 <p><%= link_to "Post New Job", new_job_path %></p>

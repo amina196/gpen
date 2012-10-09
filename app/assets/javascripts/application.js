@@ -31,11 +31,13 @@
 	    })
 
 	    $('a[rel=popover].org-popover').popover({
-	    	placement: "left"
+	    	placement: "left",
+	    	trigger: 'hover'
 	    })
 
 	    $('a[rel=popover].home-org-popover').popover({
-	    	placement: "top"
+	    	placement: "top",
+	    	trigger: 'hover'
 	    })
 
 
