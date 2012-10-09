@@ -22,10 +22,16 @@
                   <a href="#" id="<%= sector.id %>"><%= sector.description %></a>
                 </li>
 
+
+
               <% end %>
 
 
             </ul>
+
+           
+            <%=  @filters_id %>
+
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
@@ -132,7 +138,17 @@
               <td>
                 
               <h4><%= link_to(organization.name, organization, :class => "org-popover", :rel => "popover", "data-original-title" => organization.name, "data-content" => organization.description) %></h4>
+
+              <% if organization.sectors.any? %>                
+                  <% organization.sectors.each do |sec| %>
+                    <span class="label label-success"><%=sec.description%></span>
+                  <% end %>
+                
+                <% end %>
+
               <p><%= truncate(organization.description, :length => 200, :omission => '...') %></p>
+
+
               </td>
               <td>
                 <address>
