@@ -21,6 +21,12 @@
   $(function(){
 
 
+  		
+				
+
+
+
+
 	    // tooltip setup
 	    $('a[rel=tooltip]').tooltip({
 	      placement: "bottom"

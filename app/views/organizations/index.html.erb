@@ -28,6 +28,7 @@
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
+
           <% if !current_user.nil? && current_user.admin == true %>
             <% @orgs_to_approve = (Organization.where(approved: false)) %>
             <% if @orgs_to_approve.any? %>  
@@ -105,6 +106,7 @@
 
           </div>
 
+          <div class="well">
             <% if @searchtext.nil? %>
             <h6>Latest Organizations</h6>
             <% else %>
@@ -171,6 +173,6 @@
 
       
 
-
+          </div><!--/well-->
         </div><!--/span-->
       </div><!--/row-->

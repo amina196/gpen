@@ -22,7 +22,7 @@
 
 
             <% else %>
-              <h6>Member Login</h6>
+              <h6>GPEN Member Login</h6>
                <%= form_for(:session, :url => sessions_path) do |f| %>
                   <%= f.text_field :email, class: "login-field", placeholder: "Email" %>
                   <%= f.password_field :password, class: "login-field", placeholder: "Password" %>
@@ -30,7 +30,7 @@
 
               <% end %>
 
-              <%= link_to "Forgot my password", resetpswd_path, method: 'get' %>
+              <span class="forgot-password"><%= link_to "Forgot your password?", resetpswd_path, method: 'get' %></span>
 
                <hr>
                <h6>Not a Member?</h6>
@@ -44,8 +44,11 @@
       </div><!--/row-->
       <div class="row">
             <div class="span4">
-              <h2><%= link_to "Green Organizations", organizations_path, :title => "Browse All Green Organizations", :rel => "tooltip" %></h2>
-              <p>The GPEN Organization Database is a key resource for everyone looking to connect to Environmental and Sustainability related non-profits or for profit Organizations in the Greater Philadelphia area. If your Organization or Company is not already in the GPEN Database, please create an entry for it. You must create an entry for your for profit or not for profit organization in the GPEN Organization database before being able to post a Green Job.</p>
+              <div class="well">
+              <h2><%= link_to "Organizations", organizations_path, :title => "Browse All Green Organizations", :rel => "tooltip" %></h2>
+              <div class="entity-description">
+                <p>The GPEN Organization Database is a key resource for everyone looking to connect to Environmental and Sustainability related non-profits or for profit Organizations in the Greater Philadelphia area. If your Organization or Company is not already in the GPEN Database, please create an entry for it. You must create an entry for your for profit or not for profit organization in the GPEN Organization database before being able to post a Green Job.</p>
+              </div>
                 <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
@@ -70,10 +73,14 @@
 
                     </tbody>
                   </table>
+                </div><!--/well-->
             </div><!--/span-->
             <div class="span4">
-              <h2><%= link_to "Green Jobs", jobs_path, :title => "Browse All Green Jobs", :rel => "tooltip" %></h2>
-              <p>The GPEN Jobs Database on PhillyEcoCity is the place to post your Green Jobs or to search for available Green Jobs in the Philadelphia Metropolitan area. To post a green job for your profit or not for profit organization you must first create an entry in the Organization GPEN Database.</p>
+              <div class="well">
+              <h2><%= link_to "Jobs", jobs_path, :title => "Browse All Green Jobs", :rel => "tooltip" %></h2>
+              <div class="entity-description">
+                <p>The GPEN Jobs Database on PhillyEcoCity is the place to post your Green Jobs or to search for available Green Jobs in the Philadelphia Metropolitan area. To post a green job for your profit or not for profit organization you must first create an entry in the Organization GPEN Database.</p>
+              </div>
               <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
@@ -99,11 +106,14 @@
                     </tbody>
                   </table>
 
-
+              </div><!--/well-->
             </div><!--/span-->
             <div class="span4">
-              <h2><%= link_to "Green Projects", projects_path, :title => "Browse All Green Projects", :rel => "tooltip" %></h2>
-              <p>The GPEN Project Database on PhillyEcocity is the place to advertise your Organization's volunteer days or post the workday projects you are yourself organizing. Anyone can post a volunteering opportunity or a workday project. If you represent an organization, please login to your Organization account first. If you represent yourself or your group of neighbors or friends, start by creating a profile for yourself in the GPEN Database.</p>
+              <div class="well">
+              <h2><%= link_to "Projects", projects_path, :title => "Browse All Green Projects", :rel => "tooltip" %></h2>
+              <div class="entity-description">
+                <p>The GPEN Project Database on PhillyEcocity is the place to advertise your Organization's volunteer days or post the workday projects you are yourself organizing. Anyone can post a volunteering opportunity or a workday project. If you represent an organization, please login to your Organization account first. If you represent yourself or your group of neighbors or friends, start by creating a profile for yourself in the GPEN Database.</p>
+              </div>
               <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
@@ -131,6 +141,7 @@
 
                     </tbody>
                   </table>
+              </div><!--/well-->
             </div><!--/span-->
        </div><!--/row-->
 

@@ -1,16 +1,18 @@
 <% provide(:title, "Sign in") %>
-<h1>Sign in</h1>
+
 
 <div class="row">
+
+  <!--
   <div class="span6 offset3">
+    <div class="well">
 
 
 
 
-
-    <%= form_for(:session, :url => sessions_path, :html => { :class => "form-horizontal" } ) do |f| %>
+    <%= form_for(:session, :url => sessions_path, :html => { :class => "" } ) do |f| %>
       <fieldset>
-        <legend>Details</legend>
+        <legend>Please Sign In</legend>
         <div class="control-group">
           <%= f.label :email, class: "control-label" %>
           <div class="controls">
@@ -36,5 +38,45 @@
 
     <p>New user? <%= link_to "Sign up now!", signup_path %></p>
     <p><%= link_to "Forgot my password", resetpswd_path, method: 'get' %> </p>
+
+
+
+
+    </div>
   </div>
+
+  -->
+  <div class="span6 offset3">
+        <div class="well">
+        
+
+          <% if signed_in? %>
+
+            <h6>Logged in as:</h6>
+            <h3><%= current_user.fname %> <%= current_user.lname %></h3>
+            
+            <%= link_to "Sign Out", signout_path, method: "delete", class: "btn btn-signup" %>
+
+
+          <% else %>
+            <h2>Please Sign In</h2>
+            <h6>GPEN Member Login</h6>
+             <%= form_for(:session, :url => sessions_path) do |f| %>
+                <%= f.text_field :email, class: "login-field", placeholder: "Email" %>
+                <%= f.password_field :password, class: "login-field", placeholder: "Password" %>
+                <%= f.submit "Sign In", class: "btn btn-primary" %>
+
+            <% end %>
+
+            <span class="forgot-password"><%= link_to "Forgot your password?", resetpswd_path, method: 'get' %></span>
+
+             <hr>
+             <h6>Not a Member?</h6>
+             <a class="modal-btn btn btn-signup" data-toggle="modal" href="#signup-modal" >Sign Up, It's Free!</a>
+          <% end %>
+
+
+        
+    </div> <!--/well-->
+      </div><!--/span-->
 </div>

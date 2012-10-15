@@ -37,6 +37,101 @@ a:hover {
   text-decoration: underline;
 }
 
+.forgot-password {
+  font-size: 9px;
+}
+
+.entity-description {
+  height: 260px;
+}
+
+
+
+/* making content transparent white background */
+
+.hero-unit {
+  
+  background: url(image_path('white-bg.png'));
+  background: rgba(255,255,255,.8);
+  -moz-box-shadow: 0px 0px 5px #666;
+  -webkit-box-shadow: 0px 0px 5px #666;
+  box-shadow: 0px 0px 5px #666;
+}
+
+.breadcrumb {
+  background: url(image_path('white-bg.png'));
+  background: rgba(255,255,255,.8);
+  -moz-box-shadow: 0px 0px 5px #666;
+  -webkit-box-shadow: 0px 0px 5px #666;
+  box-shadow: 0px 0px 5px #666;
+}
+
+.well {
+  background: url(image_path('white-bg.png'));
+  background: rgba(255,255,255,.8);
+  border: none;
+  -moz-box-shadow: 0px 0px 5px #666;
+  -webkit-box-shadow: 0px 0px 5px #666;
+  box-shadow: 0px 0px 5px #666;
+}
+
+input[type="text"].big-search-query {
+  /*background-color: rgba(255,255,255,.6);*/
+  background: url(image_path('white-bg.png'));
+  border: none;
+  -moz-box-shadow: 0px 0px 5px #666;
+  -webkit-box-shadow: 0px 0px 5px #666;
+  box-shadow: 0px 0px 5px #666;
+}
+
+header {
+  -moz-box-shadow: 0px 0px 2px #999;
+  -webkit-box-shadow: 0px 0px 2px #999;
+  box-shadow: 0px 0px 2px #999;
+}
+
+.alert {
+  padding: 8px 35px 8px 14px;
+  margin-bottom: 20px;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+  background-color: #FCF8E3;
+  border: 1px solid #FBEED5;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  color: #C09853;
+  -moz-box-shadow: 0px 0px 5px #666;
+  -webkit-box-shadow: 0px 0px 5px #666;
+  box-shadow: 0px 0px 5px #666;
+}
+
+.table-striped tbody tr:nth-child(odd) td, .table-striped tbody tr:nth-child(odd) th {
+  background: url(image_path('white-bg.png'));
+}
+
+.breadcrumb li {
+  text-shadow: none;
+
+}
+
+.nav-list > li > a, .nav-list .nav-header {
+  text-shadow: none;
+}
+
+.breadcrumb .active {
+  color: #333;
+  font-weight: bold;
+}
+
+.nav-header, h6 {
+  color: #666;
+}
+
+hr {
+  border-top: 1px solid #ccc;
+  border-bottom: none;
+}
+
 
 /* header */
 
@@ -289,7 +384,7 @@ input[type="text"].big-search-query {
 
 h6 {
   text-transform: uppercase;
-  color: #999;
+  color: #666;
 }
 
 h3 {

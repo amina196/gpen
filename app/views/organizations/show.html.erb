@@ -101,62 +101,65 @@
             </div>
           </div>
           <div class="row">
+            <div class="well">
+              <div class="span4">
 
-            <div class="span4">
-              <h2>Posted Jobs</h2>
-              <% if signed_in? && current_user.admin_of(@organization) %>
-                <p><%= link_to "Post New Job", new_job_path %></p>
-              <% end %>
-              <table class="table table-striped">
-                  <tbody>
-                    <%if @jobs.any? %>
-                      <% @jobs.each do |job| %>
+                <h2>Posted Jobs</h2>
+                <% if signed_in? && current_user.admin_of(@organization) %>
+                  <p><%= link_to "Post New Job", new_job_path %></p>
+                <% end %>
+                <table class="table table-striped">
+                    <tbody>
+                      <%if @jobs.any? %>
+                        <% @jobs.each do |job| %>
+                          <tr>
+                            <td>
+                              <h4><%= link_to(job.title, job, :class => "home-org-popover", :rel => "popover", "data-original-title" => job.title, "data-content" => job.description) %></h4>
+                              <p>Joined <%= time_ago_in_words(job.created_at) %> ago</p>
+                            </td>
+                        </tr>
+                        <% end %>
+                      <% else %>
                         <tr>
-                          <td>
-                            <h4><%= link_to(job.title, job, :class => "home-org-popover", :rel => "popover", "data-original-title" => job.title, "data-content" => job.description) %></h4>
-                            <p>Joined <%= time_ago_in_words(job.created_at) %> ago</p>
-                          </td>
-                      </tr>
+                            <td>
+                              <h4>No jobs posted.</h4>
+                            </td>
+                        </tr>
                       <% end %>
-                    <% else %>
-                      <tr>
-                          <td>
-                            <h4>No jobs posted.</h4>
-                          </td>
-                      </tr>
-                    <% end %>
-                  </tbody>
-                </table>
-            </div>
+                    </tbody>
+                  </table>
+              </div>
 
-            <div class="span4">
-              <h2>Posted Projects</h2>
-              <% if signed_in? && current_user.admin_of(@organization) %>
-                <p><%= link_to "Post New Project", new_project_path %></p>
-              <% end %>
-              <table class="table table-striped">
-                  <tbody>
-                    <%if @projects.any? %>
-                      <% @projects.each do |project| %>
+              <div class="span4">
+                <h2>Posted Projects</h2>
+                <% if signed_in? && current_user.admin_of(@organization) %>
+                  <p><%= link_to "Post New Project", new_project_path %></p>
+                <% end %>
+                <table class="table table-striped">
+                    <tbody>
+                      <%if @projects.any? %>
+                        <% @projects.each do |project| %>
+                          <tr>
+                            <td>
+                              <h4><%= link_to(project.title, project, :class => "home-org-popover", :rel => "popover", "data-original-title" => project.title, "data-content" => project.proj_desc) %></h4>
+                              <p>Joined <%= time_ago_in_words(project.created_at) %> ago</p>
+                            </td>
+                        </tr>
+                        <% end %>
+                      <% else %>
                         <tr>
-                          <td>
-                            <h4><%= link_to(project.title, project, :class => "home-org-popover", :rel => "popover", "data-original-title" => project.title, "data-content" => project.proj_desc) %></h4>
-                            <p>Joined <%= time_ago_in_words(project.created_at) %> ago</p>
-                          </td>
-                      </tr>
+                            <td>
+                              <h4>No projects posted.</h4>
+                            </td>
+                        </tr>
                       <% end %>
-                    <% else %>
-                      <tr>
-                          <td>
-                            <h4>No projects posted.</h4>
-                          </td>
-                      </tr>
-                    <% end %>
-                  </tbody>
-                </table>
-            </div>
+                    </tbody>
+                  </table>
+              </div>
 
-          </div>
+            </div><!--/well-->
+
+          </div><!--/row-->
         </div><!--/span-->
 
       </div><!--/row-->
