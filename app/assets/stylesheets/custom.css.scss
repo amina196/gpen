@@ -10,7 +10,7 @@ html {
 }
 
 body {
-  padding-top: 60px;
+  padding-top: 80px;
 }
 
 section {
@@ -32,6 +32,11 @@ textarea {
 clear: both;
 }
 
+a:hover {
+  color: #5bb65b;
+  text-decoration: underline;
+}
+
 
 /* header */
 
@@ -39,7 +44,37 @@ clear: both;
   padding-left: 20px;
   padding-right: 20px;
 
+  /*
   background-color: #5bb65b;
+  
+  background-image: -moz-linear-gradient(top, #62c462, #51a351);
+  background-image: -ms-linear-gradient(top, #62c462, #51a351);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351));
+  background-image: -webkit-linear-gradient(top, #62c462, #51a351);
+  background-image: -o-linear-gradient(top, #62c462, #51a351);
+  background-image: linear-gradient(top, #62c462, #51a351);
+  background-repeat: repeat-x;
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF62C462', endColorstr='#FF51A351', GradientType=0);
+  */
+
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+
+  height: 55px;
+}
+
+
+.dropdown-menu li > a:hover,
+.dropdown-menu li > a:focus,
+.dropdown-submenu:hover > a {
+  text-decoration: none;
+  color: white;
+  background-color: #5bb65b;
+  
   background-image: -moz-linear-gradient(top, #62c462, #51a351);
   background-image: -ms-linear-gradient(top, #62c462, #51a351);
   background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351));
@@ -49,22 +84,24 @@ clear: both;
   background-repeat: repeat-x;
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FF62C462', endColorstr='#FF51A351', GradientType=0);
 
-  -webkit-border-radius: 4px;
-  -moz-border-radius: 4px;
-  border-radius: 4px;
-  -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-  -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25), inset 0 -1px 0 rgba(0, 0, 0, 0.1);
+
 }
 
 .navbar .divider-vertical {
-border-left: 1px solid #47a147;
-border-right: 1px solid #93D693;
+height: 54px;
+margin: 0 9px;
+border-left: 1px solid #F2F2F2;
+border-right: 1px solid white;
+}
+
+.navbar .nav > li {
+  float: left;
+  line-height: 55px;
 }
 
 .navbar .nav > li > a {
-color: #fff;
-text-shadow: none;
+
+padding: 0px 15px;
 }
 
 .navbar-search .search-query {
@@ -85,8 +122,20 @@ border: 1px solid #47A147;
 }
 
 
-/* footer */
+.navbar .nav li.dropdown > .dropdown-toggle .caret {
+  border-top-color: #555;
+  border-bottom-color: #555;
+  margin: 25px 0 0;
+}
 
+.navbar .nav > li > a:focus,
+.navbar .nav > li > a:hover {
+  background-color: transparent;
+  text-decoration: none;
+}
+
+/* footer */
+/*
 footer {
   margin-top: 45px;
   padding-top: 5px;
@@ -109,7 +158,7 @@ footer {
       margin-left: 10px;
     }
   }
-}
+}*/
 
 /* elements */
 
@@ -159,7 +208,9 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF5F5F5', en
   color: #888;
 }
 
-
+.label {
+  margin-right: 1px;
+}
 
 .nav-list .active > a:hover {
   color: white;
@@ -171,7 +222,7 @@ filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FFF5F5F5', en
 
 
 .navbar .brand {
-  padding: 5px 20px;
+  padding: 0px 20px;
 }
 
 .profile-pic {
@@ -249,3 +300,85 @@ h3 {
 h1, h2, h3, h4, h5, h6 {
   margin: 0px;
 }
+
+
+
+
+/***** Footer *****/
+
+footer {padding: 10px 20px; background-color: #323232; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;}
+
+footer p {color: white;}
+
+.menu-footer {margin-bottom: 20px;}
+#menu-navigation-footer {list-style: none; margin: 0 0 10px 0px;}
+.menu-footer ul li {float: left; font-size: 14px; font-weight: bold; padding: 5px 0px 13px; margin: 0 15px 0 0px; list-style: none;}
+.menu-footer ul li a {color: #fff;}
+.menu-footer ul li a:hover {color: #5bb65b;}
+.footer-left { width: 600px; float: left;}
+
+.footer-leftpart {width: 202px; padding-right: 9px; float: left;}
+.logo-footer {display: block; width: 202px; padding-bottom: 14px;}
+.logo-footer, .logo-footer img {display: block;}
+.logo-footer {color: #fff; font-size: 24px;}
+.logo-footer span {display: block; width: 202px; height: 26px;}
+
+.footer-middlepart {width: 377px; float: left; padding: 0 10px 10px;}
+.footer-searchform {height: 40px; margin-bottom: 5px;}
+.footer-searchform input {width: 365px; font-size: 16px; font-weight: bold; color: #323232; border: 1px solid #eee; padding: 4px 5px; margin: 0; border-radius: 3px; -moz-border-radius: 3px; -webkit-border-radius: 3px;}
+.footer-tags {color: #fff;}
+.footer-tags p {font-size: 12px; font-weight: bold; color: #fff; margin-bottom: 5px;}
+.footer-tags a {font-size: 11px; color: #fff;}
+.footer-tags a:hover {color: #ff5800;}
+
+.footer-linkset {width: 124px; float: left; padding: 0 10px 10px; border-left: 1px solid #5c5c5c; font-size: 12px;}
+.footer-linkset a {color: #fff;}
+.footer-linkset a:hover {color: #ff5800;}
+
+.copyrights {width: 775px; float: left; padding: 18px 0; font-size: 11px; color: #323232;}
+.activity .copyrights p, .copyrights p  {font-size: 10px;}
+.copyrights a, .credits a {color: #ddd;}
+.copyrights a:hover, .credits a:hover {color: #5bb65b;}
+.credits {width: 145px; float: right; text-align: right; padding: 18px 0; font-size: 11px; color: #323232;}
+
+
+
+
+.footer-social {float: right; width: 320px;}
+
+.twitter-bird { float: left; width: 44px; height: 44px; margin-left: 60px; background: url(image_path('twitter-footer.png'))}
+
+.social-links { float: right;}
+.social-links li {display: inline; float: left; padding: 6px 3px; line-height: normal;}
+.social-links a {display: block; width: 20px; height: 20px; background-image: url(image_path("icons.png")); background-repeat: no-repeat;}
+.social-links .feed a {background-position: 0 4px;}
+.social-links .twitter a {background-position: 0 -32px;}
+.social-links .fb a {background-position: 0 -68px;}
+.social-links .youtube a {background-position: 0 -320px;}
+
+
+
+   #twitter_container {
+     float: right; width: 260px; background: url(image_path('twitter-bg.png')); padding: 10px; margin: 0 0 0 40px;
+     -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+   }
+
+       #twitter_update_list {
+           width: 250px;
+           padding: 0;
+           overflow: hidden;
+       }
+
+       #twitter_update_list li span {
+       font-size: 15px;
+       font-weight: normal;
+       line-height: 19px;
+       color: #eee;
+       margin-bottom: 15px;
+       }
+
+     #twitter_update_list li a { font-size: 10px; color: #43A04F; }
+     
+       #twitter_update_list li span a { font-size: 15px; color: #bbb; }

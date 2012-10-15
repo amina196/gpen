@@ -59,6 +59,8 @@ class Organization < ActiveRecord::Base
       end
 =end
 
+
+  # JUSTIN SAYS, THIS METHOD NEEDS FIXING SO IT ONLY DISPLAYS ORGS THAT FULFILL MULTIPLE SECTORS, not just one of the sectors
   def self.filter(sector)
         sectorarray = sector.split(',')
         a = Organizationsector.find_all_by_sector_id(sectorarray)

@@ -6,13 +6,21 @@ class OrganizationsController < ApplicationController
 
    @searchtext = params[:search]
    @sectors = Sector.all
-   @filters_id = params[:filters_id]
+   @filters_ids = params[:filters_ids]
+   #@filters_id = cookies[:filters] << (params[:filters_ids] + ',') unless cookies[:filters].include?(params[:filters_ids] + ',')
+   
+
+
+   # NEED TO GO THROUGH THESE METHODS AND UPDATE THEM, LOOK FOR BUGS!!!
+
    #collect filters if any 
-   if !params[:filters_id].nil?
+   if !params[:filters_ids].nil?
       if cookies[:filters].blank?
-        cookies[:filters] = (params[:filters_id] + ',') unless params[:filters_id].empty?
+        cookies[:filters] = params[:filters_ids] unless params[:filters_ids].empty?
       else
-        cookies[:filters] = cookies[:filters] << (params[:filters_id] + ',') unless cookies[:filters].include?(params[:filters_id] + ',')
+        ##########################  fix this line below!!!
+        cookies[:filters] = cookies[:filters] << (params[:filters_ids] + ',') unless cookies[:filters].include?(params[:filters_ids] + ',')
+        # add in and then remove duplicates
       end 
    end
 
@@ -24,15 +32,15 @@ class OrganizationsController < ApplicationController
         @organizations = Organization.filter(cookies[:filters])
       end
    else
-     if !params[:search].empty? && params[:filters_id].empty? # search and no filters
+     if !params[:search].empty? && params[:filters_ids].empty? # search and no filters
         @organizations = Organization.search(params[:search])
      end
 
-     if !params[:search].empty? && !params[:filters_id].empty? # search and filters
+     if !params[:search].empty? && !params[:filters_ids].empty? # search and filters
         @organizations = Organization.search_and_filter(cookies[:filters], params[:search])
      end
 
-     if params[:search].empty? && !params[:filters_id].empty? #no search, filters
+     if params[:search].empty? && !params[:filters_ids].empty? #no search, filters
         @organizations = Organization.filter(cookies[:filters])
      end
    end
@@ -40,9 +48,10 @@ class OrganizationsController < ApplicationController
    #get array of string for showing labels of filters activated
    if cookies[:filters].nil? || cookies[:filters].empty?
      @filters = []
+     @filters_ids = []
    else
-    @filters_1 = cookies[:filters].split(',').collect { |stringid| stringid.to_i}
-    @filters = @filters_1.collect {|id| Sector.find(id)}.uniq
+    @filters_ids = cookies[:filters].split(',').collect { |stringid| stringid.to_i}
+    @filters = @filters_ids.collect {|id| Sector.find(id)}.uniq
    end
 =begin
    respond_to do |format|

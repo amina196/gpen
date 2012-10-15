@@ -76,8 +76,12 @@
 		$('#search_filters li').click(function(e) {
 			
 			$(this).toggleClass('active');
-			$('#filters').val($('a', this).text());
-			$('#filters_id').val($('a', this).attr('id'));
+			//$('#filters').val($('a', this).text());
+			var new_ids = $('#filters_ids').val() + ',' + $('a', this).attr('id')
+			if (new_ids.charAt(0) == ',')
+				new_ids = new_ids.substring(1, new_ids.length)  // remove starting comma if existent
+			alert(new_ids);
+			$('#filters_ids').val(new_ids);
 			$('#search_orgs').submit();
 			$('#search_jobs').submit();
 			$('#search_projects').submit();

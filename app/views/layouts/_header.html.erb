@@ -7,7 +7,7 @@
           <span class="icon-bar"></span>
         </a>
         <a class="brand" rel="tooltip" title="PhillyEcoCity: Greater Philadelphia Environment Network" href="<%= root_path %>">
-             <%= image_tag("gpen-logo.png") %>
+             <%= image_tag("logo.png") %>
         </a>
         <div class="nav-collapse">
           <ul class="nav">
@@ -22,8 +22,10 @@
           -->
           
 
-          <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">About <b class="caret"></b></a>
+          <li>
+              <a href="#">About</a>
+
+              <!--
               <ul class="dropdown-menu">
                 <li><a href="http://phillyecocity.com/about/vision/">Vision</a></li>
                 <li class="divider"></li>
@@ -44,16 +46,16 @@
                  <li><a href="http://phillyecocity.com/activity">Activities</a></li>
                 <li class="divider"></li>
               </ul>
+            -->
             </li>
 
-          <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Articles <b class="caret"></b></a>
-              <ul class="dropdown-menu">
+          <li>
+              <a href="#">Articles</b></a>
+              
+              <!--<ul class="dropdown-menu">
                 <li><a href="http://phillyecocity.com/category/act-philly/">Act Philly</a></li>
-                <li class="divider"></li>
                 <li><a href="http://phillyecocity.com/category/think-globally/">Think Globally</a></li>
-                <li class="divider"></li>
-              </ul>
+              </ul>-->
             </li>
 
           <li>
@@ -61,7 +63,7 @@
           </li>
 
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Green Organizations <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Organizations <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="<%= organizations_path %>">Browse Organizations</a></li>
                 <li class="divider"></li>
@@ -70,7 +72,7 @@
             </li>
 
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Green Jobs <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Jobs <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="<%= jobs_path %>">Browse Jobs</a></li>
                 <li class="divider"></li>
@@ -79,7 +81,7 @@
             </li>
 
             <li class="dropdown">
-              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Green Projects <b class="caret"></b></a>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">Volunteer <b class="caret"></b></a>
               <ul class="dropdown-menu">
                 <li><a href="<%= projects_path %>">Browse Projects</a></li>
                 <li class="divider"></li>

@@ -15,22 +15,15 @@
             <ul class="nav nav-list filters" id="search_filters">
               <h3>Filters</h3>
               <li class="nav-header">By Sector</li>
-
               <% @sectors.each do |sector| %>
 
-                <li <% if (@filters_id == sector.id.to_s)%> class="active" <% end %>>
+                <li <% if !@filters_ids.nil? && (@filters_ids.include? sector.id)%> class="active" <% end %>>
                   <a href="#" id="<%= sector.id %>"><%= sector.description %></a>
                 </li>
-
-
-
               <% end %>
-
-
             </ul>
 
            
-            <%=  @filters_id %>
 
           </div><!--/.well -->
         </div><!--/span-->
@@ -84,7 +77,7 @@
                 <h6>filters</h6>
                 <% if !@filters.nil? %>
                     <% @filters.each do |filterobject| %>
-                        <span class="label label-info"><%= filterobject.description %> </span>
+                        <span class="label label-info"><%= filterobject.description %></span> 
                     <% end %>
                 <% end %>
 
@@ -93,8 +86,8 @@
             <%= form_tag organizations_path, method: 'get', :id => 'search_orgs', class: 'form-search form-big-search' do %>
               <p>
                   <%= text_field_tag :search, params[:search], class: 'big-search-query' %>
-                  <%= hidden_field_tag :filters, params[:filters], class: 'big-search-query' %>
-                  <%= hidden_field_tag :filters_id, params[:filters_id], class: 'big-search-query' %>
+                  
+                  <%= hidden_field_tag :filters_ids, @filters_ids.split(',') %>
                   <%= submit_tag "Search", class: 'btn btn-primary btn-big-search pull-right', name: 'nil'%>
               </p>
             <% end %>
