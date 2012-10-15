@@ -40,7 +40,8 @@
 
           <hr>
 
-          <% if current_user.admin == true %>
+          <% #if current_user.admin == true %>
+          <% #need to figure this out! %>
             <div class="btn-group">
               <button class="btn btn-primary">Admin Actions</button>
               <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
@@ -50,7 +51,7 @@
                 <li><%= link_to 'Delete My Account', @user, confirm: 'Are you sure?', method: :delete %></li>
               </ul>
             </div> 
-          <% end %>
+          <% #end %>
           
 
 
