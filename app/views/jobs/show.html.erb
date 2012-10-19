@@ -45,7 +45,7 @@
         <%= link_to truncate(@job.organization.website, :length => 25, :omission => '...'), @job.organization.website, :title => @job.organization.website %>
         </address>
         
-      <% if !@job.organization.twitter.empty? %>
+      <% if !@job.organization.twitter.nil? && !@job.organization.twitter.empty? %>
         <%= link_to image_tag("icon-twitter.png", :class => "social-icon"), 'http://www.twitter.com/'+@job.organization.twitter, :title => "Follow #{@job.organization.name} on Twitter", :rel => "tooltip" %>
       <% end %>
       <% if !@job.organization.facebook.nil? && !@job.organization.facebook.empty? %>
