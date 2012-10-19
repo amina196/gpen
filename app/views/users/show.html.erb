@@ -3,60 +3,60 @@
 <% provide(:title, @user.fname + ' ' + @user.lname) %>
       <div class="row">
          <div class="span3">
-        	<div class="well">
+          	<div class="well">
+              
+  		  		<h3><%= @user.fname %> <%= @user.lname %></h3>
+            <% if @user.admin == true %>
+              <span class="label label-inverse">GPEN Administrator</span><br>
+            <% end %>
+            <br>
+
+            <h6>Joined</h6>
+            <p><%= time_ago_in_words(@user.created_at) %> ago</p>
+
+            <h6>Email</h6>
+            <p><%= @user.email %></p>
             
-		  		<h3><%= @user.fname %> <%= @user.lname %></h3>
-          <% if @user.admin == true %>
-            <span class="label label-inverse">GPEN Administrator</span><br>
-          <% end %>
-          <br>
-
-          <h6>Joined</h6>
-          <p><%= time_ago_in_words(@user.created_at) %> ago</p>
-
-          <h6>Email</h6>
-          <p><%= @user.email %></p>
-          
-          <% if !@user.website.nil? && !@user.website.empty? %>
-            <h6>Website</h6>
-            <p><%= link_to @user.website, @user.website %></p>
-          <% end %>
+            <% if !@user.website.nil? && !@user.website.empty? %>
+              <h6>Website</h6>
+              <p><%= link_to @user.website, @user.website %></p>
+            <% end %>
 
 
 
-          <% if !@user.twitter.nil? && !@user.twitter.empty? %>
-            <%= link_to image_tag("icon-twitter.png", :class => "social-icon"), 'http://www.twitter.com/'+@user.twitter, :title => "Follow #{@user.fname} on Twitter", :rel => "tooltip" %>
-          <% end %>
-          <% if !@user.facebook.nil? && !@user.facebook.empty?  %>
-            <%= link_to image_tag("icon-facebook.png", :class => "social-icon"), 'http://www.facebook.com/'+@user.facebook, :title => "Follow #{@user.fname} on Facebook", :rel => "tooltip" %>
-          <% end %>
-          <% if !@user.linkedin.nil? && !@user.linkedin.empty? %>
-            <%= link_to image_tag("icon-linkedin.png", :class => "social-icon"), 'http://www.linkedin.com/in/'+@user.linkedin, :title => "Follow #{@user.fname} on LinkedIn", :rel => "tooltip" %>
-          <% end %>
+            <% if !@user.twitter.nil? && !@user.twitter.empty? %>
+              <%= link_to image_tag("icon-twitter.png", :class => "social-icon"), 'http://www.twitter.com/'+@user.twitter, :title => "Follow #{@user.fname} on Twitter", :rel => "tooltip" %>
+            <% end %>
+            <% if !@user.facebook.nil? && !@user.facebook.empty?  %>
+              <%= link_to image_tag("icon-facebook.png", :class => "social-icon"), 'http://www.facebook.com/'+@user.facebook, :title => "Follow #{@user.fname} on Facebook", :rel => "tooltip" %>
+            <% end %>
+            <% if !@user.linkedin.nil? && !@user.linkedin.empty? %>
+              <%= link_to image_tag("icon-linkedin.png", :class => "social-icon"), 'http://www.linkedin.com/in/'+@user.linkedin, :title => "Follow #{@user.fname} on LinkedIn", :rel => "tooltip" %>
+            <% end %>
 
-          <div class="clear"></div>
-          	
-
-
-          <hr>
-
-          <% #if current_user.admin == true %>
-          <% #need to figure this out! %>
-            <div class="btn-group">
-              <button class="btn btn-primary">Admin Actions</button>
-              <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-              <ul class="dropdown-menu">
-                <li><%= link_to 'Edit My Profile', edit_user_path(@user) %></li>
-                <li class="divider"></li>
-                <li><%= link_to 'Delete My Account', @user, confirm: 'Are you sure?', method: :delete %></li>
-              </ul>
-            </div> 
-          <% #end %>
-          
+            <div class="clear"></div>
+            	
 
 
-			</div> <!--/well-->
-        </div><!--/span-->
+            
+
+            <% if (!current_user.nil? && (current_user.admin == true || current_user.id == @user.id)) %>
+              <hr>
+              <div class="btn-group">
+                <button class="btn btn-primary">Admin Actions</button>
+                <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                  <li><%= link_to 'Edit My Profile', edit_user_path(@user) %></li>
+                  <li class="divider"></li>
+                  <li><%= link_to 'Delete My Account', @user, confirm: 'Are you sure?', method: :delete %></li>
+                </ul>
+              </div> 
+            <% end %>
+            
+
+
+  			 </div> <!--/well-->
+        </div><!--/span3-->
         <div class="span9">
 
           <div class="row">
@@ -87,147 +87,149 @@
             </div>
           </div>
         	<div class="row">
-            <div class="span4">
-              
-              <h2>Jobs</h2>
+            <div class="span9">
+              <div class="well">
+                <div class="row-fluid">
+
+                  <div class="span6">
+                    
+                    <h2>Jobs</h2>
 
 
-              <ul id="tab" class="nav nav-tabs">
-                <li class="active"><a href="#job-applications" data-toggle="tab">Applications</a></li>
-                <li class=""><a href="#job-suggestions" data-toggle="tab">Suggestions</a></li>
-              </ul>
+                    <ul id="tab" class="nav nav-tabs">
+                      <li class="active"><a href="#job-applications" data-toggle="tab">Applications</a></li>
+                      <li class=""><a href="#job-suggestions" data-toggle="tab">Suggestions</a></li>
+                    </ul>
 
 
-              <div id="job-tab-content" class="tab-content">
-                <div class="tab-pane fade active in" id="job-applications">
-                  <table class="table table-striped">
+                    <div id="job-tab-content" class="tab-content">
+                      <div class="tab-pane fade active in" id="job-applications">
+                        <table class="table table-striped">
 
-                    <tbody>
-                      <% @jobs.each do |job| %>
-                        <tr>
-                          <td>
+                          <tbody>
+                            <% @jobs.each do |job| %>
+                              <tr>
+                                <td>
 
-                            <h4><%= link_to job.title, job %></h4>
-                            <p><%= job.organization.name %></p>
-                          </td>
-                        </tr>
-                      <% end %>
-
-
-                    </tbody>
-                  </table>
-
-                </div>
-                <div class="tab-pane fade" id="job-suggestions">
-                  <div class="alert alert-block alert-info fade in">
-                    <a class="close" data-dismiss="alert" href="#">×</a>
-                    <h4 class="alert-heading">How Suggestions Work</h4>
-                    <p>Job suggestions are generated based on information you add to your profile as well as previous organizations/jobs you have interacted with on GPEN. Below are what we have come up with for you!</p>
-                  </div>
-
-                  <table class="table table-striped">
-
-                    <tbody>
-
-                      <% if @job_suggestions.any? %>
-                        <% @job_suggestions.each do |job_suggestion| %>
-                          <tr>
-                            <td>
-
-                              <h4><%= link_to job_suggestion.title, job_suggestion %></h4>
-                              <p><%= job_suggestion.organization.name %></p>
-                            </td>
-                          </tr>
-                        <% end %>
-                      <% end %>
-
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-
-              
-            </div>
-
-            <div class="span5">
-              <h2>Projects</h2>
-              
-              
-
-              <ul id="tab" class="nav nav-tabs">
-                <li class="active"><a href="#project-posted" data-toggle="tab">Posted</a></li>
-                <li class=""><a href="#project-attended" data-toggle="tab">Attended</a></li>
-                <li class=""><a href="#project-suggestions" data-toggle="tab">Suggestions</a></li>
-              </ul>
+                                  <h4><%= link_to job.title, job %></h4>
+                                  <p><%= job.organization.name %></p>
+                                </td>
+                              </tr>
+                            <% end %>
 
 
-              <div id="project-tab-content" class="tab-content">
-                <div class="tab-pane fade active in" id="project-posted">
-                  <table class="table table-striped">
-                    <tbody>
+                          </tbody>
+                        </table>
 
-                      <%if @posted_projects.any?%>
-                        <% @posted_projects.each do |posted_project| %>
-                          <tr>
-                            <td>
-                              
-                              <h4><%= link_to posted_project.title, posted_project %></h4>
-                                <%= posted_project.organization.name unless posted_project.organization.nil?%></p>
+                      </div>
+                      <div class="tab-pane fade" id="job-suggestions">
+                        <div class="alert alert-block alert-info fade in">
+                          <a class="close" data-dismiss="alert" href="#">×</a>
+                          <h4 class="alert-heading">How Suggestions Work</h4>
+                          <p>Job suggestions are generated based on information you add to your profile as well as previous organizations/jobs you have interacted with on GPEN. Below are what we have come up with for you!</p>
+                        </div>
 
-                            </td>
-                          </tr>
-                        <% end %>
-                      <% end %>
-                
-                    </tbody>
-                  </table>
-                </div>
-                <div class="tab-pane fade" id="project-attended">
-                  <table class="table table-striped">
-                    <tbody>
+                        <table class="table table-striped">
 
-                      <%if @projects.any?%>
-                        <% @projects.each do |project| %>
-                          <tr>
-                            <td>
-                              
-                              <h4><%= link_to project.title, project %> <%= "on "+project.start_date.strftime("%B %d, %Y") unless project.start_date.nil? %></h4>
-                                <% if project.organization.nil? %>
-                                  <p> <%= project.user.fname %> </p>
-                                <% else %>
-                                  <p> <%= project.organization.name %></p>
-                                <% end%>
+                          <tbody>
 
-                            </td>
-                          </tr>
-                        <% end %>
-                      <% end %>
+                            <% if @job_suggestions.any? %>
+                              <% @job_suggestions.each do |job_suggestion| %>
+                                <tr>
+                                  <td>
+
+                                    <h4><%= link_to job_suggestion.title, job_suggestion %></h4>
+                                    <p><%= job_suggestion.organization.name %></p>
+                                  </td>
+                                </tr>
+                              <% end %>
+                            <% end %>
+
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+
+                    
+                  </div><!--/span6-->
+
+                  <div class="span6">
+                    <h2>Projects</h2>
+                    
+                    
+
+                    <ul id="tab" class="nav nav-tabs">
+                      <li class="active"><a href="#project-posted" data-toggle="tab">Posted</a></li>
+                      <li class=""><a href="#project-attended" data-toggle="tab">Attended</a></li>
+                      <li class=""><a href="#project-suggestions" data-toggle="tab">Suggestions</a></li>
+                    </ul>
+
+
+                    <div id="project-tab-content" class="tab-content">
+                      <div class="tab-pane fade active in" id="project-posted">
+                        <table class="table table-striped">
+                          <tbody>
+
+                            <%if @posted_projects.any?%>
+                              <% @posted_projects.each do |posted_project| %>
+                                <tr>
+                                  <td>
+                                    
+                                    <h4><%= link_to posted_project.title, posted_project %></h4>
+                                      <%= posted_project.organization.name unless posted_project.organization.nil?%></p>
+
+                                  </td>
+                                </tr>
+                              <% end %>
+                            <% end %>
                       
-                    </tbody>
-                  </table>
-                </div>
-                <div class="tab-pane fade" id="project-suggestions">
-                  <div class="alert alert-block alert-info fade in">
-                    <a class="close" data-dismiss="alert" href="#">×</a>
-                    <h4 class="alert-heading">How Suggestions Work</h4>
-                    <p>Project suggestions are generated based on information you add to your profile as well as previous organizations/jobs you have interacted with on GPEN. Below are what we have come up with for you!</p>
-                  </div>
-                </div>
-              
-              </div>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="tab-pane fade" id="project-attended">
+                        <table class="table table-striped">
+                          <tbody>
+
+                            <%if @projects.any?%>
+                              <% @projects.each do |project| %>
+                                <tr>
+                                  <td>
+                                    
+                                    <h4><%= link_to project.title, project %> <%= "on "+project.start_date.strftime("%B %d, %Y") unless project.start_date.nil? %></h4>
+                                      <% if project.organization.nil? %>
+                                        <p> <%= project.user.fname %> </p>
+                                      <% else %>
+                                        <p> <%= project.organization.name %></p>
+                                      <% end%>
+
+                                  </td>
+                                </tr>
+                              <% end %>
+                            <% end %>
+                            
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="tab-pane fade" id="project-suggestions">
+                        <div class="alert alert-block alert-info fade in">
+                          <a class="close" data-dismiss="alert" href="#">×</a>
+                          <h4 class="alert-heading">How Suggestions Work</h4>
+                          <p>Project suggestions are generated based on information you add to your profile as well as previous organizations/jobs you have interacted with on GPEN. Below are what we have come up with for you!</p>
+                        </div>
+                      </div>
+                    
+                    </div>
 
 
 
 
-            </div>
-
-
-     
-
+                  </div><!--/span6-->
       
 
-
-          </div>
+                </div><!--/row-fluid-->
+              </div><!--/row-well-->
+            </div><!--/span9-->
+          </div><!--/row-->
         </div><!--/span-->
 
       </div><!--/row-->

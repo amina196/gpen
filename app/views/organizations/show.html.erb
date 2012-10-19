@@ -101,9 +101,9 @@
             </div>
           </div>
           <div class="row">
-            <div class="well">
+            
               <div class="span4">
-
+                <div class="well">
                 <h2>Posted Jobs</h2>
                 <% if signed_in? && current_user.admin_of(@organization) %>
                   <p><%= link_to "Post New Job", new_job_path %></p>
@@ -128,14 +128,16 @@
                       <% end %>
                     </tbody>
                   </table>
-              </div>
+                </div><!--/well-->
+              </div><!--/span4-->
 
               <div class="span4">
-                <h2>Posted Projects</h2>
-                <% if signed_in? && current_user.admin_of(@organization) %>
-                  <p><%= link_to "Post New Project", new_project_path %></p>
-                <% end %>
-                <table class="table table-striped">
+                <div class="well">
+                  <h2>Posted Projects</h2>
+                  <% if signed_in? && current_user.admin_of(@organization) %>
+                    <p><%= link_to "Post New Project", new_project_path %></p>
+                  <% end %>
+                  <table class="table table-striped">
                     <tbody>
                       <%if @projects.any? %>
                         <% @projects.each do |project| %>
@@ -155,9 +157,10 @@
                       <% end %>
                     </tbody>
                   </table>
-              </div>
+                </div><!--/well-->
+              </div><!--/span4-->
 
-            </div><!--/well-->
+            
 
           </div><!--/row-->
         </div><!--/span-->
