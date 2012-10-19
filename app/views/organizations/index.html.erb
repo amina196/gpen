@@ -133,7 +133,7 @@
                 <tr>
                   <td>
                     
-                  <h4><%= link_to(organization.name, organization, :class => "org-popover", :rel => "popover", "data-original-title" => organization.name, "data-content" => organization.description) %></h4>
+                  <h4><%= link_to(organization.name, organization, :class => "org-popover", :rel => "popover", "data-original-title" => organization.name, "data-content" => truncate(organization.description, :length => 200, :omission => '...')) %></h4>
 
                   <% if organization.sectors.any? %>                
                       <% organization.sectors.each do |sec| %>
@@ -142,7 +142,7 @@
                     
                     <% end %>
 
-                  <p><%= truncate(organization.description, :length => 200, :omission => '...') %></p>
+                  <p><%= truncate(organization.description, :length => 50, :omission => '...') %></p>
 
 
                   </td>

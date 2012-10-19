@@ -82,7 +82,7 @@
               <% @jobs.reverse.each do |job| %>
                 <tr>
                   <td>
-                    <b><%= link_to(job.title, job, :class => "org-popover", :rel => "popover", "data-original-title" => job.title, "data-content" => runcate(job.description, :length => 100, :omission => '...')) %></b>
+                    <b><%= link_to(job.title, job, :class => "org-popover", :rel => "popover", "data-original-title" => job.title, "data-content" => truncate(job.description, :length => 200, :omission => '...')) %></b>
                   </td>
                   <td>       
                     <%= job.organization.name %>

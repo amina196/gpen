@@ -91,8 +91,8 @@
                 <tr>
                   <td>
                     
-                  <h4><%= link_to(project.title, project, :class => "org-popover", :rel => "popover", "data-original-title" => project.title, "data-content" => runcate(project.proj_desc, :length => 200, :omission => '...')) %></h4>
-                  <p><%= truncate(project.proj_desc, :length => 50, :omission => '...') %></p>
+                  <h4><%= link_to(project.title, project, :class => "org-popover", :rel => "popover", "data-original-title" => project.title, "data-content" => truncate(project.proj_desc, :length => 200, :omission => '...')) %></h4>
+                  <!--<p><%= truncate(project.proj_desc, :length => 50, :omission => '...') %></p>-->
                   </td>
                   <td>
                     <address>
