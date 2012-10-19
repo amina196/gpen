@@ -82,7 +82,7 @@
               <% @jobs.reverse.each do |job| %>
                 <tr>
                   <td>
-                    <b><%= link_to(job.title, job, :class => "org-popover", :rel => "popover", "data-original-title" => job.title, "data-content" => job.description) %></b>
+                    <b><%= link_to(job.title, job, :class => "org-popover", :rel => "popover", "data-original-title" => job.title, "data-content" => runcate(job.description, :length => 100, :omission => '...')) %></b>
                   </td>
                   <td>       
                     <%= job.organization.name %>
@@ -104,6 +104,8 @@
             </tbody>
           </table>
 
+
+          <!--
           <div class="pagination">
             <ul>
               <li><a href="#">Prev</a></li>
@@ -120,6 +122,7 @@
               <li><a href="#">Next</a></li>
             </ul>
           </div>
+        -->
 
 
         </div><!--/well-->

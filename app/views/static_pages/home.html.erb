@@ -61,7 +61,7 @@
                       <% @latest_orgs.each do |organization| %>
                         <tr>
                           <td>
-                            <h4><%= link_to(organization.name, organization, :class => "home-org-popover", :rel => "popover", "data-original-title" => organization.name, "data-content" => organization.description) %></h4>
+                            <h4><%= link_to(organization.name, organization, :class => "home-org-popover", :rel => "popover", "data-original-title" => organization.name, "data-content" => truncate(organization.description, :length => 100, :omission => '...')) %></h4>
 
                             <p>Joined <%= time_ago_in_words(organization.created_at) %> ago</p>
 
@@ -93,7 +93,7 @@
                       <% @latest_jobs.each do |job| %>
                         <tr>
                           <td>
-                            <h4><%= link_to(job.title, job, :class => "home-org-popover", :rel => "popover", "data-original-title" => job.title, "data-content" => job.description) %></h4>
+                            <h4><%= link_to(job.title, job, :class => "home-org-popover", :rel => "popover", "data-original-title" => job.title, "data-content" => truncate(job.description, :length => 100, :omission => '...')) %></h4>
 
                             <p>Posted <%= time_ago_in_words(job.created_at) %> ago</p>
 
@@ -129,7 +129,7 @@
                       <% @latest_projects.each do |project| %>
                         <tr>
                           <td>
-                            <h4><%= link_to(project.title, project, :class => "home-org-popover", :rel => "popover", "data-original-title" => project.title, "data-content" => project.proj_desc) %></h4>
+                            <h4><%= link_to(project.title, project, :class => "home-org-popover", :rel => "popover", "data-original-title" => project.title, "data-content" => truncate(project.proj_desc, :length => 100, :omission => '...')) %></h4>
 
                             <p>Posted <%= time_ago_in_words(project.created_at) %> ago</p>
 

@@ -4,24 +4,21 @@ class OrganizationsController < ApplicationController
  
   def index
 
-   @searchtext = params[:search]
-   @sectors = Sector.all
-   @filters_ids = params[:filters_ids]
-   #@filters_id = cookies[:filters] << (params[:filters_ids] + ',') unless cookies[:filters].include?(params[:filters_ids] + ',')
-   
+    @searchtext = params[:search]
+    @sectors = Sector.all
+
+    @filters_ids = []
+    if !params[:filters_ids].nil?
+      @filters_ids = params[:filters_ids].split(',').collect { |stringid| stringid.to_i}
+      #@filters_id = cookies[:filters] << (params[:filters_ids] + ',') unless cookies[:filters].include?(params[:filters_ids] + ',')
+    end
 
 
    # NEED TO GO THROUGH THESE METHODS AND UPDATE THEM, LOOK FOR BUGS!!!
 
    #collect filters if any 
    if !params[:filters_ids].nil?
-      if cookies[:filters].blank?
-        cookies[:filters] = params[:filters_ids] unless params[:filters_ids].empty?
-      else
-        ##########################  fix this line below!!!
-        cookies[:filters] = cookies[:filters] << (params[:filters_ids] + ',') unless cookies[:filters].include?(params[:filters_ids] + ',')
-        # add in and then remove duplicates
-      end 
+      cookies[:filters] = @filters_ids.join(',') 
    end
 
    #set up search
@@ -50,8 +47,8 @@ class OrganizationsController < ApplicationController
      @filters = []
      @filters_ids = []
    else
-    @filters_ids = cookies[:filters].split(',').collect { |stringid| stringid.to_i}
-    @filters = @filters_ids.collect {|id| Sector.find(id)}.uniq
+      #@filters_ids = cookies[:filters].split(',').collect { |stringid| stringid.to_i}
+      @filters = @filters_ids.collect {|id| Sector.find(id)}.uniq
    end
 =begin
    respond_to do |format|

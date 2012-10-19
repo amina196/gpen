@@ -17,8 +17,8 @@
               <li class="nav-header">By Sector</li>
               <% @sectors.each do |sector| %>
 
-                <li <% if !@filters_ids.nil? && (@filters_ids.include? sector.id)%> class="active" <% end %>>
-                  <a href="#" id="<%= sector.id %>"><%= sector.description %></a>
+                <li <% if !@filters_ids.nil? && (@filters_ids.include? sector.id)%> class="active" <% end %> id="<%= sector.id %>">
+                  <a href="#"><%= sector.description %></a>
                 </li>
               <% end %>
             </ul>
@@ -67,7 +67,7 @@
           <div class="hero-unit">
 
             
-            <% if @searchtext.nil? %>
+            <% if @searchtext.nil? && (@filters.nil? || @filters.empty?) %>
 
                 <h1>Green Organizations</h1>
                 <p>We are proud to say that we have <%= Organization.all.count %> (and counting!) green organizations listed on our website. Use the filters to the left or the search bar below to find organizations.</p>
@@ -93,8 +93,10 @@
               </p>
             <% end %>
 
-            <%= link_to('Reset filters', organization_resetcookies_url(1), :method => :get, class: "btn btn-success")%>
 
+            <% if !@filters.nil? && !@filters.empty? %>
+              <%= link_to('Reset Filters', organization_resetcookies_url(1), :method => :get, class: "btn btn-success")%>
+            <% end %>
             <!--
             <form class="form-search form-big-search">
               <input type="text" class="big-search-query">
@@ -102,72 +104,72 @@
             </form>
             -->
 
-            <% if signed_in?%><%= link_to 'Create New Organization', new_organization_path %><% end %>
+            <% if signed_in?%><%= link_to 'Create New Organization', new_organization_path, class: "btn" %><% end %>
 
           </div>
 
           <div class="well">
-            <% if @searchtext.nil? %>
-            <h6>Latest Organizations</h6>
-            <% else %>
-            <h6>Search Results</h6>
-            <% end %>
+            
       
-      <% if @organizations.nil? %>
+      <% if @organizations.nil? || @organizations.empty? %>
         Your search shows no results. Reset filters and try another search.
-      <% else %>     
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th style="width: 60%">Title</th>
-            <th style="width: 30%">Contact</th>
-            <th style="width: 10%">Link</th>
-          </tr>
-        </thead>
-        <tbody>
+      <% else %>  
 
-        
-          <% @organizations.reverse.each do |organization| %>
-            <% if !organization.nil? %>
+        <h6><%= @organizations.count %> Search Results</h6>
+
+        <table class="table table-striped">
+          <thead>
             <tr>
-              <td>
-                
-              <h4><%= link_to(organization.name, organization, :class => "org-popover", :rel => "popover", "data-original-title" => organization.name, "data-content" => organization.description) %></h4>
-
-              <% if organization.sectors.any? %>                
-                  <% organization.sectors.each do |sec| %>
-                    <span class="label label-success"><%=sec.description%></span>
-                  <% end %>
-                
-                <% end %>
-
-              <p><%= truncate(organization.description, :length => 200, :omission => '...') %></p>
-
-
-              </td>
-              <td>
-                <address>
-                  <%= organization.address %><br>
-                  <%= organization.address2 if organization.address2 %>
-                  <%= organization.city %>, <%= organization.state %> <%= organization.zip %><br>
-                  <abbr title="Phone">P:</abbr> <%= organization.phone %><br>
-                </address>
-              </td>
-
-              
-              <td>
-                <%= link_to 'View', organization, class: "btn btn-small btn-success" %>
-                
-              </td>
+              <th style="width: 60%">Title</th>
+              <th style="width: 30%">Contact</th>
+              <th style="width: 10%">Link</th>
             </tr>
+          </thead>
+          <tbody>
+
+          
+            <% @organizations.reverse.each do |organization| %>
+              <% if !organization.nil? %>
+                <tr>
+                  <td>
+                    
+                  <h4><%= link_to(organization.name, organization, :class => "org-popover", :rel => "popover", "data-original-title" => organization.name, "data-content" => organization.description) %></h4>
+
+                  <% if organization.sectors.any? %>                
+                      <% organization.sectors.each do |sec| %>
+                        <span class="label label-success"><%=sec.description%></span>
+                      <% end %>
+                    
+                    <% end %>
+
+                  <p><%= truncate(organization.description, :length => 200, :omission => '...') %></p>
+
+
+                  </td>
+                  <td>
+                    <address>
+                      <%= organization.address %><br>
+                      <%= organization.address2 if organization.address2 %>
+                      <%= organization.city %>, <%= organization.state %> <%= organization.zip %><br>
+                      <abbr title="Phone">P:</abbr> <%= organization.phone %><br>
+                    </address>
+                  </td>
+
+                  
+                  <td>
+                    <%= link_to 'View', organization, class: "btn btn-small btn-success" %>
+                    
+                  </td>
+                </tr>
+                <% end %>
             <% end %>
-          <% end %>
+          
+
+          </tbody>
+        </table>
+
         <% end %>
-
-        </tbody>
-      </table>
-
-
+        
 
 
 

@@ -79,13 +79,16 @@
 
 
 		// seach filters
-		$('#search_filters li').click(function(e) {
+		$('#search_filters li').click(function(e) {	
+			$(this).toggleClass('active'); // toggle this filter on or off
 			
-			$(this).toggleClass('active');
-			//$('#filters').val($('a', this).text());
-			var new_ids = $('#filters_ids').val() + ',' + $('a', this).attr('id')
-			if (new_ids.charAt(0) == ',')
-				new_ids = new_ids.substring(1, new_ids.length)  // remove starting comma if existent
+			$filters = $('ul.filters li.active'); // gather all active filters
+			var new_ids = "";
+			$filters.each(function() {  
+				new_ids += $(this).attr('id') + ','  // acumulate into a string to pass to form
+			})
+			new_ids = new_ids.substring(0, new_ids.length - 1);  // remove ending comma
+			
 			alert(new_ids);
 			$('#filters_ids').val(new_ids);
 			$('#search_orgs').submit();
@@ -93,6 +96,18 @@
 			$('#search_projects').submit();
 
 		});
+
+
+		/*
+		function stripCommas(s) {
+			var s_new = s;
+			if (s_new.charAt(0) == ',')
+				s_new = s_new.substring(1, s_new.length - 1);  // remove starting comma if existent
+			if (s_new.charAt(s_new.length-1) == ',')
+				s_new = s_new.substring(0, s_new.length - 2);  // remove ending comma if existent
+			return s_new;
+		}
+		*/
 
 	    
 
