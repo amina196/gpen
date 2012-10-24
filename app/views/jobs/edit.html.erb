@@ -1,6 +1,31 @@
-<h1>Editing job</h1>
+<ul class="breadcrumb">
+  <li>
+    <a href="<%= root_path %>">Home</a> <span class="divider">/</span>
+  </li>
+  <li>
+    <%= link_to 'Jobs', jobs_path %> <span class="divider">/</span>
+  </li>
+  <li>
+	  <%= link_to @job.organization.name, @job.organization %> <span class="divider">/</span>
+	</li>
+  <li>
+	  <%= link_to @job.title, @job %> <span class="divider">/</span>
+	</li>
+	<li class="active">Edit Job</li>
+</ul>
 
-<%= render 'form' %>
 
-<%= link_to 'Show', @job %> |
-<%= link_to 'Back', jobs_path %>
+
+
+
+
+<div class="row">
+          <div class="span12">
+            <div class="well">
+            <h1>Edit Job</h1>
+            <hr>
+			<%= render 'form' %>
+          </div><!--/well-->
+          </div><!--/span12-->
+        </div><!--/span-->
+      </div><!--/row-->

@@ -3,11 +3,12 @@
           <a href="<%= root_path %>">Home</a> <span class="divider">/</span>
         </li>
         <li>
-          <%= link_to @job.organization.name, @job.organization %> <span class="divider">/</span>
-        </li>
-        <li>
           <a href="<%= jobs_path %>">Jobs</a> <span class="divider">/</span>
         </li>
+        <li>
+          <%= link_to @job.organization.name, @job.organization %> <span class="divider">/</span>
+        </li>
+        
         <li class="active"><%= @job.title %></li>
       </ul>
 
@@ -77,7 +78,7 @@
   <div class="span8">
 
     <div class="row">
-      <div class="span9">
+      <div class="span8">
         <div class="hero-unit">
           
           <h3>Job ID #<%= @job.id %></h3>

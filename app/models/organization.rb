@@ -66,28 +66,47 @@ class Organization < ActiveRecord::Base
         #b = a.collect {|orgsec| orgsec.organization}
         #return b
 
-        return Organization.joins(:sectors).where('sectors.id' => sectorarray).group('organizations.id').having('COUNT(organizations.id) = ?', sectorarray.size)
+        return Organization.joins(:sectors)
+                          .where('sectors.id' => sectorarray)
+                          .group('organizations.id')
+                          .where('approved = ? AND end_date > ?', true, Date.today) # get only orgs that have been approved and have not expired
+                          .having('COUNT(organizations.id) = ?', sectorarray.size)
 
   end
 
   def self.search(search)
-        Organization.find(:all, :conditions => ['approved = ? AND end_date > ? AND (UPPER(name) LIKE UPPER(?) OR UPPER(description) LIKE UPPER(?) OR UPPER(city) LIKE UPPER(?) OR UPPER(state) LIKE UPPER(?) or UPPER(zip) LIKE UPPER(?))', true, Date.today,"%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%"])
+    if search.empty?
+      Organization.where('approved = ? AND end_date > ?', true, Date.today) # get only orgs that have been approved and have not expired
+    else
+      Organization.find(:all, :conditions => ['approved = ? AND end_date > ? AND (UPPER(name) LIKE UPPER(?) OR UPPER(description) LIKE UPPER(?) OR UPPER(city) LIKE UPPER(?) OR UPPER(state) LIKE UPPER(?) or UPPER(zip) LIKE UPPER(?))', true, Date.today,"%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%"])
+    end
   end
 
   def self.search_and_filter(sector, search)
-    sectors = sector.split(',')
-    result = []
-    searchresult = self.search(search)
-    searchresult.each do |o|
-      sector_ids = o.sectors.collect {|sector| sector.id.to_s}
-      sector_ids.each do |s| 
-        if sectors.include?(s) 
-          result = result << o
-          break
-        end
-      end
-    end
-    return result
+    sectorarray = sector.split(',')
+
+    #first first results then filter them down by the sectors
+    results = Organization.joins(:sectors)
+                .where('sectors.id' => sectorarray)
+                .where('approved = ? AND end_date > ?',  true, Date.today) # get only orgs that have been approved and have not expired
+                .where('UPPER(name) LIKE UPPER(?) OR UPPER(organizations.description) LIKE UPPER(?) OR UPPER(city) LIKE UPPER(?) OR UPPER(state) LIKE UPPER(?) or UPPER(zip) LIKE UPPER(?)', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%")
+                .group('organizations.id')
+                .having('COUNT(organizations.id) = ?', sectorarray.size)
+
+    return results
+
+    # Amina's old filtering code, which finds UNION of filters, not INTERSECTION
+    # searchresult.each do |o|
+    #   sector_ids = o.sectors.collect {|sector| sector.id.to_s}
+    #   sector_ids.each do |s| 
+    #     if sectors.include?(s) 
+    #       result = result << o
+    #       break
+    #     end
+    #   end
+    # end
+    # return result
+
   end
 
 

@@ -89,7 +89,7 @@
 			})
 			new_ids = new_ids.substring(0, new_ids.length - 1);  // remove ending comma
 			
-			alert(new_ids);
+			//alert(new_ids);
 			$('#filters_ids').val(new_ids);
 			$('#search_orgs').submit();
 			$('#search_jobs').submit();

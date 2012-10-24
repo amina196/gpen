@@ -3,13 +3,26 @@
           <a href="<%= root_path %>">Home</a> <span class="divider">/</span>
         </li>
         <li>
+          <a href="<%= organizations_path %>">Organizations</a> <span class="divider">/</span>
+        </li>
+        <li>
           <%= link_to @organization.name, @organization %> <span class="divider">/</span>
         </li>
         <li class="active">Edit Organization Profile</li>
       </ul>
 
-<h1>Edit Organization Profile</h1>
-<hr>
 
-<%= render 'form' %>
 
+
+		<div class="row">
+          <div class="span12">
+            <div class="well">
+            	<h1>Edit Organization Profile</h1>
+				<hr>
+
+				<%= render 'form' %>
+          </div><!--/well-->
+          </div><!--/span12-->
+        </div><!--/span-->
+
+       </div><!--/row-->

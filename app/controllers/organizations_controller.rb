@@ -7,38 +7,32 @@ class OrganizationsController < ApplicationController
     @searchtext = params[:search]
     @sectors = Sector.all
 
-    @filters_ids = []
+    # collect cookie filters, if any, if user is directly coming to index page
+    if !cookies[:filters].nil? && !cookies[:filters].empty?
+      @filters_ids = cookies[:filters].split(',').collect { |stringid| stringid.to_i}
+    else
+      @filters_ids = []
+    end
+
     if !params[:filters_ids].nil?
       @filters_ids = params[:filters_ids].split(',').collect { |stringid| stringid.to_i}
       #@filters_id = cookies[:filters] << (params[:filters_ids] + ',') unless cookies[:filters].include?(params[:filters_ids] + ',')
+   
+      cookies[:filters] = @filters_ids.join(',') # replace cookies with current submitted filters
     end
 
-
-   # NEED TO GO THROUGH THESE METHODS AND UPDATE THEM, LOOK FOR BUGS!!!
-
-   #collect filters if any 
-   if !params[:filters_ids].nil?
-      cookies[:filters] = @filters_ids.join(',') 
-   end
-
    #set up search
-   if params[:search].nil?  #GET /organizations -- params[:filters_id & :filters] also not null 
+   if params[:search].nil? || params[:search].empty?
       if cookies[:filters].nil? || cookies[:filters].empty?
-        @organizations = Organization.where('approved = ?', true)
+        @organizations = Organization.search('') # no search, and no filters
       else
-        @organizations = Organization.filter(cookies[:filters])
+        @organizations = Organization.filter(cookies[:filters]) # no search, and filters
       end
    else
-     if !params[:search].empty? && params[:filters_ids].empty? # search and no filters
-        @organizations = Organization.search(params[:search])
-     end
-
-     if !params[:search].empty? && !params[:filters_ids].empty? # search and filters
-        @organizations = Organization.search_and_filter(cookies[:filters], params[:search])
-     end
-
-     if params[:search].empty? && !params[:filters_ids].empty? #no search, filters
-        @organizations = Organization.filter(cookies[:filters])
+     if cookies[:filters].nil? || cookies[:filters].empty? 
+        @organizations = Organization.search(params[:search]) # search and no filters
+     else 
+        @organizations = Organization.search_and_filter(cookies[:filters], params[:search]) # search and filters
      end
    end
 

@@ -67,14 +67,14 @@
           <div class="hero-unit">
 
             
-            <% if @searchtext.nil? && (@filters.nil? || @filters.empty?) %>
+            <% if (@searchtext.nil? || @searchtext.empty?) && (@filters.nil? || @filters.empty?) %>
 
                 <h1>Green Organizations</h1>
                 <p>We are proud to say that we have <%= Organization.all.count %> (and counting!) green organizations listed on our website. Use the filters to the left or the search bar below to find organizations.</p>
 
             <% else %>
 
-                <h2>Organization Results <% if !@searchtext.nil? %><small>for '<%= @searchtext %>'</small><% end %></h2>
+                <h2>Organization Results</h2>
                 <h6>filters</h6>
                 <% if !@filters.nil? %>
                     <% @filters.each do |filterobject| %>
@@ -128,7 +128,7 @@
           <tbody>
 
           
-            <% @organizations.reverse.each do |organization| %>
+            <% @organizations.each do |organization| %>
               <% if !organization.nil? %>
                 <tr>
                   <td>
@@ -137,7 +137,7 @@
 
                   <% if organization.sectors.any? %>                
                       <% organization.sectors.each do |sec| %>
-                        <span class="label label-success"><%=sec.description%></span>
+                    <span class="label <% if !@filters_ids.nil? && (@filters_ids.include? sec.id)%> label-warning <% else %>label-success <% end %> "><%=sec.description%></span>
                       <% end %>
                     
                     <% end %>
