@@ -60,12 +60,14 @@ class Organization < ActiveRecord::Base
 =end
 
 
-  # JUSTIN SAYS, THIS METHOD NEEDS FIXING SO IT ONLY DISPLAYS ORGS THAT FULFILL MULTIPLE SECTORS, not just one of the sectors
   def self.filter(sector)
         sectorarray = sector.split(',')
-        a = Organizationsector.find_all_by_sector_id(sectorarray)
-        b = a.collect {|orgsec| orgsec.organization}
-        return b
+        #a = Organizationsector.find_all_by_sector_id(sectorarray)
+        #b = a.collect {|orgsec| orgsec.organization}
+        #return b
+
+        return Organization.joins(:sectors).where('sectors.id' => sectorarray).group('organizations.id').having('COUNT(organizations.id) = ?', sectorarray.size)
+
   end
 
   def self.search(search)
