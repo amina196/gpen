@@ -10,7 +10,6 @@ class OrganizationsController < ApplicationController
     @filters_string = "" # string of comma separated filters we are searching on
     @filters_obj = [] # array of objs of filters we are searching on
 
-
     # check to see if any cookies exist
     if !cookies[:filters_string].nil? && !cookies[:filters_string].empty?
       @filters_ids = cookies[:filters_string].split(',').collect { |stringid| stringid.to_i}
@@ -19,15 +18,12 @@ class OrganizationsController < ApplicationController
     end
   
     # if this is a new submitted search, take in the params and overwrite any cookies
-    if !params[:filters_string].nil? && !params[:filters_string].empty?
+    if !params[:filters_string].nil?
       @filters_ids = params[:filters_string].split(',').collect { |stringid| stringid.to_i}
       @filters_string = params[:filters_string]
       cookies[:filters_string] = params[:filters_string] # replace cookies with current submitted filters
       @filters_obj = @filters_ids.collect {|id| Sector.find(id)}.uniq # used for showing labels of filters activated in view
-    end 
-
-    
-
+    end
 
    #set up organizations search
    if @searchtext.nil? || @searchtext.empty?
@@ -118,15 +114,15 @@ class OrganizationsController < ApplicationController
     @organization = Organization.find(params[:organization_id])
     @organization.update_attributes(
       approved: true,
-      end_date: @organization.created_at + 3.months
+      end_date: Date.today + 3.months
     )
     @organization.contacthistories.each do |ch|
       ch.update_attributes(
         :start_date => Date.today
       )
     end
-    flash[:success] = "You successfully approved: " + @organization.name
-    redirect_to organizations_path
+    flash[:success] = "You successfully temporaily approved: " + @organization.name + ". This organization will expire in 3 months."
+    redirect_to @organization
   end
 
   # PUT /organizations/1

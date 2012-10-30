@@ -33,7 +33,7 @@
         <div class="span9">
 
           <% if !current_user.nil? && current_user.admin == true %>
-            <% @orgs_to_approve = (Organization.where(approved: false)) %>
+            <% @orgs_to_approve = Organization.where(approved: false, end_date: nil) %>
             <% if @orgs_to_approve.any? %>  
               <div class="alert alert-info fade in">
                 <a class="close" data-dismiss="alert">×</a>
@@ -52,13 +52,43 @@
                         <td>
                           <a href = "<%= organization_path(ota) %>"><%= ota.name %></a>
                         </td>
-                        <td> <%= link_to('Approve', organization_approve_url(ota), :method => :put, class: "btn btn-success")%> </td> 
+                        <td> <%= link_to('Approve for 3 Months', organization_approve_url(ota), :method => :put, class: "btn btn-success")%> </td> 
                       </tr>
                     <% end %>
                   </tbody>
                 </table>
               </div>
             <% end %>
+
+
+            <% @orgs_expired = Organization.where('approved = ? AND end_date < ?', true, Date.today) %>
+            <% if @orgs_expired.any? %>  
+              <div class="alert alert-info fade in">
+                <a class="close" data-dismiss="alert">×</a>
+                <strong>Admin notice:</strong> <%= pluralize(@orgs_expired.count, "organization") %> have expired:
+                
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <% @orgs_expired.each do |oe| %>
+                      <tr>  
+                        <td>
+                          <a href = "<%= organization_path(oe) %>"><%= oe.name %></a>
+                        </td>
+                        <td> <%= link_to('Renew for 3 Months', organization_approve_url(oe), :method => :put, class: "btn btn-success")%> </td> 
+                      </tr>
+                    <% end %>
+                  </tbody>
+                </table>
+              </div>
+            <% end %>
+
+            
           <% end %>
 
           <% if !current_user.nil? && current_user.organizations.where(approved: false).any? %>

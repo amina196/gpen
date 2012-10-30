@@ -18,7 +18,7 @@ class JobsController < ApplicationController
     end
   
     # if this is a new submitted search, take in the params and overwrite any cookies
-    if !params[:filters_string].nil? && !params[:filters_string].empty?
+    if !params[:filters_string].nil?
       @filters_ids = params[:filters_string].split(',').collect { |stringid| stringid.to_i}
       @filters_string = params[:filters_string]
       cookies[:filters_string] = params[:filters_string] # replace cookies with current submitted filters

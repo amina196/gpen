@@ -8,6 +8,20 @@
         <li class="active"><%= @organization.name %></li>
       </ul>
 
+      <% if @organization.approved = false %>
+        <div class="alert alert-error fade in">
+          <a class="close" data-dismiss="alert">×</a>
+          <strong>Warning:</strong> this organization has not yet been approved and so will not show up in search results. Please contact the administration if you do not hear from us within 3-5 business days.
+        </div>
+      <% end %>
+
+      <% if @organization.end_date < Date.today %>
+        <div class="alert alert-error fade in">
+          <a class="close" data-dismiss="alert">×</a> 
+          <strong>Warning:</strong> this organization has expired and so will not show up in search results. Please contact the administration to renew your membership.
+        </div>
+      <% end %>
+
 
       <div class="row">
          <div class="span4">
