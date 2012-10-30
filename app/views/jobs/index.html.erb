@@ -5,7 +5,8 @@
         <li>
           <a href="#">Home</a> <span class="divider">/</span>
         </li>
-        <li class="active">Jobs</li>
+        <li class="">Jobs</li>
+        <% unless @searchtext.nil? %> <span class="divider">/</span><li class="active">Search for '<%= @searchtext %>'</li><% end %>
       </ul>
 
 <div class="row-fluid">
@@ -14,116 +15,139 @@
             
             <ul class="nav nav-list filters" id="search_filters">
               <h3>Filters</h3>
-              <li class="nav-header">By Type</li>
+              <li class="nav-header">By Sector</li>
               <% @sectors.each do |sector| %>
-                  <li <% if (@filters_id == sector.id.to_s)%> class="active" <% end %>>
-                  <a href="#" id="<%= sector.id %>"><%= sector.description %></a>
+
+                <li <% if !@filters_ids.nil? && (@filters_ids.include? sector.id)%> class="active" <% end %> id="<%= sector.id %>">
+                  <a href="#"><%= sector.description %></a>
                 </li>
               <% end %>
-
-
-              
             </ul>
+
+
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
           <div class="hero-unit">
             
-            
-         <% if @searchtext.nil? %>
+
+
+          <% if (@searchtext.nil? || @searchtext.empty?) && (@filters_string.nil? || @filters_string.empty?) %>
 
                 <h1>Green Jobs</h1>
-            <p>We are proud to say that we have <%= @jobs.count %> (and counting!) green organizations listed on our website. Use the filters to the left or the search bar below to find organizations.</p>
-          <% else %>
+                <p>We are proud to say that we have <%= @jobs.count %> (and counting!) green organizations listed on our website. Use the filters to the left or the search bar below to find organizations.</p>
 
-                <h2>Jobs Results <% if !@searchtext.nil? %><small>for '<%= @searchtext %>'</small><% end %></h2>
-                <h6>filters</h6>
-                <% if !@filters.nil? %>
-                    <% @filters.each do |filterobject| %>
-                        <span class="label label-info"><%= filterobject.description %> </span>
+            <% else %>
+
+                <h2>Jobs Results</h2>
+                
+                <% if !@filters_obj.nil?  && !@filters_obj.empty? %>
+                    <h6>filters</h6>
+                    <% @filters_obj.each do |filterobject| %>
+                        <span class="label label-info"><%= filterobject.description %></span>
                     <% end %>
                 <% end %>
 
-          <% end %>
+            <% end %>
+
+
+
+
+
 
             <%= form_tag jobs_path, method: 'get', id: 'search_jobs', class: 'form-search form-big-search' do %>
               <p>
                   <%= text_field_tag :search, params[:search], class: 'big-search-query' %>
-                  <%= hidden_field_tag :filters, params[:filters], class: 'big-search-query' %>
-                  <%= hidden_field_tag :filters_id, params[:filters_id], class: 'big-search-query' %>
+                  <%= hidden_field_tag :filters_string, @filters_string %>
                   <%= submit_tag "Search", class: 'btn btn-primary btn-big-search pull-right', name: 'nil'%>
               </p>
             <% end %>
 
-            <%= link_to('Reset filters', job_resetcookies_url(1), :method => :get, class: "btn btn-success")%>
+            
+
+            
 
 
-            <% if signed_in? && current_user.organizations.any? %><%= link_to 'Post New Job', new_job_path %> <% end %>
+            <% if !@filters_obj.nil? && !@filters_obj.empty? %>
+              <%= link_to('Reset Filters', job_resetcookies_url(1), :method => :get, class: "btn btn-success")%>
+            <% end %>
+
+            <% if signed_in? && current_user.current_organizations.any? %><%= link_to 'Post New Job', new_job_path, class: "btn" %> <% end %>
+
             
           </div>
 
           <div class="well">
-            <h6>Latest Jobs</h6>
 
 
-         <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Organization</th>
-                <th>Status</th>
-                <th>Availability</th>
-                <th>Link</th>
-              </tr>
-            </thead>
-            <tbody>
+
+            <% if @jobs.nil? || @jobs.empty? %>
+              Your search shows no results. Reset filters and try another search.
+            <% else %>  
+
+            <h6><%= @jobs.length %> Search Results</h6>
 
 
-              <% @jobs.reverse.each do |job| %>
-                <tr>
-                  <td>
-                    <b><%= link_to(job.title, job, :class => "org-popover", :rel => "popover", "data-original-title" => job.title, "data-content" => truncate(job.description, :length => 200, :omission => '...')) %></b>
-                  </td>
-                  <td>       
-                    <%= job.organization.name %>
-                  </td>
-                  <td>
-                    <%= job.status %>
-                  </td>
-                  <td>
-                    <%= job.availability %>
-                  </td>
+
+             <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Organization</th>
+                    <th>Status</th>
+                    <th>Availability</th>
+                    <th>Link</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+
+                  <% @jobs.each do |job| %>
+                    <tr>
+                      <td>
+                        <b><%= link_to(job.title, job, :class => "org-popover", :rel => "popover", "data-original-title" => job.title, "data-content" => truncate(job.description, :length => 200, :omission => '...')) %></b>
+                      </td>
+                      <td>       
+                        <%= job.organization.name %>
+                      </td>
+                      <td>
+                        <%= job.status %>
+                      </td>
+                      <td>
+                        <%= job.availability %>
+                      </td>
+                      
+                      <td>
+                        <%= link_to 'View', job, class: "btn btn-small btn-success" %>
+                        
+                      </td>
+                    </tr>
+                  <% end %>
                   
-                  <td>
-                    <%= link_to 'View', job, class: "btn btn-small btn-success" %>
-                    
-                  </td>
-                </tr>
-              <% end %>
-              
-            </tbody>
-          </table>
+                </tbody>
+              </table>
 
 
-          <!--
-          <div class="pagination">
-            <ul>
-              <li><a href="#">Prev</a></li>
-              <li class="active">
-                <a href="#">1</a>
-              </li>
-              <li><a href="#">2</a></li>
-              <li><a href="#">3</a></li>
-              <li><a href="#">4</a></li>
-              <li><a href="#">5</a></li>
-              <li><a href="#">6</a></li>
-              <li><a href="#">7</a></li>
-              <li><a href="#">8</a></li>
-              <li><a href="#">Next</a></li>
-            </ul>
-          </div>
-        -->
+              <!--
+              <div class="pagination">
+                <ul>
+                  <li><a href="#">Prev</a></li>
+                  <li class="active">
+                    <a href="#">1</a>
+                  </li>
+                  <li><a href="#">2</a></li>
+                  <li><a href="#">3</a></li>
+                  <li><a href="#">4</a></li>
+                  <li><a href="#">5</a></li>
+                  <li><a href="#">6</a></li>
+                  <li><a href="#">7</a></li>
+                  <li><a href="#">8</a></li>
+                  <li><a href="#">Next</a></li>
+                </ul>
+              </div>
+            -->
 
+            <% end %>
 
         </div><!--/well-->
         </div><!--/span-->

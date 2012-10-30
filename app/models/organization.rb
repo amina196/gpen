@@ -85,7 +85,7 @@ class Organization < ActiveRecord::Base
   def self.search_and_filter(sector, search)
     sectorarray = sector.split(',')
 
-    #first first results then filter them down by the sectors
+    #first search results then filter them down by the sectors
     results = Organization.joins(:sectors)
                 .where('sectors.id' => sectorarray)
                 .where('approved = ? AND end_date > ?',  true, Date.today) # get only orgs that have been approved and have not expired

@@ -23,6 +23,9 @@
               <% end %>
             </ul>
 
+
+              
+
            
 
           </div><!--/.well -->
@@ -67,7 +70,7 @@
           <div class="hero-unit">
 
             
-            <% if (@searchtext.nil? || @searchtext.empty?) && (@filters.nil? || @filters.empty?) %>
+            <% if (@searchtext.nil? || @searchtext.empty?) && (@filters_string.nil? || @filters_string.empty?) %>
 
                 <h1>Green Organizations</h1>
                 <p>We are proud to say that we have <%= Organization.all.count %> (and counting!) green organizations listed on our website. Use the filters to the left or the search bar below to find organizations.</p>
@@ -75,9 +78,10 @@
             <% else %>
 
                 <h2>Organization Results</h2>
-                <h6>filters</h6>
-                <% if !@filters.nil? %>
-                    <% @filters.each do |filterobject| %>
+                
+                <% if !@filters_obj.nil? && !@filters_obj.empty? %>
+                  <h6>filters</h6>
+                    <% @filters_obj.each do |filterobject| %>
                         <span class="label label-info"><%= filterobject.description %></span> 
                     <% end %>
                 <% end %>
@@ -88,21 +92,15 @@
               <p>
                   <%= text_field_tag :search, params[:search], class: 'big-search-query' %>
                   
-                  <%= hidden_field_tag :filters_ids, @filters_ids.split(',') %>
+                  <%= hidden_field_tag :filters_string, @filters_string %>
                   <%= submit_tag "Search", class: 'btn btn-primary btn-big-search pull-right', name: 'nil'%>
               </p>
             <% end %>
 
 
-            <% if !@filters.nil? && !@filters.empty? %>
+            <% if !@filters_obj.nil? && !@filters_obj.empty? %>
               <%= link_to('Reset Filters', organization_resetcookies_url(1), :method => :get, class: "btn btn-success")%>
             <% end %>
-            <!--
-            <form class="form-search form-big-search">
-              <input type="text" class="big-search-query">
-              <button type="submit" class="btn btn-primary btn-big-search pull-right">Search</button>
-            </form>
-            -->
 
             <% if signed_in?%><%= link_to 'Create New Organization', new_organization_path, class: "btn" %><% end %>
 

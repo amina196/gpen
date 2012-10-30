@@ -3,56 +3,50 @@ class JobsController < ApplicationController
   
   def index
    
-    @sectors = Sector.all
-    @searchedjobs = Job.search(params[:search])
     @searchtext = params[:search]
-    @filters_id = params[:filters_id]
+    @sectors = Sector.all
+    @filters_ids = [] # array of ids of filters we are searching on
+    @filters_string = "" # string of comma separated filters we are searching on
+    @filters_obj = [] # array of objs of filters we are searching on
 
 
-if !params[:filters_id].nil? 
-      if cookies[:filters].blank?
-        cookies[:filters] = (params[:filters_id] + ',') unless params[:filters_id].empty?
+    # check to see if any cookies exist
+    if !cookies[:filters_string].nil? && !cookies[:filters_string].empty?
+      @filters_ids = cookies[:filters_string].split(',').collect { |stringid| stringid.to_i}
+      @filters_string = cookies[:filters_string]
+      @filters_obj = @filters_ids.collect {|id| Sector.find(id)}.uniq # used for showing labels of filters activated in view
+    end
+  
+    # if this is a new submitted search, take in the params and overwrite any cookies
+    if !params[:filters_string].nil? && !params[:filters_string].empty?
+      @filters_ids = params[:filters_string].split(',').collect { |stringid| stringid.to_i}
+      @filters_string = params[:filters_string]
+      cookies[:filters_string] = params[:filters_string] # replace cookies with current submitted filters
+      @filters_obj = @filters_ids.collect {|id| Sector.find(id)}.uniq # used for showing labels of filters activated in view
+    end 
+
+
+   #set up jobs search
+   if @searchtext.nil? || @searchtext.empty?
+      if @filters_string.nil? || @filters_string.empty?
+        @jobs = Job.search('') # no search, and no filters
       else
-        cookies[:filters] = cookies[:filters] << (params[:filters_id] + ',') unless cookies[:filters].include?(params[:filters_id] + ',')
-      end 
-   end
-
-   #set up search : ONLY JOBS WHOSE ORG HAS BEEN APPROVED
-   if params[:search].nil?  #GET /organizations -- params[:filters_id & :filters] also not null 
-      if cookies[:filters].nil? || cookies[:filters].empty?
-        @jobs = Job.all  #jobs whose organization has been approved 
-      else
-        @jobs = Job.filter(cookies[:filters])
+        @jobs = Job.filter(@filters_string) # no search, and filters
       end
    else
-     if !params[:search].empty? && params[:filters_id].empty? # search and no filters
-        @jobs = Job.search(params[:search])
-     end
-
-     if !params[:search].empty? && !params[:filters_id].empty? # search and filters
-        @jobs = Job.search_and_filter(cookies[:filters], params[:search])
-     end
-
-     if params[:search].empty? && !params[:filters_id].empty? #no search, filters
-        @jobs = Job.filter(cookies[:filters])
+     if @filters_string.nil? || @filters_string.empty? 
+        @jobs = Job.search(@searchtext) # search and no filters
+     else 
+        @jobs = Job.search_and_filter(@filters_string, @searchtext) # search and filters
      end
    end
 
-   #get array of string for showing labels of filters activated
-   if cookies[:filters].nil? || cookies[:filters].empty?
-     @filters = []
-   else
-     @filters = ((cookies[:filters].split(',').collect { |stringid| stringid.to_i}).collect { |id| Sector.find(id)}).uniq
-   end
-     
 
-   @searchtext = params[:search]
-   @sectors = Sector.all
-   @filters_id = params[:filters_id]
+  
   end
 
   def resetcookies
-    cookies[:filters] = nil
+    cookies[:filters_string] = nil
     redirect_to jobs_path
   end
   
@@ -78,7 +72,7 @@ if !params[:filters_id].nil?
     @job = Job.create(params[:job])
     @job.sectors = Sector.find(params[:sector_ids]) if params[:sector_ids]
     if @job.save
-      flash[:success] = "The job you posted has been successfully saved ! "
+      flash[:success] = "The job you posted has been saved successfully!"
       redirect_to @job
     else
       render 'jobs/new'
