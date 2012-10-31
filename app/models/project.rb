@@ -15,8 +15,8 @@ class Project < ActiveRecord::Base
 
   def self.filter(sector)
         sectorarray = sector.split(',')
-        return Project.joins(:sectors)
-                  .includes(:organization)
+        return Project.includes(:sectors, :organization)
+                  .select('projects.*')
                   .where('sectors.id' => sectorarray)
                   .where('(organizations.approved = ? AND organizations.end_date > ?) OR organization_id is null', true, Date.today)
                   .group('projects.id')
@@ -27,9 +27,11 @@ class Project < ActiveRecord::Base
     if search.empty?
       # show all user projects (organization_id is null), and show all org projects for the orgs have been approved and have not expired
       Project.includes(:organization)
+              .select('projects.*')
               .where('(organizations.approved = ? AND organizations.end_date > ?) OR organization_id is null', true, Date.today)
     else
       Project.includes(:organization)
+              .select('projects.*')
               .where('(organizations.approved = ? AND organizations.end_date > ?) OR organization_id is null', true, Date.today)
               .where('projects.title LIKE ? OR proj_desc LIKE ? OR projects.city LIKE ? OR projects.state LIKE ? or projects.zip LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%")
     end
@@ -39,8 +41,8 @@ class Project < ActiveRecord::Base
     sectorarray = sector.split(',')
 
     #first search results then filter them down by the sectors
-    results = Project.joins(:sectors)
-        .includes(:organization)
+    results = Project.includes(:sectors, :organization)
+        .select('projects.*')
         .where('sectors.id' => sectorarray)
         .where('(organizations.approved = ? AND organizations.end_date > ?) OR organization_id is null', true, Date.today)
         .where('projects.title LIKE ? OR proj_desc LIKE ? OR projects.city LIKE ? OR projects.state LIKE ? or projects.zip LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%")
