@@ -20,6 +20,9 @@ class Job < ActiveRecord::Base
   validates :availability, :presence => true
 
    
+  # search methods will only display jobs that have orgs that have been approved and have not expired
+
+
   def self.filter(sector)
         sectorarray = sector.split(',')
         return Job.joins(:sectors, :organization)

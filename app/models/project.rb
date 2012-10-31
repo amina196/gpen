@@ -11,34 +11,52 @@ class Project < ActiveRecord::Base
 		has_many :users, through: :projectenrollments
 
 
-	#method for search
-	
-def self.filter(sector)
+    # search methods will only display user projects (organization_id is null) or org projects for the orgs have been approved and have not expired
+
+  def self.filter(sector)
         sectorarray = sector.split(',')
-        a = Projectsector.find_all_by_sector_id(sectorarray)
-        b = a.collect {|orgsec| orgsec.project}
-        return b
+        return Project.includes(:sectors, :organization)
+                  .where('sectors.id' => sectorarray)
+                  .where('(organizations.approved = ? AND organizations.end_date > ?) OR organization_id is null', true, Date.today)
+                  .group('projects.id')
+                  .having('COUNT(projects.id) = ?', sectorarray.size)
   end
 
   def self.search(search)
-        Project.find(:all, :conditions => ['title LIKE ? OR proj_desc LIKE ? OR city LIKE ? OR state LIKE ? or zip LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%"])
+    if search.empty?
+      # show all user projects (organization_id is null), and show all org projects for the orgs have been approved and have not expired
+      Project.includes(:organization)
+              .where('(organizations.approved = ? AND organizations.end_date > ?) OR organization_id is null', true, Date.today)
+    else
+      Project.includes(:organization)
+              .where('(organizations.approved = ? AND organizations.end_date > ?) OR organization_id is null', true, Date.today)
+              .where('projects.title LIKE ? OR proj_desc LIKE ? OR projects.city LIKE ? OR projects.state LIKE ? or projects.zip LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%")
+    end
   end
 
   def self.search_and_filter(sector, search)
-    sectors = sector.split(',')
-    result = []
-    searchresult = Project.find(:all, :conditions => ['title LIKE ? OR proj_desc LIKE ? OR city LIKE ? OR state LIKE ? or zip LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%"])
-    searchresult.each do |o|
-      sector_ids = o.sectors.collect {|sector| sector.id.to_s}
-      sector_ids.each do |s| 
-        if sectors.include?(s) 
-          result = result << o
-          break
-        end
-      end
-    end
-    return result
+    sectorarray = sector.split(',')
+
+    #first search results then filter them down by the sectors
+    results = Project.includes(:sectors, :organization)
+        .where('sectors.id' => sectorarray)
+        .where('(organizations.approved = ? AND organizations.end_date > ?) OR organization_id is null', true, Date.today)
+        .where('projects.title LIKE ? OR proj_desc LIKE ? OR projects.city LIKE ? OR projects.state LIKE ? or projects.zip LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%")
+        .group('projects.id')
+        .having('COUNT(projects.id) = ?', sectorarray.size)
+    return results
   end
+
+
+
+
+
+
+
+
+
+
+
 	
 end
 # == Schema Information

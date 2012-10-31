@@ -28,9 +28,9 @@
 
             <!-- This block only displays if the project is affiliated with an organization -->
             <% if !@project.organization_id.nil? %>
-            <h6>Proj organization:</h6>
+            <h6>Project Sponsor</h6>
               <p>
-                <%= @project.organization.name %>
+                <%= link_to @project.organization.name, @project.organization %>
               </p>
             <% end %>
             <!-- END -->

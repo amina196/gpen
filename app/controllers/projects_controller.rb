@@ -24,7 +24,7 @@ class ProjectsController < ApplicationController
                                                     user_id: current_user.id,
                                                     organization_id: nil
                                                    )
-    end  
+    end
     @project.sectors = Sector.find(params[:sector_ids]) if params[:sector_ids]
     if @project.save
       flash[:success] = "Project successfully posted"
@@ -37,51 +37,45 @@ class ProjectsController < ApplicationController
   def index
     @searchtext = params[:search]
     @sectors = Sector.all
-    @filters_id = params[:filters_id]
-    
-  if !params[:filters_id].nil? 
-      if cookies[:filters].blank?
-        cookies[:filters] = (params[:filters_id] + ',') unless params[:filters_id].empty?
-      else
-        cookies[:filters] = cookies[:filters] << (params[:filters_id] + ',') unless cookies[:filters].include?(params[:filters_id] + ',')
-      end 
-   end
+    @filters_ids = [] # array of ids of filters we are searching on
+    @filters_string = "" # string of comma separated filters we are searching on
+    @filters_obj = [] # array of objs of filters we are searching on
 
-   #set up search
-   if params[:search].nil?  #GET /organizations -- params[:filters_id & :filters] also null 
-      if cookies[:filters].nil? || cookies[:filters].empty?
-        @projects = Project.all
+
+    # check to see if any cookies exist
+    if !cookies[:filters_string].nil? && !cookies[:filters_string].empty?
+      @filters_ids = cookies[:filters_string].split(',').collect { |stringid| stringid.to_i}
+      @filters_string = cookies[:filters_string]
+      @filters_obj = @filters_ids.collect {|id| Sector.find(id)}.uniq # used for showing labels of filters activated in view
+    end
+
+    # if this is a new submitted search, take in the params and overwrite any cookies
+    if !params[:filters_string].nil?
+      @filters_ids = params[:filters_string].split(',').collect { |stringid| stringid.to_i}
+      @filters_string = params[:filters_string]
+      cookies[:filters_string] = params[:filters_string] # replace cookies with current submitted filters
+      @filters_obj = @filters_ids.collect {|id| Sector.find(id)}.uniq # used for showing labels of filters activated in view
+    end 
+
+
+    #set up projects search
+    if @searchtext.nil? || @searchtext.empty?
+      if @filters_string.nil? || @filters_string.empty?
+        @projects = Project.search('') # no search, and no filters
       else
-        @projects = Project.filter(cookies[:filters]) 
+        @projects = Project.filter(@filters_string) # no search, and filters
       end
-   else
-     if !params[:search].empty? && params[:filters_id].empty? # search and no filters
-        @projects = Project.search(params[:search])
+    else
+      if @filters_string.nil? || @filters_string.empty? 
+        @projects = Project.search(@searchtext) # search and no filters
+      else 
+        @projects = Project.search_and_filter(@filters_string, @searchtext) # search and filters
+      end
      end
-
-     if !params[:search].empty? && !params[:filters_id].empty? # search and filters
-        @projects = Project.search_and_filter(cookies[:filters], params[:search])
-     end
-
-     if params[:search].empty? && !params[:filters_id].empty? #no search, filters
-        @projects = Project.filter(cookies[:filters])
-     end
-   end
-
-   #get array of string for showing labels of activated filters
-   if cookies[:filters].nil? || cookies[:filters].empty?
-     @filters = []
-   else
-     @filters = ((cookies[:filters].split(',').collect { |stringid| stringid.to_i}).collect { |id| Sector.find(id)}).uniq
-   end
-     
-   @searchtext = params[:search]
-   @sectors = Sector.all
-   @filters_id = params[:filters_id]
   end
  
   def resetcookies
-    cookies[:filters] = nil
+    cookies[:filters_string] = nil
     redirect_to projects_path
   end
 

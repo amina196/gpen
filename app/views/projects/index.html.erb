@@ -3,6 +3,7 @@
           <a href="<%= root_path %>">Home</a> <span class="divider">/</span>
         </li>
         <li class="active">Projects</li>
+        <% unless @searchtext.nil? %> <span class="divider">/</span><li class="active">Search for '<%= @searchtext %>'</li><% end %>
       </ul>
 
 
@@ -15,130 +16,131 @@
             
             <ul class="nav nav-list filters" id="search_filters">
               <h3>Filters</h3>
-
-              <!--
-              <li class="nav-header">By County</li>
-              <li><a href="#">Bucks</a></li>
-              <li><a href="#">Chester</a></li>
-              <li><a href="#">Delaware</a></li>
-              <li><a href="#">Montgomery</a></li>
-              <li><a href="#">Philadelphia</a></li>
-              <li><a href="#">Harrisburg</a></li>
-              -->
-              <li class="nav-header">By Type</li>
+              <li class="nav-header">By Sector</li>
               <% @sectors.each do |sector| %>
-                  <li <% if (@filters_id == sector.id.to_s)%> class="active" <% end %>>
-                  <a href="#" id="<%= sector.id %>"><%= sector.description %></a>
+
+                <li <% if !@filters_ids.nil? && (@filters_ids.include? sector.id)%> class="active" <% end %> id="<%= sector.id %>">
+                  <a href="#"><%= sector.description %></a>
                 </li>
               <% end %>
             </ul>
+
+
           </div><!--/.well -->
         </div><!--/span-->
         <div class="span9">
           <div class="hero-unit">
+            <% if (@searchtext.nil? || @searchtext.empty?) && (@filters_string.nil? || @filters_string.empty?) %>
 
-            <% if @searchtext.nil? %>
+                  <h1>Green Projects</h1>
+                  <p>Post a volunteer opportunity run by yourself or an organization for which you are an admin.</p>
 
-                <h1>Green Projects</h1>
-            <p>Post a volunteer opportunity run by yourself or an organization for which you are an admin.</p>
-          <% else %>
+              <% else %>
 
-                <h2>Project Results <% if !@searchtext.nil? %><small>for '<%= @searchtext %>'</small><% end %></h2>
-                <h6>filters</h6>
-                <% if !@filters.nil? %>
-                    <% @filters.each do |filterobject| %>
-                        <span class="label label-info"><%= filterobject.description %> </span>
-                    <% end %>
-                <% end %>
+                  <h2>Projects Results</h2>
+                  
+                  <% if !@filters_obj.nil?  && !@filters_obj.empty? %>
+                      <h6>filters</h6>
+                      <% @filters_obj.each do |filterobject| %>
+                          <span class="label label-info"><%= filterobject.description %></span>
+                      <% end %>
+                  <% end %>
 
-          <% end %>
+              <% end %>
             
 
 
               <%= form_tag projects_path, method: 'get', id: 'search_projects', class: 'form-search form-big-search' do %>
-                  <p> 
-                      <%= text_field_tag :search, params[:search], class: "big-search-query"%>
-                      <%= hidden_field_tag :filters, params[:filters], class: 'big-search-query' %>
-                      <%= hidden_field_tag :filters_id, params[:filters_id], class: 'big-search-query' %>
-                      <%= submit_tag "Search", name: nil, class: "btn btn-primary btn-big-search pull-right" %>
-                  </p>
+                <p>
+                    <%= text_field_tag :search, params[:search], class: 'big-search-query' %>
+                    <%= hidden_field_tag :filters_string, @filters_string %>
+                    <%= submit_tag "Search", class: 'btn btn-primary btn-big-search pull-right', name: 'nil'%>
+                </p>
               <% end %>
 
-               <%= link_to('Reset filters', project_resetcookies_url(1), :method => :get, class: "btn btn-success")%>
+              <% if !@filters_obj.nil? && !@filters_obj.empty? %>
+                <%= link_to('Reset Filters', project_resetcookies_url(1), :method => :get, class: "btn btn-success")%>
+              <% end %>
 
-              
-              <% if signed_in?%><%= link_to 'Post New Project', new_project_path, class: "btn" %><% end %>
+              <% if signed_in? %><%= link_to 'Post New Project', new_project_path, class: "btn" %> <% end %>
+
+
+
+
+
+
           </div>
 
 
           <div class="well">
 
-                <h6>Latest Projects</h6>
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Title</th>
-                <th>Location</th>
-                <th>Time</th>
-                <th>Posted By</th>
-                <th>Link</th>
-              </tr>
-            </thead>
-            <tbody>
+
+            <% if @projects.nil? || @projects.empty? %>
+              Your search shows no results. Reset filters and try another search.
+            <% else %>  
+
+              <h6><%= @projects.length %> Search Results</h6>
+
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th>Title</th>
+                    <th>Location</th>
+                    <th>Time</th>
+                    <th>Posted By</th>
+                    <th>Link</th>
+                  </tr>
+                </thead>
+                <tbody>
 
 
-              <% @projects.reverse.each do |project| %>
-                <tr>
-                  <td>
-                    
-                  <h4><%= link_to(project.title, project, :class => "org-popover", :rel => "popover", "data-original-title" => project.title, "data-content" => truncate(project.proj_desc, :length => 200, :omission => '...')) %></h4>
-                  <!--<p><%= truncate(project.proj_desc, :length => 50, :omission => '...') %></p>-->
-                  </td>
-                  <td>
-                    <address>
-                      <%= project.address %><br>
-                      <%= project.city %>, <%= project.state %> <%= project.zip %><br>
-                    </address>
-                  </td>
-                  <td><%= project.proj_time %></td>
+                  <% @projects.each do |project| %>
+                    <tr>
+                      <td>
+                        
+                      <h4><%= link_to(project.title, project, :class => "org-popover", :rel => "popover", "data-original-title" => project.title, "data-content" => truncate(project.proj_desc, :length => 200, :omission => '...')) %></h4>
+                      <!--<p><%= truncate(project.proj_desc, :length => 50, :omission => '...') %></p>-->
+                      </td>
+                      <td>
+                        <address>
+                          <%= project.address %><br>
+                          <%= project.city %>, <%= project.state %> <%= project.zip %><br>
+                        </address>
+                      </td>
+                      <td><%= project.proj_time %></td>
 
-                  <td><% if project.organization_id.nil? %> <%= link_to project.user.fname + " " + project.user.lname, project.user %> <% else %> <%= link_to project.organization.name, project.organization %><% end %> </td>
-                  
-                  
+                      <td><% if project.organization_id.nil? %> <%= link_to project.user.fname + " " + project.user.lname, project.user %> <% else %> <%= link_to project.organization.name, project.organization %><% end %> </td>
+                      <td>
+                        <%= link_to 'View', project, class: "btn btn-small btn-success" %>
+                        
+                      </td>
+                    </tr>
+                  <% end %> 
+                </tbody>
+              </table>
 
-                  
-                  <td>
-                    <%= link_to 'View', project, class: "btn btn-small btn-success" %>
-                    
-                  </td>
-                </tr>
+
+          <!--
+          <div class="pagination">
+            <ul>
+              <li><a href="#">Prev</a></li>
+              <li class="active">
+                <a href="#">1</a>
+              </li>
+              <li><a href="#">2</a></li>
+              <li><a href="#">3</a></li>
+              <li><a href="#">4</a></li>
+              <li><a href="#">5</a></li>
+              <li><a href="#">6</a></li>
+              <li><a href="#">7</a></li>
+              <li><a href="#">8</a></li>
+              <li><a href="#">Next</a></li>
+            </ul>
+          </div>
+
+          -->
+
           <% end %>
-          
-        </tbody>
-      </table>
-
-
-      <!--
-      <div class="pagination">
-        <ul>
-          <li><a href="#">Prev</a></li>
-          <li class="active">
-            <a href="#">1</a>
-          </li>
-          <li><a href="#">2</a></li>
-          <li><a href="#">3</a></li>
-          <li><a href="#">4</a></li>
-          <li><a href="#">5</a></li>
-          <li><a href="#">6</a></li>
-          <li><a href="#">7</a></li>
-          <li><a href="#">8</a></li>
-          <li><a href="#">Next</a></li>
-        </ul>
-      </div>
-
-    -->
-
-
         </div><!--/well-->
         </div><!--/span-->
       </div><!--/row-->

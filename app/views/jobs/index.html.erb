@@ -63,11 +63,6 @@
               </p>
             <% end %>
 
-            
-
-            
-
-
             <% if !@filters_obj.nil? && !@filters_obj.empty? %>
               <%= link_to('Reset Filters', job_resetcookies_url(1), :method => :get, class: "btn btn-success")%>
             <% end %>
