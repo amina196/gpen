@@ -226,6 +226,10 @@ border: 1px solid #47A147;
   width: 940px;
 }
 
+.navbar-fixed-top .navbar-inner, .navbar-static-top .navbar-inner {
+  border-width: 0;
+}
+
 .nav-list.filters > li > a {
   padding: 3px 15px;
   font-size: 12px;

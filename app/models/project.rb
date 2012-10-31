@@ -15,7 +15,8 @@ class Project < ActiveRecord::Base
 
   def self.filter(sector)
         sectorarray = sector.split(',')
-        return Project.includes(:sectors, :organization)
+        return Project.joins(:sectors)
+                  .includes(:organization)
                   .where('sectors.id' => sectorarray)
                   .where('(organizations.approved = ? AND organizations.end_date > ?) OR organization_id is null', true, Date.today)
                   .group('projects.id')
@@ -38,7 +39,8 @@ class Project < ActiveRecord::Base
     sectorarray = sector.split(',')
 
     #first search results then filter them down by the sectors
-    results = Project.includes(:sectors, :organization)
+    results = Project.joins(:sectors)
+        .includes(:organization)
         .where('sectors.id' => sectorarray)
         .where('(organizations.approved = ? AND organizations.end_date > ?) OR organization_id is null', true, Date.today)
         .where('projects.title LIKE ? OR proj_desc LIKE ? OR projects.city LIKE ? OR projects.state LIKE ? or projects.zip LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%")
