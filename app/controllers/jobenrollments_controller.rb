@@ -2,8 +2,8 @@ class JobenrollmentsController < ApplicationController
 
   def create
   	@job = Job.find(params[:jobenrollment][:job_id])
-    current_user.jobenrollments.create!(params[:jobenrollment])
-    Notifications.application_email(current_user, @job, params[:jobenrollment][:resume]).deliver
+    @jobenrollment = current_user.jobenrollments.create!(params[:jobenrollment])
+    Notifications.application_email(current_user, @job, @jobenrollment).deliver
     redirect_to @job
 
     #job_id: @job.id,resume_file_name: params[:jobenrollment][:resume].original_filename, resume_content_type: params[:jobenrollment][:resume].content_type

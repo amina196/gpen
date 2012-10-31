@@ -7,12 +7,13 @@ class Notifications < ActionMailer::Base
     mail(:to => user.email, :subject => "Welcome to GPEN!")
   end
 
-   def application_email(user, job, resume)
+   def application_email(user, job, jobenrollment)
     @url = "http://gpen.phillyecocity.com"
     @user = user
     @job = job
     @organization = Organization.find(@job.organization_id)
-    attachments['resume.pdf'] = resume
+    @jobenrollment = jobenrollment
+    attachments['resume.pdf'] = File.read(@jobenrollment.resume.url)
     mail(:to => user.email, :subject => "Application on GPEN job")
   end
 
