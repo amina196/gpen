@@ -23,12 +23,21 @@ class Notifications < ActionMailer::Base
     @user = user
     @job = job
     @organization = Organization.find(@job.organization_id)
-    @email = @organization.email
     @jobenrollment = jobenrollment
 
-    # test if organization email exists!!!
-    attachments[@jobenrollment.resume_file_name] = open(@jobenrollment.resume.url).read
-    mail(:to => 'justin@relativecommotion.com', :subject => "[GPEN] Job Application Received for: " + @job.title)
+    @email = ""
+    # for now, if org has admin, send to the first one, else send to the default org email list, else send nothing
+    if @organization.users.any? && !@organization.user.first.email.nil? && !@organization.user.first.email.empty?
+      @email = @organization.user.first.email
+    else
+      @email = @organization.email
+    end
+
+    if !@email.nil? && !@email.empty?
+      attachments[@jobenrollment.resume_file_name] = open(@jobenrollment.resume.url).read
+      mail(:to => @email, :subject => "[GPEN] Job Application Received for: " + @job.title)
+    end
+
   end
 
   def resetpswd_email(user, new_pass)

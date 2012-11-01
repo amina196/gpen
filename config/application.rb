@@ -57,6 +57,6 @@ module GpenApp
     config.assets.version = '1.0'
 
     #Setting the host for any URL used in email bodies
-    config.action_mailer.default_url_options = { :host => "gpen-back.phillyecocity.com" }
+    config.action_mailer.default_url_options = { :host => "gpen.phillyecocity.com" }
   end
 end

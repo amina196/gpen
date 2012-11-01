@@ -8,7 +8,7 @@ GpenApp::Application.configure do
     :password => ENV['SENDGRID_PASSWORD'], 
     :domain => 'heroku.com'
   }
-  config.action_mailer.default_url_options = { :host => "gpen.herokuapp.com" }
+  config.action_mailer.default_url_options = { :host => "gpen.phillyecocity.com" }
   # Settings specified here will take precedence over those in config/application.rb
 
   # Code is not reloaded between requests

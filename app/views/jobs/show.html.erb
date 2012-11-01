@@ -19,7 +19,7 @@
 
       <br>
       <h6>Posted</h6>
-      <p><%= time_ago_in_words(@job.organization.created_at) %> ago</p>
+      <p><%= time_ago_in_words(@job.created_at) %> ago</p>
 
       <% if @job.organization.users.any? %>
         <h6><%=pluralize(@job.organization.users.count, "Admin")%></h6>
