@@ -4,16 +4,20 @@
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
   </head>
   <body>
-    <h1>Thank you, your job application has been submitted</h1>
+    <h1>Job Application Submitted!</h1>
     <p>
       You have successfully applied for job #<%= @job.id %>,
-      entitled <%= link_to @job.title, @job %>. <br>
-      Your application will be reviewed by the author of the job
+      entitled <%= link_to @job.title, job_url(@job) %>. Your application will be reviewed by the author of the job
       on the GPEN database, and will be in touch with you soon.
       <% if !@organization.email.nil? && !@organization.email.empty? %>
           In case you want to contact them directly, their email is
           <%= @organization.email %>.
       <% end %>
+
+      <% if !@jobenrollment.resume.nil? %>
+        A copy of the resume you submitted has been attached for your convenience.
+      <% end %>
+
     </p>
 
     <p>

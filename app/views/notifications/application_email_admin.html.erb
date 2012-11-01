@@ -6,14 +6,14 @@
   <body>
     <h1>Job Application Received!</h1>
     <p>
-      You have received an application for job #<%= @job.id %>, entitled <%= link_to @job.title, @job %>.
+      You have received an application for job #<%= @job.id %>, entitled <%= link_to @job.title, job_url(@job) %>.
     </p>
 
     <p>
-      Applicant Details<br>
-      <b>Name:</b> <%= @user.fname + " " + @user.lname %>
-      <b>Email:</b> @user.email
-      <b>GPEN Profile:</b> <%= link_to user_url(@user), @user %>
+      <h2>Applicant Details</h2>
+      <b>Name:</b> <%= @user.fname + " " + @user.lname %> <br>
+      <b>Email:</b> <%= @user.email %> <br>
+      <b>GPEN Profile:</b> <%= link_to user_url(@user), user_url(@user) %> <br>
       <% if !@jobenrollment.resume.nil? %>
         <b>Resume:</b> attached 
       <% else %>
