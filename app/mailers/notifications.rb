@@ -27,8 +27,8 @@ class Notifications < ActionMailer::Base
 
     @email = ""
     # for now, if org has admin, send to the first one, else send to the default org email list, else send nothing
-    if @organization.users.any? && !@organization.user.first.email.nil? && !@organization.user.first.email.empty?
-      @email = @organization.user.first.email
+    if @organization.users.any? && !@organization.users.first.email.nil? && !@organization.users.first.email.empty?
+      @email = @organization.users.first.email
     else
       @email = @organization.email
     end
