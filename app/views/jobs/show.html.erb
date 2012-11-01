@@ -59,18 +59,31 @@
       <div class="clear"></div>
 
       <% if signed_in? && current_user.admin_of(@job.organization) %>
-      <hr>
-      <div class="btn-group">
-        <button class="btn btn-primary">Admin Actions</button>
-        <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
-        <ul class="dropdown-menu">
-          <li><%= link_to 'Edit Job', edit_job_path(@job) %></li>
-          <li class="divider"></li>
-          
-          <li><%= link_to 'Destroy', @job, confirm: 'Are you sure?', method: :delete %></li>
+        <hr>
+        <div class="btn-group">
+          <button class="btn btn-primary">Admin Actions</button>
+          <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+          <ul class="dropdown-menu">
+            <li><%= link_to 'Edit Job', edit_job_path(@job) %></li>
+            <li class="divider"></li>
+            
+            <li><%= link_to 'Destroy', @job, confirm: 'Are you sure?', method: :delete %></li>
 
-        </ul>
-      </div>
+          </ul>
+        </div>
+        <br>
+        <h6>Job Applications Submitted</h6>
+        <p>
+        <% if @job.users.any? %>
+          <% @job.jobenrollments.each do |je| %>
+          <%= link_to je.user.fname + " " + je.user.lname, je.user %> | 
+
+          <%= link_to "Resume", je.resume.url %>
+
+          <br>
+          <% end %>
+        <% end %> 
+        </p>
       <% end %>
 
     </div> <!--/well-->

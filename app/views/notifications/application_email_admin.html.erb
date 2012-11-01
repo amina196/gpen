@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Job Application Received!</h1>
+    <p>
+      You have received an application for job #<%= @job.id %>, entitled <%= link_to @job.title, @job %>.
+    </p>
+
+    <p>
+      Applicant Details<br>
+      <b>Name:</b> <%= @user.fname + " " + @user.lname %>
+      <b>Email:</b> @user.email
+      <b>GPEN Profile:</b> <%= link_to user_url(@user), @user %>
+      <% if !@jobenrollment.resume.nil? %>
+        <b>Resume:</b> attached 
+      <% else %>
+        <b>Resume:</b> none submitted 
+      <% end %>
+    </p>
+
+    <p>
+      All the Best,<br>
+      The GPEN Team
+    </p>
+    
+  </body>
+</html>
