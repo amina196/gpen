@@ -13,7 +13,7 @@ class Notifications < ActionMailer::Base
     @job = job
     @organization = Organization.find(@job.organization_id)
     @jobenrollment = jobenrollment
-    attachments['resume.pdf'] = File.open(@jobenrollment.resume.path)
+    attachments[@jobenrollment.resume_file_name] = open(@jobenrollment.resume.url).read
     mail(:to => user.email, :subject => "Application on GPEN job")
   end
 
