@@ -1,7 +1,32 @@
-<%= form_for(current_user.jobenrollments.build(job_id: @job.id), :html => { :multipart => true }) do |f| %>
+<%= form_for(@jobenrollment, :html => { :multipart => true, :class => "form-horizontal" }) do |f| %>
+
+	<% if @jobenrollment.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(@jobenrollment.errors.count, "error") %> prohibited this application from being saved:</h2>
+
+            <ul>
+            <% @jobenrollment.errors.full_messages.each do |msg| %>
+              <li><%= msg %></li>
+            <% end %>
+            </ul>
+        </div>
+    <% end %>
 	  
 	  <%= f.hidden_field :job_id %>
-	  <%= f.file_field :resume, placeholder: "Upload resume for application" %> <br>
+	  <h5>To Apply, Upload Your Resume (Required)</h5>
+	   <br>
+
+
+	  <div class="control-group">
+        <%= f.label "Resume File", class: "control-label" %>
+        <div class="controls">
+          <%= f.file_field :resume, placeholder: "Upload resume for application" %>
+        </div>
+    </div>
+
+
 	  <%= f.submit "Apply", :class => "btn btn-large btn-success" %>
 
 <% end %>
+
+<hr>

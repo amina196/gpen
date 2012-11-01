@@ -129,6 +129,7 @@
           <p><%= @job.updated_at %></p>
           <hr>
           <%= render 'apply_form' if signed_in? %>
+          
           <%= button_to "Back to #{@job.organization.name}", organization_path(@job.organization), :class => "btn btn-large", :method => "get" %></td>
 
         </div>

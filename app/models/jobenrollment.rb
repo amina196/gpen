@@ -17,7 +17,8 @@ class Jobenrollment < ActiveRecord::Base
 							   
 
 
-	#validates_attachment_presence :resume
+	validates_attachment_presence :resume
+	
 end
 # == Schema Information
 #

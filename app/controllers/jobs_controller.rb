@@ -53,6 +53,7 @@ class JobsController < ApplicationController
 
   def show
     @job = Job.find(params[:id])
+    @jobenrollment = current_user.jobenrollments.build(job_id: @job.id)
   end
 
   def new
