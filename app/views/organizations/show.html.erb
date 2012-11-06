@@ -15,10 +15,10 @@
         </div>
       <% end %>
 
-      <% if @organization.end_date < Date.today %>
+      <% if @organization.end_date.nil? || (@organization.end_date < Date.today) %>
         <div class="alert alert-error fade in">
           <a class="close" data-dismiss="alert">×</a> 
-          <strong>Warning:</strong> this organization has expired and so will not show up in search results. Please contact the administration to renew your membership.
+          <strong>Warning:</strong> this organization has either not been approved or has expired and so will not show up in search results. Please contact the administration to renew your membership.
         </div>
       <% end %>
 

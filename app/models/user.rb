@@ -61,7 +61,7 @@ end
 
 def current_organizations()
 	if self.admin
-		Organization.all
+		Organization.find(:all, :order => "LOWER(name)")
 	else
 		chs = contacthistories.all.select{ |c| c.current? }
 		chs.collect{ |ch| ch.organization }

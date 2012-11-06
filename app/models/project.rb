@@ -15,7 +15,7 @@ class Project < ActiveRecord::Base
 
   def self.filter(sector)
         sectorarray = sector.split(',')
-        return Project.includes(:sectors, :organization)
+        return Project.joins(:sectors).includes(:organization)
                   .select('projects.*')
                   .where('sectors.id' => sectorarray)
                   .where('(organizations.approved = ? AND organizations.end_date > ?) OR organization_id is null', true, Date.today)
