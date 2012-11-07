@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <h1>Admin Rights Have Been Granted to You</h1>
+    <p>
+      <%= link_to user_url(@current_user), user_url(@current_user) %> has given you admin rights on GPEN to the organization entitled <%= link_to @organization.name, organization_url(@organization) %>. Your admin rights will expire on <b><%= @end_date.to_formatted_s(:long) %></b></p>
+
+    <p>Please let <%= link_to user_url(@current_user), user_url(@current_user) %> (CC'ed) know if this was a mistake.</p>
+
+    <p>
+      All the Best,<br>
+      The GPEN Team
+    </p>
+    
+  </body>
+</html>

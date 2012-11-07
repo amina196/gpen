@@ -17,6 +17,15 @@ class Notifications < ActionMailer::Base
     mail(:to => user.email, :subject => "[GPEN] Job Application Submitted for: " + @job.title)
   end
 
+  def new_admin_email(admin, current_user, organization, end_date)
+    @admin = admin
+    @current_user = current_user
+    @organization = organization
+    @end_date = end_date
+
+    mail(:to => admin.email, :cc => current_user.email, :subject => "[GPEN] You were made an admin of: " + @organization.name)
+  end
+
 
   def application_email_admin(user, job, jobenrollment)
     @url = "http://gpen.phillyecocity.com"
