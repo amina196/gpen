@@ -29,6 +29,9 @@ GpenApp::Application.routes.draw do
     put :approve
     post :renew
     get :resetcookies
+    member do
+      get :contacthistories 
+    end
   end
 
   resources :jobenrollments, only: [:create, :destroy]
@@ -45,6 +48,8 @@ GpenApp::Application.routes.draw do
       match '/confirm/:token' => 'users#confirm', :as => :confirm
     end
   end
+
+  resources :contacthistories, only: [:new, :create, :destroy]
 
   resources :sessions, only: [:new, :create, :destroy]
 

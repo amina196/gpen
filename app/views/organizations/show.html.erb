@@ -1,14 +1,4 @@
-    <ul class="breadcrumb">
-        <li>
-          <a href="<%= root_path %>">Home</a> <span class="divider">/</span>
-        </li>
-        <li>
-          <a href="<%= organizations_path %>">Organizations</a> <span class="divider">/</span>
-        </li>
-        <li class="active"><%= @organization.name %></li>
-      </ul>
-
-      <% if @organization.approved = false %>
+    <% if @organization.approved = false %>
         <div class="alert alert-error fade in">
           <a class="close" data-dismiss="alert">×</a>
           <strong>Warning:</strong> this organization has not yet been approved and so will not show up in search results. Please contact the administration if you do not hear from us within 3-5 business days.
@@ -23,6 +13,19 @@
       <% end %>
 
 
+    <ul class="breadcrumb">
+        <li>
+          <a href="<%= root_path %>">Home</a> <span class="divider">/</span>
+        </li>
+        <li>
+          <a href="<%= organizations_path %>">Organizations</a> <span class="divider">/</span>
+        </li>
+        <li class="active"><%= @organization.name %></li>
+      </ul>
+
+      
+
+
       <div class="row">
          <div class="span4">
           <div class="well">
@@ -32,11 +35,20 @@
           <h6>Joined</h6>
           <p><%= time_ago_in_words(@organization.created_at) %> ago</p>
 
-          <% if @organization.users.any? %>
-            <h6><%=pluralize(@organization.users.count, "Admin")%></h6>
+          <% if @organization.contacthistories.any? %>
+            <h6><%=pluralize(@organization.contacthistories.count, "Admin")%></h6>
             <p>
-            <% @organization.users.each do |admin| %>
-              <%= link_to admin.fname + " " + admin.lname, admin %> </br>
+            <% @organization.contacthistories.each do |admin| %>
+              
+              <% if !admin.user.nil? %>
+                <%= link_to admin.user.fname + " " + admin.user.lname, admin.user %> 
+                <% if !admin.current? %>
+                  (Previous) 
+                <% else %>
+                  (Current)
+                <% end %>
+                </br>    
+              <% end %>
             <% end %>
             </p>
           <% end %>
@@ -77,7 +89,7 @@
             <button class="btn btn-primary">Admin Actions</button>
             <button class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
             <ul class="dropdown-menu">
-              <li><a href="#">Change Admin</a></li>
+              <li><a data-toggle="modal" href="#adminChangeModal">Change Admin</a></li>
               <li><%= link_to 'Edit Organization', edit_organization_path(@organization) %></li>
               <li><%= link_to "Post New Job", new_job_path %></li>
               <li><%= link_to "Post New Project", new_project_path %></li>
@@ -204,6 +216,91 @@
   <div class="modal-footer">
     <a href="#" class="btn" data-dismiss="modal">Close</a>
     <%= submit_tag 'Renew', class: "btn btn-primary" %>
+  </div>
+  <% end %>
+</div>
+
+
+<div class="modal hide wide" id="adminChangeModal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Change Admin(s) for <%= @organization.name %></h3>
+  </div>
+  <div class="modal-body">
+
+
+
+      
+
+
+      <% if @organization.contacthistories.any? %>
+        <h4><%=pluralize(@organization.contacthistories.count, " Admin")%></h4>
+        <br>
+        <table class="table table-striped">
+          <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+            <th></th>
+            <th></th>
+          </tr>
+
+          
+
+          <% @organization.contacthistories.each do |contacthistory| %>
+            <% if !contacthistory.user.nil? %>
+              <tr>
+                <td><%= contacthistory.user.fname + ' ' + contacthistory.user.lname %></td>
+                <td><%= contacthistory.user.email %></td>
+                <td><%= contacthistory.start_date %></td>
+                <td><%= contacthistory.end_date %></td>
+                <td><%= link_to 'Show Profile', contacthistory.user, class: 'btn btn-mini' %></td>
+                <!--<td><%= link_to 'Edit Profile', edit_user_path(contacthistory.user), class: 'btn btn-mini' %></td>-->
+                <td><%= link_to 'Delete Admin', contacthistory, confirm: 'Are you sure? This will erase any record of this user as an admin of this organization.', method: :delete, class: 'btn btn-mini btn-danger' %></td>
+              </tr>
+            <% end %>
+          <% end %>
+          </table>
+      <% else %>
+        <h4>No Current Admins Exist</h4>
+      <% end %>
+
+      
+
+      <h6>Add New Admin</h6>
+
+      <%= form_for @newadmin, :html => { :class => "form-horizontal" } do |f| %>
+      
+        <fieldset>
+
+          <%= f.hidden_field :organization_id, :value => @organization.id %>
+
+          <div class="control-group">
+          <%= f.label :user_id, "New Admin User Email", class: "control-label" %>
+          <div class="controls">
+            <input type="text" id="user_email" name="user_email"> 
+            <p class="help-block"><small>Must be email address of valid existing user of GPEN.</small></p>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <%= f.label :end_date, "End Date", class: "control-label" %>
+          <div class="controls">
+            <%= date_select "contacthistory", :end_date, {:start_year => Date.today.year, :end_year => Date.today.year+3}, {class: "span2"} %>
+            <p class="help-block"><small>The new admin's start date will be today, and the end date will be what you choose.</small></p>
+          </div>
+          
+        </div>
+
+
+
+
+        </fieldset>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    <%= submit_tag 'Add Admin', class: "btn btn-primary" %>
   </div>
   <% end %>
 </div>

@@ -53,6 +53,10 @@ class OrganizationsController < ApplicationController
   # GET /organizations/1.json
   def show
     @organization = Organization.find(params[:id])
+    #@newadmin = @organization.contacthistories.new
+    @newadmin = Contacthistory.new
+    @newadmin.organization_id = @organization.id
+    
     if @organization.approved == false
         if !current_user.nil?
           if (current_user.admin == nil)
@@ -83,6 +87,9 @@ class OrganizationsController < ApplicationController
     end
   end
 
+
+
+
   # GET /organizations/new
   # GET /organizations/new.json
   def new
@@ -102,8 +109,8 @@ class OrganizationsController < ApplicationController
     @organization.approved = false
     @organization.sectors = Sector.find(params[:sector_ids]) if params[:sector_ids]
     if @organization.save
-      Contacthistory.create(user_id: current_user.id, organization_id: @organization.id)
-      flash[:success] = "Organization created!"
+      Contacthistory.create(user_id: current_user.id, organization_id: @organization.id, start_date: Date.today, end_date: 1.year.from_now)
+      flash[:success] = "Organization created! You are now an admin of this organization, and your admin expiration date is one year from today."
       redirect_to @organization
     else
       render 'organizations/new'

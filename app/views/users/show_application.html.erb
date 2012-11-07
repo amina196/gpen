@@ -1,32 +1,44 @@
-<table class="table table-striped">
+
+
+
+
+
+<div class="row">
+   <div class="span12">
+      <div class="well">
+        <table class="table table-striped">
         <thead>
           <tr>
-            <th>User Name</th>
-            <th>User Email</th>
+            <th>Job Title</th>
+            <th>Job Organization</th>
             <% if current_user.admin? %>
-              <th>Get rid of him ?</th>
+              <th>Remove Job App</th>
             <% end %>
           </tr>
         </thead>
         
         <tbody>
           <% if @jobs.any? %>
-        	
+          
 
-          	<% @jobs.each do |job| %>
+            <% @jobs.each do |job| %>
             <tr>
               <td><%= job.title %></td>
               <td><%= job.organization.name %></td>
+              <td></td>
             </tr>
           <% end %>
 
 
 
 
-    	<% end %>      
+      <% end %>      
         </tbody>
       
 </table>
+    </div><!--/well-->
+  </div><!--/span12-->
+</div><!--/row-->
 
 
 

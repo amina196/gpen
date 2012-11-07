@@ -27,11 +27,13 @@ class Organization < ActiveRecord::Base
 #autre website regex : /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/ 
   valid_website_regex = /(^$)|(^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(([0-9]{1,5})?\/.*)?$)/ix
   validates :website, format: { with: valid_website_regex }
-  #validates :address, :presence => true
-  #validates :city, :presence => true
-  #validates :state, :presence => true
-  #validates :zip, :presence => true
-  #validates :phone, :presence => true
+  validates :email, :presence => true
+  validates :address, :presence => true
+  validates :city, :presence => true
+  validates :state, :presence => true
+  validates :zip, :presence => true
+  validates :phone, :presence => true
+  validates :description, :presence => true
   #validates :address2, :presence => true
 
 
@@ -45,6 +47,10 @@ class Organization < ActiveRecord::Base
     else
       self.end_date = self.end_date + months.to_i.months
     end
+  end
+
+  def changeadmin(user_id, end_date)
+    
   end
 
   #def self.search(search, page, sector)
