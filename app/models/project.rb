@@ -15,12 +15,22 @@ class Project < ActiveRecord::Base
 
   def self.filter(sector)
         sectorarray = sector.split(',')
-        return Project.joins(:sectors).includes(:organization)
-                  .select('projects.*')
-                  .where('sectors.id' => sectorarray)
-                  .where('(organizations.approved = ? AND organizations.end_date > ?) OR organization_id is null', true, Date.today)
-                  .group('projects.id')
-                  .having('COUNT(projects.id) = ?', sectorarray.size)
+
+        return Project.select('projects.*')
+                    .joins(:sectors)
+                    .with_organizations
+                    .where('sectors.id' => sectorarray)
+                    .where('(organizations.approved = ? AND organizations.end_date > ?) OR organization_id is null', true, Date.today)
+                    .group('projects.id')
+                    .having('COUNT(projects.id) = ?', sectorarray.size)
+
+        # old method!!
+        # return Project.select('projects.*')
+        #           .joins(:sectors).includes(:organization)
+        #           .where('sectors.id' => sectorarray)
+        #           .where('(organizations.approved = ? AND organizations.end_date > ?) OR organization_id is null', true, Date.today)
+        #           .group('projects.id')
+        #           .having('COUNT(projects.id) = ?', sectorarray.size)
   end
 
   def self.search(search)
@@ -36,6 +46,42 @@ class Project < ActiveRecord::Base
               .where('projects.title LIKE ? OR proj_desc LIKE ? OR projects.city LIKE ? OR projects.state LIKE ? or projects.zip LIKE ?', "%#{search}%", "%#{search}%", "%#{search}%", "%#{search}%" , "%#{search}%")
     end
   end
+
+
+
+
+
+
+
+def self.with_organizations
+  joins(%q{LEFT OUTER JOIN "organizations" ON "organizations"."id" = "projects"."organization_id"})
+end
+=begin
+
+
+#### THIS WORKS BETTER
+Project.select('projects.*').joins(:sectors).joins(%q{LEFT OUTER JOIN "organizations" ON "organizations"."id" = "projects"."organization_id"}).where('sectors.id' => [6]).where('(organizations.approved = ? AND organizations.end_date > ?) OR organization_id is null', true, Date.today).group('projects.id').having('COUNT(projects.id) = ?', 1)
+
+
+
+####  THIS WORKS
+ActiveRecord::Base.connection.select_all <<-end 
+
+
+SELECT projects.*  FROM "projects" INNER JOIN "projectsectors" ON "projectsectors"."project_id" = "projects"."id" INNER JOIN "sectors" ON "sectors"."id" = "projectsectors"."sector_id" LEFT OUTER JOIN "organizations" ON 
+  "organizations"."id" = "projects"."organization_id" WHERE "sectors"."id" IN (6) AND ((organizations.approved = 't' 
+    AND organizations.end_date > '2012-11-06') OR organization_id is null) GROUP BY projects.id HAVING COUNT(projects.id) = 1
+end
+
+
+
+SELECT "projects"."*"  FROM "projects" INNER JOIN "projectsectors" ON "projectsectors"."project_id" = "projects"."id" 
+  INNER JOIN "sectors" ON "sectors"."id" = "projectsectors"."sector_id" LEFT OUTER JOIN "organizations" ON 
+  "organizations"."id" = "projects"."organization_id" WHERE "sectors"."id" IN (6) AND ((organizations.approved = 't' 
+    AND organizations.end_date > '2012-11-06') OR organization_id is null) GROUP BY projects.id HAVING COUNT(projects.id) = 1):
+
+=end
+
 
   def self.search_and_filter(sector, search)
     sectorarray = sector.split(',')
