@@ -33,7 +33,7 @@
         <div class="span9">
 
           <% if !current_user.nil? && current_user.admin == true %>
-            <% @orgs_to_approve = Organization.where(approved: false, end_date: nil) %>
+            <% @orgs_to_approve = Organization.where(approved: false) %>
             <% if @orgs_to_approve.any? %>  
               <div class="alert alert-info fade in">
                 <a class="close" data-dismiss="alert">×</a>

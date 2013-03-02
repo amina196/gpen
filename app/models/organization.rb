@@ -47,6 +47,9 @@ class Organization < ActiveRecord::Base
     else
       self.end_date = self.end_date + months.to_i.months
     end
+
+    # make sure the organization has been approved
+    self.approved = true
   end
 
   def changeadmin(user_id, end_date)
