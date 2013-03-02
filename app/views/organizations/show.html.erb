@@ -1,16 +1,55 @@
-    <% if @organization.approved = false %>
-        <div class="alert alert-error fade in">
-          <a class="close" data-dismiss="alert">×</a>
-          <strong>Warning:</strong> this organization has not yet been approved and so will not show up in search results. Please contact the administration if you do not hear from us within 3-5 business days.
-        </div>
+    
+
+    <% if @organization.approved == false %>
+        
+
+        <% if !current_user.nil? && current_user.admin == true %>
+       
+            <div class="alert alert-info fade in">
+              <a class="close" data-dismiss="alert">×</a>
+              <p><strong>Admin notice:</strong> this organization needs to be approved be publicly viewable.</p>
+              
+              <%= link_to('Approve for 3 Months', organization_approve_url(@organization), :method => :put, class: "btn btn-success")%>
+            </div>
+        <% else %>
+
+          <div class="alert alert-error fade in">
+            <a class="close" data-dismiss="alert">×</a>
+            <strong>Warning:</strong> this organization has not yet been approved and so will not be publicly viewable. Please contact the administration if you do not hear from us within 3-5 business days.
+          </div>
+        <% end %>
+
       <% end %>
 
+
+
+
+
       <% if @organization.end_date.nil? || (@organization.end_date < Date.today) %>
-        <div class="alert alert-error fade in">
-          <a class="close" data-dismiss="alert">×</a> 
-          <strong>Warning:</strong> this organization has either not been approved or has expired and so will not show up in search results. Please contact the administration to renew your membership.
-        </div>
+
+        <% if !current_user.nil? && current_user.admin == true %>
+
+          <div class="alert alert-info fade in">
+            <a class="close" data-dismiss="alert">×</a>
+            <p><strong>Admin notice:</strong> this organization needs to be renewed to be publicly viewable.</p>
+            
+
+            <a data-toggle="modal" href="#myModal" class="btn btn-success" >Renew Membership</a>
+
+          </div>
+
+        <% else %>
+
+
+          <div class="alert alert-error fade in">
+            <a class="close" data-dismiss="alert">×</a> 
+            <strong>Warning:</strong> this organization has expired and so will not be publicly viewable. Please contact the administration to renew your membership.
+          </div>
+        <% end %>
       <% end %>
+
+
+      
 
 
     <ul class="breadcrumb">
@@ -96,7 +135,7 @@
               <% if current_user.admin == true %>
                 <li><a data-toggle="modal" href="#myModal" >Renew Membership</a></li>
 
-                
+
               <% end %>
 
               <li class="divider"></li>              

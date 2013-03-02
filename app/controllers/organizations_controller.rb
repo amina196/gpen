@@ -57,15 +57,15 @@ class OrganizationsController < ApplicationController
     @newadmin = Contacthistory.new
     @newadmin.organization_id = @organization.id
     
-    if @organization.approved == false
+    if @organization.approved == false || @organization.end_date < Date.today
         if !current_user.nil?
-          if (current_user.admin == nil)
+          if (!current_user.admin_of(@organization))
              redirect_to organizations_path 
-             flash[:notice] = "This organization will be visible after it has been approved"
+             flash[:notice] = "This organization will be visible after it has been approved or renewed."
           end
         else 
             redirect_to organizations_path 
-            flash[:notice] = "This organization will be visible after it has been approved"
+            flash[:notice] = "This organization will be visible after it has been approved or renewed."
         end
     end
 
@@ -81,8 +81,28 @@ class OrganizationsController < ApplicationController
       redirect_to root_path 
     else
       @organization.renew(params[:months])
-      @organization.save
-      flash[:success] = sprintf("Successfully renewed %s for %i months.", @organization.name, params[:months])
+      
+      if @organization.save
+        flash[:success] = sprintf("Successfully renewed %s for %i months from today.", @organization.name, params[:months])
+        redirect_to @organization
+      else
+        flash[:error] = sprintf("Error renewing organization. Please make sure this organization has all its required attributes filled in.")
+        redirect_to @organization
+      end
+    end
+  end
+
+
+
+  def renew_three
+    @organization = Organization.find(params[:organization_id])
+    @organization.renew(3)
+    
+    if @organization.save
+      flash[:success] = sprintf("Successfully renewed %s for %i months from today.", @organization.name, 3)
+      redirect_to @organization
+    else
+      flash[:error] = sprintf("Error renewing organization. Please make sure this organization has all its required attributes filled in.")
       redirect_to @organization
     end
   end
@@ -109,8 +129,8 @@ class OrganizationsController < ApplicationController
     @organization.approved = false
     @organization.sectors = Sector.find(params[:sector_ids]) if params[:sector_ids]
     if @organization.save
-      Contacthistory.create(user_id: current_user.id, organization_id: @organization.id, start_date: Date.today, end_date: 1.year.from_now)
-      flash[:success] = "Organization created! You are now an admin of this organization, and your admin expiration date is one year from today."
+      Contacthistory.create(user_id: current_user.id, organization_id: @organization.id, start_date: Date.today, end_date: nil)
+      flash[:success] = "Organization created! You are now an admin of this organization. Your organization will not show up in search results until it has been approved by the GPEN administration."
       redirect_to @organization
     else
       render 'organizations/new'
@@ -128,8 +148,14 @@ class OrganizationsController < ApplicationController
         :start_date => Date.today
       )
     end
-    flash[:success] = "You successfully temporaily approved: " + @organization.name + ". This organization will expire in 3 months."
-    redirect_to @organization
+    
+    if @organization.save
+        flash[:success] = "You successfully temporaily approved: " + @organization.name + ". This organization will expire in 3 months. Add more time by using the Renew Membership function in the Admin Actions dropdown."
+        redirect_to @organization
+      else
+        flash[:error] = sprintf("Error approving organization. Please make sure this organization has all its required attributes filled in.")
+        redirect_to @organization
+      end
   end
 
   # PUT /organizations/1

@@ -11,9 +11,6 @@
           <tr>
             <th>Job Title</th>
             <th>Job Organization</th>
-            <% if current_user.admin? %>
-              <th>Remove Job App</th>
-            <% end %>
           </tr>
         </thead>
         
@@ -25,7 +22,6 @@
             <tr>
               <td><%= job.title %></td>
               <td><%= job.organization.name %></td>
-              <td></td>
             </tr>
           <% end %>
 

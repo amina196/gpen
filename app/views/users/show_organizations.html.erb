@@ -1,0 +1,64 @@
+
+
+            
+
+
+
+<div class="row">
+   <div class="span12">
+      <div class="well">
+        <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Added</th>
+                  <th>Approved</th>
+                  <th>Expires</th>
+                  <th>Show</th>
+                  <% if (!current_user.nil? && (current_user.admin == true || current_user.id == @user.id)) %>
+                    <th>Delete</th>
+                  <% end %>
+                </tr>
+              </thead>
+
+              <tbody>  
+                 <% if @organizations.any? %> 
+                    <% @organizations.each do |org| %>
+                        <tr>               
+                            <td><%= org.name %></td>
+                            <td><%= org.created_at.strftime("%B %d, %Y") %></td>
+                            <td>
+                              <% if org.approved == true %>
+                                Yes
+                              <% else %>
+                              No
+                              <% end %>
+
+                            </td>
+                            <td>
+                              <% if org.end_date != nil %>
+                                <%= org.end_date.strftime("%B %d, %Y") %>
+                              <% else %>
+                              --
+                              <% end %>
+
+                            </td>
+                            <td><%= link_to 'Show', org, class: "btn btn-small btn-success" %></td>
+
+                            <% if (!current_user.nil? && (current_user.admin == true || current_user.id == @user.id)) %>
+                              <td><%= link_to 'Destroy', org, class: "btn btn-small btn-danger", confirm: 'Are you sure?', method: :delete %></td>
+                            <% end %>
+
+
+                             
+                        
+
+                        </tr>
+                    <% end %>
+                <% end %>
+                
+              </tbody>
+            </table>
+    </div><!--/well-->
+  </div><!--/span12-->
+</div><!--/row-->

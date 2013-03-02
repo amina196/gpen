@@ -14,6 +14,10 @@
                   <th>Time</th>
                   <th>Location</th>
                   <th>For</th>
+                  <th>Show</th>
+                  <% if (!current_user.nil? && (current_user.admin == true || current_user.id == @user.id)) %>
+                    <th>Delete</th>
+                  <% end %>
                 </tr>
               </thead>
 
@@ -26,7 +30,12 @@
                             <td><%= project.city %></td>
                             <td><%= project.user.fname %></td>
                             <td><%= link_to 'Show', project, class: "btn btn-small btn-success" %></td>
-                             <td><%= link_to 'Destroy', project, class: "btn btn-small btn-danger", confirm: 'Are you sure?', method: :delete %></td>
+
+                            <% if (!current_user.nil? && (current_user.admin == true || current_user.id == @user.id)) %>
+                              <td><%= link_to 'Destroy', project, class: "btn btn-small btn-danger", confirm: 'Are you sure?', method: :delete %></td>
+                            <% end %>
+
+
                         </tr>
                     <% end %>
                 <% end %>

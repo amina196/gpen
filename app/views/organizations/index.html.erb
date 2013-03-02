@@ -80,7 +80,7 @@
                         <td>
                           <a href = "<%= organization_path(oe) %>"><%= oe.name %></a>
                         </td>
-                        <td> <%= link_to('Renew for 3 Months', organization_approve_url(oe), :method => :put, class: "btn btn-success")%> </td> 
+                        <td> <%= link_to('Renew for 3 Months', organization_renew_three_url(oe), :method => :put, class: "btn btn-success")%> </td> 
                       </tr>
                     <% end %>
                   </tbody>

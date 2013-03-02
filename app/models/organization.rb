@@ -42,11 +42,8 @@ class Organization < ActiveRecord::Base
   end
 
   def renew(months)
-    if self.end_date.nil? 
-      self.end_date = Date.today + months.to_i.months
-    else
-      self.end_date = self.end_date + months.to_i.months
-    end
+    # always renew from today's date, rather than from the current end_date
+    self.end_date = Date.today + months.to_i.months
 
     # make sure the organization has been approved
     self.approved = true

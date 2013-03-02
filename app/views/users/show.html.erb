@@ -80,8 +80,10 @@
                       <strong > <%= @user.projects.count %> </strong> projects joined
                   </a>
                   | 
+
+                  <a href="<%= organizations_user_path(@user) %>">
                       <strong > <%= @user.organizations.count %> </strong> organizations represented
-                  
+                  </a>
                 </p>
               </div>
             </div>

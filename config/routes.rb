@@ -27,6 +27,7 @@ GpenApp::Application.routes.draw do
 
   resources :organizations do
     put :approve
+    put :renew_three
     post :renew
     get :resetcookies
     member do
@@ -44,7 +45,7 @@ GpenApp::Application.routes.draw do
 
   resources :users do
     member do
-      get :jobs, :projects 
+      get :jobs, :projects, :organizations
       match '/confirm/:token' => 'users#confirm', :as => :confirm
     end
   end

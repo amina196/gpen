@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_filter :signed_in_user, only: [:jobs]
+  before_filter :signed_in_user, only: [:jobs, :projects, :organizations]
   before_filter :admin_user, only: [:index]
   
   def index
@@ -79,6 +79,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     @projects= @user.projects
     render 'show_volunteering'
+  end
+
+  def organizations
+    @user = User.find(params[:id])
+    @organizations = @user.organizations
+    render 'show_organizations'
   end
 
   def edit
